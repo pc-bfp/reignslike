@@ -7,13 +7,13 @@ public class Decision {
 	public int[] statEffectsYes, statEffectsNo;
 }
 
-public class DecisionsHolder : MonoBehaviour {
-	[SerializeField] TextAsset decisionsFile;
+public class DecisionsHolder {
 	const string ROW_SPLIT = "\n", COLUMN_SPLIT = "\t";
 
 	List<Decision> decisions;
+	int lastDecisionIndex = -1;
 
-	void Start() {
+	public DecisionsHolder(TextAsset decisionsFile) {
 		string allDecisionsStr = decisionsFile.text.Replace("\r", "");
 		string[] decisionStrings = allDecisionsStr.Split(new string[] { ROW_SPLIT }, System.StringSplitOptions.RemoveEmptyEntries);
 		decisions = new List<Decision>();
@@ -44,5 +44,10 @@ public class DecisionsHolder : MonoBehaviour {
 			}
 			decisions.Add(curDec);
 		}
+	}
+
+	public Decision GetDecision() { 
+		lastDecisionIndex = lastDecisionIndex < 0 ? Random.Range(0, decisions.Count) : (lastDecisionIndex + Random.Range(1, decisions.Count)) % decisions.Count;
+		return decisions[lastDecisionIndex];
 	}
 }
