@@ -1,0 +1,12 @@
+*.csproj
+*.Editor.csproj
+*.sln
+Library/
+Temp/
+obj/
+Builds/
+*.vs
+.dtbcache
+.lock
+*.ide
+Asset sources/

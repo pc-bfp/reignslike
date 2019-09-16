@@ -1,0 +1,8 @@
+Decision	Yes: Result	Wealth	Health	Fun	Learning	No: Result	Wealth	Health	Fun	Learning
+Chocolate chip cookies for dinner?	Mo' cookies, mo' stomach problems.		-3	2	1	Your subjects live longer, if you call that living.		2	-2	
+No more homework!	how to sentence what?			1	-3	Your subjects live happier, if sillier lives.			2	-3
+Puppies for everyone!	More puppies cost more but BOOP! You got its nose!	-3	2	4		Only the cat people are happy now.		-1	-2	
+Invest in flu shots.	This hurts a little, but nobody falls sick.	-2	4	-1		Your subjects build immunity the old fashioned way: painful illness.	2	-4		
+Build a library.	Get one ticket to a dozen different worlds here!	-3		2	3	Your subjects are just as unaware as they were yesterday.	-	-	-	-
+Replace all brocolli with chocolate.	The brocolli farmers are very confused.	-2	-2	2		Chocolate and brussel sprouts? You'll pass.		1	-1	
+Every day is a holiday.	Nobody makes any money, so use yours carefully!	-1		2	-2	Work work work work work			-2	
