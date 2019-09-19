@@ -1,0 +1,15 @@
+Wealth	Health	Fun	Learning	Summary	Hints
+3 - 7	3 - 7	3 - 7	3 - 7	Your time as ruler was the least memorable in the entire history of the kingdom. It was neither the best of times nor the worst of times. It was the most adequate of times.	
+< 3				Your kingdom's coffers are empty. / Your subjects never have any money in their pockets. Most of them don't even have pockets.	Some decisions are opportunities to make money. / When your wealth is low, try to cut down on spending.
+> 7				Your treasury is quite full. / Your kingdom is so prosperous, it's coloured gold on the map. / Money, money everywhere.	
+	< 3			Quite a sickly kingdom. / People spend half their time sneezing, and the other half saying "bless you".	
+	> 7			Your subjects are hale and hearty and long-lived.	
+		< 3		No one knows how to have a good time. / The most popular board game is Monopoly.	
+		> 7		Your kingdom is well-known for its legendary parties.	
+			< 3	Most of your subjects can't read or write.	
+			> 7	Your kingdom's scholars invented Wikipedia.	
+	< 3	> 7		Your subjects' lives are joyful but short.	
+< 3			< 3	No one in your kingdom has any money, and they don't know how to make more.	
+> 7		< 3		For all your kingdom's riches, no one bothered building a single amusement park.	
+< 3			> 7	Your subjects have brilliant ideas, but no money to spend on them.	
+		> 7	< 3	Your subjects really enjoy making the same mistakes over and over again.	

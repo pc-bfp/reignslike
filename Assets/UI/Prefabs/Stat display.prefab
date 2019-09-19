@@ -994,7 +994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statLabel: {fileID: 520499310}
-  statValue: {fileID: 276123150764836491}
+  statValueText: {fileID: 276123150764836491}
   updateText: {fileID: 4772938654236376989}
   statUpColor: '#0080FF'
   statDownColor: '#E60000'

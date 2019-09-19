@@ -1,29 +1,200 @@
-Decision	Yes: Result	Wealth	Health	Fun	Learning	No: Result	Wealth	Health	Fun	Learning
-Chocolate chip cookies for dinner?	Mo' cookies, mo' stomach problems.		-3	2	1	Your subjects live longer, if you call that living.		2	-2	
-No more homework!	how to sentence what?			1	-3	Your subjects live happier, if sillier lives.			2	-3
-Puppies for everyone!	More puppies cost more but BOOP! You got its nose!	-3	2	4		Only the cat people are happy now.		-1	-2	
-Invest in flu shots.	This hurts a little, but nobody falls sick.	-2	4	-1		Your subjects build immunity the old fashioned way: painful illness.	2	-4		
-Build a library.	Get one ticket to a dozen different worlds here!	-3		2	3	Your subjects are just as unaware as they were yesterday.	-	-	-	-
-Replace all brocolli with chocolate.	The brocolli farmers are very confused.	-2	-2	2		Chocolate and brussel sprouts? You'll pass.		1	-1	
-Every day is a holiday.	Nobody makes any money, so use yours carefully!	-1		2	-2	Work work work work work			-2	
-Declare war on the castle next door!	Nobody enjoyed that, but the remaining population learned a lot.	-4	-4	-4	5	Everyone sighs with relief.		1	1	
-Make all moustaches purple.	It's very hard to take a businessman in a suit with a purple moustache seriously.	-2		2		The quicker way to get rid of ugly moustaches is shaving them.			-1	
-Bedtime at midnight.	Everyone's very sleepy the next day.		-2	2		Everyone pays attention at work the next day.	2		-1	2
-Eliminate the letter Q.	The Kween needs new stationary.	-2		1	-1	Everybody still struggles with the Q tile in Scrabble.			-1	1
-Ban all old music.	Elevators now play Top 40 hits.	-1		1		Every elevator still plays the same boring stuff.			-1	
-Stop numbers at 1000.	Math tests are easier, but peope make a lot less money.	-2			-1	Nobody can still solve for "x."				1
-Assignments for all teachers.	Teachers start skipping school.			1	-1	Teachers never learn anything new.				-1
-Build a hospital.	Less money, more health.	-2	2		1	People pray for health instead of taking care of it.		-3		-2
-Everybody prays only to Thor.	The Sistine Chapel gets a facelift.	-2		2		People keep fighting about who the "real" God is.		-2		
-All news channels have cartoons reporting the news.	Everyone starts watching the news and is better informed.	-1		1	1	Many people miss many important events.				-1
-Remove all seats from aeroplanes and make them play areas.	Flying was already fun but now it's better.	-1		2		Flying is still fun, but less so.				
-Uniforms in schools.	Schools start looking like the military.	-1		-2		Nobody can tell who's the student and who's the teacher.	1		1	
-Anyone giving a boring speech will have tomatoes thrown at them.	Tomato farmers see a spike in sales and all speeches have soundtracks.	1		2		People say important things but everyone's too bored to listen.				-1
-Everyone can watch every movie, even A-rated ones.	You watch some things that give you nightmares.		-1	-1		You miss some movies, but you can catch up on them later.		1		
-Everybody gets a holiday on their birthday.	Birthdays are happy again.	-1	1	2		Some people have unhappy birthdays.	1		-1	
-All words are cut off at 3 syllables.	Ja-nu-a-(ry) and Feb-u-a-(ry) need to be renamed on all calendars.	-1		1	-1	The dictionary publishers are relieved.	1			1
-Everyday is Christmas.	Toy and cake manufacturers are thrilled. Parents less so.	-2	-1	2	-1	You get to spend every day from December 26th looking forward to next Christmas!	1	1	1	1
-Set up an expedition to the North Pole to look for Santa.	Santa's hard to find, but you meet a lot of interesting animals.	-1		1	1	All those sweaters you got for Christmas aren't worn.			-1	-1
-All school lunches will be peanut butter.	Peanut growers rejoice.	-1	1	1		You get variety for lunch.		2		
-All shoes need to have wheels.	There are more accidents because not all shoes have brakes.	-2	-3	2		Makers of high heels and doctors are relieved.	1	1	1	
-Turn the White House grounds into a playground.	More people are interested in government.	-1		1	2	Politics isn't playtime.			-2	-1
+Decision	Button:1	1: Result	1: Unlocks	Wealth	Health	Fun	Learning	Button:2	2: Result	2: Unlocks	Wealth	Health	Fun	Learning	Requirements	Free turn
+Chocolate chip cookies for dinner?	Yes	Mo' cookies, mo' stomach problems. But mo' cookies, mo' fun!			-3	2		No	Your subjects live longer...if you call that living.			2	-2			FALSE
+No more homework!	Yes	such a much fun...but how to sentence what? / Your subjects live happier...if sillier lives.				1	-3	No	Your subjects are wiser, but not happier for it.				-2	2		FALSE
+Puppies for everyone!	Yes	More puppies cost more but...BOOP! You got its nose! And happy people are healthy people.		-3	2	4		No	Only the cat people are happy now. Unhappy people are unhealthy people.			-1	-2			FALSE
+Invest in flu shots.	Yes	This hurts your wealth. It also physically hurts. But nobody falls sick.	Flu shots	-2	4	-1		No	You build up wealth. But your subjects build immunity the old fashioned way: painful illness.	Antivax	2	-4			-Flu shots, -Antivax	FALSE
+Build a library.	Yes	Get one (expensive) ticket to a dozen different worlds here!	Library	-3		2	3	No	Your subjects are just as unaware as they were yesterday.		-	-	-	-	-Library	FALSE
+Replace all brocolli with chocolate.	Yes	The brocolli farmers are very confused. But this takes a toll on your wealth...and also your health. 		-2	-2	2		No	Chocolate and brussel sprouts? You'll pass. Your doctors are thrilled.			1	-1			FALSE
+Every day is a holiday.	Yes	Nobody makes any money. But they have a lot of fun! At least they think they do: they're not learning anything so they aren't sure what to think.		-1		2	-2	No	Work work work work work				-2			FALSE
+Declare war on the castle next door!	Yes	Nobody enjoys that, especially all the people who die. Your coffin budget shoots through the roof. But the remaining population learns a lot.	War	-2	-3	-2	3	No	Everyone sighs with relief. And with all their arms and limbs intact.			1	1		-War	FALSE
+Make all moustaches purple.	Yes	It's very hard to take a businessman in a suit with a purple moustache seriously, so the economy suffers. But it's very enjoyable to watch.		-2		2		No	The quicker way to get rid of ugly moustaches is shaving them.				-1			FALSE
+Bedtime at midnight.	Yes	The slumber party is less slumber and more party. But everyone's very sleepy the next day.			-2	2		No	Everyone pays attention at work the next day. The economy benefits, you learn more at school. But you miss out on an epic slumberless party.	Early to bed	2		-1	2	-Early to bed	FALSE
+Eliminate the letter Q.	Yes	The Kween needs to order new stationary. This kwirky plan is kwite enjoyable, but spelling kwickly declines.		-2		1	-1	No	Letters are less fun to decipher. But everybody learns new words so they can use the Q tile in scrabble.				-1	1		FALSE
+Ban all old music.	Yes	Elevators now play Top 40 hits. But paying the record labels is expensive.		-1		1		No	Every elevator still plays the same boring stuff.				-1			FALSE
+Stop numbers at 1000.	Yes	Math tests are easier, but peope make a lot less money.		-2			-1	No	Nobody can still solve for "x."					1		FALSE
+Assignments for all teachers.	Yes	Teachers start skipping school. 				1	-1	No	Teachers never learn anything new.					-1		FALSE
+Build a hospital.	Yes	Less money, more health. The hospital begins to fund research.	Hospital	-2	2		1	No	People are sicker...and they don't know how to find cures for it. 			-3		-2	-Hospital	FALSE
+Everybody prays only to Thor.	Yes	The Sistine Chapel gets a very expensive facelift. 		-2		2		No	People keep fighting about who the "real" God is.			-2				FALSE
+All news channels have cartoons reporting the news.	Yes	It's an expensive task, but soon everyone starts watching the news and is better informed.		-1		1	1	No	Many people miss many important events.					-1		FALSE
+Remove all seats from aeroplanes and make them play areas.	Yes	Makeovers don't come cheap. But flying was already fun and now it's better.		-1		2		No	Flying is still fun, but less so.				-1			FALSE
+Uniforms in schools.	Yes	Engaging the right fashion designers is expensive. Soon schools start looking like the military. 		-1		-2		No	Nobody can tell who's the student and who's the teacher.				1			FALSE
+Anyone giving a boring speech will have tomatoes thrown at them.	Yes	Tomato farmers see a spike in sales. All speeches have soundtracks.		1		2		No	People say important things but everyone's too bored to listen.					-1		FALSE
+Build a bank.	Yes	First you lose money building it, but soon you'll gain money saving money. Plus, the bank researches better ways to bank.	Bank	-2			1	No	People keep having their money stolen.		-3				-Bank	FALSE
+Everyone can watch every movie, even A-rated ones.	Yes	You watch some things that give you nightmares. You can't sleep for days.			-1	-1		No	You miss some movies, but you can catch up on them later.			1				FALSE
+Everybody gets a holiday on their birthday.	Yes	Birthdays are happy again. Happy people are healthy people. But the economy isn't happy.		-1	1	2		No	The economy is happy, but some people have unhappy birthdays.		1		-1			FALSE
+All words are cut off at 3 syllables.	Yes	Ja-nu-a-** and Feb-u-a-** need to be renamed on all calendars. This is ri-di-cu-**** and funny. But soon un-der-stand*** people becomes difficult and in-tell-i-***** takes a hit. 		-1		1	-1	No	The dictionary publishers are relieved. People can use the or-di-na-RY words that are part of every day life in A-mer-i-CA.		1			1		FALSE
+Everyday is Christmas.	Yes	Toy manufacturers are thrilled, the people who have to buy you presents less so. Cake makers are delighted, doctors less so. You have a lot of fun, but learn very little.		-2	-1	2	-1	No	Everybody goes back to work. Your tummy gets time to recover. You get to learn new things at school. And you get to spend every day from December 26th looking forward to next Christmas!		1	1	1	1		FALSE
+Set up an expedition to the North Pole to look for Santa.	Yes	It's an expensive expedition. Santa's hard to find but you have a lot of fun looking for him. And you meet a lot of interesting animals. 		-1		1	1	No	All those sweaters you got for Christmas aren't worn. And you never learn about all those animals at the North Pole.				-1	-1		FALSE
+All school lunches will be peanut butter.	Yes	Peanut growers rejoice because their profits grow very quickly. Your friends are thrilled because you made lunch great again!		-1		1		No	You get variety for lunch, and the healthy food balances out the unhealthy.			2				FALSE
+All shoes need to have wheels.	Yes	A lot of new shoes have to be made. There are more accidents because not all shoes have brakes. But you get to the park faster.		-2	-3	2		No	Makers of high heels and doctors are relieved.			1				FALSE
+Turn the White House grounds into a playground.	Yes	It's tough to install a jungle gym in the political jungle. But soon enough, you can play there. And now more people are interested in government.		-1		1	2	No	Politics isn't playtime. But because it seems so serious all the time, nobody pays enough attention to learn.				-2	-1		FALSE
+																FALSE
+Add something to the library.	Free bubble gum dispensers	While it's expensive...it's neat at first. But wads of gum stuck everywhere make the library a gross place to be. / It's expensive to hang out free gum, but it's fun! Soon, though, it's hard to concentrate with all the chewing noises, the bubble popping and the librarian shushing.		-1		1	-1	More comfy chairs	Comfy chairs don't come cheap. But now more people come to hang out and the library, and books are read more thoroughly because no one wants to get up and fetch new ones.		-1		1	1	Library, Wealth > 7	FALSE
+Bedtime at sunset.	Yes	Students wake up at midnight, and reach school before teachers. / The roosters are confused cause kids wake up before they do. And even the roosters are having more fun.			-1	-2		No	Adults are relieved because you don't wake up at midnight.			1			Early to bed, Turns: 3-5	FALSE
+																FALSE
+A bubonic plague struck your town!	Oh no	Good thing you invested in those flu shots. Disaster averted! 			1										Flu shots, Turns: 2-8	TRUE
+A bubonic plague struck your town! Oh man, if only you had had invested in flu shots!	Oh no	Everyone is falling sick left and right. It's expensive, it isn't fun, it's a disaster!		-1	-5	-3									Antivax, Health < 2	TRUE
+																FALSE
+War is hell. Everyone says so.	Keep fighting	The war continues to take its toll on the health and wealth of the kingdom.	War	-1	-1			End the war	The people rejoice!	-War			3		War, Turns: 3	FALSE
+																FALSE
+You gain money from your savings at the bank.	Neat!	Told you it was a good idea.	Bank	3											Bank, Turns: 4-6	TRUE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE
+																FALSE

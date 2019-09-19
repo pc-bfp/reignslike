@@ -5,11 +5,12 @@ using UnityEngine.UI;
 using TMPro;
 
 public class StatDisplay : MonoBehaviour {
-	[SerializeField] TextMeshProUGUI statLabel, statValue, updateText;
+	[SerializeField] TextMeshProUGUI statLabel, statValueText, updateText;
 	[SerializeField] string statUpColor = "\"blue\"", statDownColor = "\"red\"";
 	[SerializeField] Gradient valueGradient;
-	[SerializeField] int gradientRange = 10;
 	[SerializeField] Image applyValueColor;
+
+	public int StatValue { get; private set; }
 
 	Animator animator;
 
@@ -30,8 +31,9 @@ public class StatDisplay : MonoBehaviour {
 	const string UPDATE_PARAM_BOOL = "Updating";
 
 	public void SetValue(int newValue, int updateValue = 0) {
-		if (statValue) statValue.text = newValue.ToString();
-		if (applyValueColor) applyValueColor.color = valueGradient.Evaluate(newValue / (float)gradientRange);
+		StatValue = newValue;
+		if (statValueText) statValueText.text = newValue.ToString();
+		if (applyValueColor) applyValueColor.color = valueGradient.Evaluate(newValue / (float)GameManager.Instance.MaxStatValue);
 		if (updateValue != 0) {
 			if (updateText) updateText.text = string.Format("<color={0}>{1}</color>", updateValue > 0 ? statUpColor : statDownColor, updateValue.ToString("+0;-#"));
 			if (animator) animator.SetBool(UPDATE_PARAM_BOOL, true);
