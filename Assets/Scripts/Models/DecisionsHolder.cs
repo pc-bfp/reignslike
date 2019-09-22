@@ -3,67 +3,66 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class DecisionsHolder {
+public class DecisionHolder {
+	public static List<string> StatNames;
+
 	List<Decision> alwaysAvailable, unavailable, decisionQueue;
 
 	const int BUTTON_INFO_FIELDS = 3, BUTTON_COUNT = 2;
 
-	public DecisionsHolder(TextAsset decisionsFile) {
+	public DecisionHolder(TextAsset decisionsFile) {
 		alwaysAvailable = new List<Decision>();
 		unavailable = new List<Decision>();
 		decisionQueue = new List<Decision>();
-
-		List<string> statNames = new List<string>();
-		string[] allDecs = decisionsFile.text.Split(new string[] { Constants.ROW_SPLIT }, System.StringSplitOptions.RemoveEmptyEntries);
+		StatNames = new List<string>();
+		string[][] allDecisions = SheetReader.ReadSheet(decisionsFile.text);
 		int fieldsPerButton = 0, fieldsBeforeButtons = 0;
 
-		for (int d = 0; d < allDecs.Length; d++) {
-			allDecs[d] = allDecs[d].Trim('\n', ' ');
-			string[] curDecFields = allDecs[d].Split(new string[] { Constants.COLUMN_SPLIT }, System.StringSplitOptions.None);
-			if (curDecFields.Length < 1 || string.IsNullOrEmpty(curDecFields[0])) continue; // Invalid row. REJECTED
+		for (int d = 0; d < allDecisions.Length; d++) {
 
 			if (d == 0) {    // Column names
 				string curButtonName = string.Empty;
-				int firstStatEffectIndex = 0;
 
-				for (int i = 0; i < curDecFields.Length; i++) {
-					string curField = curDecFields[i];
+				for (int i = 0; i < allDecisions[d].Length; i++) {
+					string curField = allDecisions[d][i];
 					if (curField.StartsWith("Button:")) {
 						if (!string.IsNullOrEmpty(curButtonName)) break;
 						curButtonName = curField.Replace("Button:", "").Trim();
 						fieldsBeforeButtons = i;
 					}
 					else if (i >= fieldsBeforeButtons + BUTTON_INFO_FIELDS) {
-						statNames.Add(curField);
+						StatNames.Add(curField);
 					}
 				}
-				fieldsPerButton = BUTTON_INFO_FIELDS + statNames.Count;
+				fieldsPerButton = BUTTON_INFO_FIELDS + StatNames.Count;
 				continue;   // That's all we want from the first row
 			}
 
+			if (allDecisions[d].Length < 1 || string.IsNullOrEmpty(allDecisions[d][0])) continue; // Invalid row. REJECTED
+
 			Decision curDec = new Decision() {
-				decisionText = curDecFields[0]
+				decisionText = allDecisions[d][0]
 			};
 
 			for (int b = 0; b < BUTTON_COUNT; b++) {
 				int i = fieldsBeforeButtons + (b * fieldsPerButton);    // Button info start index
-				int[] curStatEffects = new int[statNames.Count];
+				int[] curStatEffects = new int[StatNames.Count];
 
-				for (int s = 0; s < statNames.Count; s++) {
+				for (int s = 0; s < StatNames.Count; s++) {
 					// Stat effects
-					string curEffect = curDecFields[i + BUTTON_INFO_FIELDS + s];
+					string curEffect = allDecisions[d][i + BUTTON_INFO_FIELDS + s];
 					if (string.IsNullOrEmpty(curEffect)) continue;
 					int.TryParse(curEffect, out curStatEffects[s]);
 				}
-				curDec.buttonResults.Add(new Decision.ButtonResult(curDecFields[i], curDecFields[i + 1], curDecFields[i + 2], curStatEffects));
+				curDec.buttonResults.Add(new Decision.ButtonResult(allDecisions[d][i], allDecisions[d][i + 1], allDecisions[d][i + 2], curStatEffects));
 			}
 
 			int reqIndex = fieldsBeforeButtons + (BUTTON_COUNT * fieldsPerButton),
 				freeTurnIndex = reqIndex + 1;
-			curDec.SetRequirements(curDecFields[reqIndex], statNames);
-			curDec.turnCost = curDecFields[freeTurnIndex] == "TRUE" ? 0 : 1;
+			curDec.SetRequirements(allDecisions[d][reqIndex], StatNames);
+			curDec.turnCost = allDecisions[d][freeTurnIndex] == "TRUE" ? 0 : 1;
 
-			(string.IsNullOrEmpty(curDecFields[reqIndex]) ? alwaysAvailable : unavailable).Add(curDec);
+			(string.IsNullOrEmpty(allDecisions[d][reqIndex]) ? alwaysAvailable : unavailable).Add(curDec);
 		}
 
 		// Set up decision queue
@@ -111,9 +110,15 @@ public class DecisionsHolder {
 		makeUnavailable.ForEach(dec => RemoveFromDecisionQueue(dec));
 	}
 
-	void AddToDecisionQueue(Decision dec, bool ignoreTurns = false) {
+	void AddToDecisionQueue(Decision dec, bool awayFromFront = false) {
+		int GetRandomIndex() {
+			if (awayFromFront) return Mathf.RoundToInt(Mathf.Lerp(1, decisionQueue.Count - 1, Mathf.Sqrt(Random.value)));
+			else return Random.Range(0, decisionQueue.Count);
+		}
+
 		if (decisionQueue.Contains(dec)) decisionQueue.Remove(dec);
-		int insertIndex = (ignoreTurns || dec.doWithinTurns == null) ? Random.Range(0, decisionQueue.Count) : Mathf.Clamp(dec.doWithinTurns.GetWithinRange(), 0, decisionQueue.Count);
+		int insertIndex = dec.doWithinTurns == null ? GetRandomIndex() : Mathf.Clamp(dec.doWithinTurns.GetWithinRange(), 0, decisionQueue.Count);
+		//Debug.Log(string.Format("Inserting at {0}/{1}", insertIndex, decisionQueue.Count));
 		decisionQueue.Insert(insertIndex, dec);
 		if (unavailable.Contains(dec)) unavailable.Remove(dec);
 	}
@@ -127,7 +132,7 @@ public class DecisionsHolder {
 	public Decision GetDecision() {
 		Decision dec = decisionQueue[0];
 		if (!dec.IsRecurring) dec.doWithinTurns = null;	// "Turns:" countdown only happens once
-		AddToDecisionQueue(dec);
+		AddToDecisionQueue(dec, true);
 		return dec;
 	}
 

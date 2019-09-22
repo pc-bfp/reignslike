@@ -28,10 +28,10 @@ public class Decision {
 
 		public ButtonResult(string button, string result, string unlocks, int[] statEffects) {
 			buttonText = button;
-			resultTexts = new List<string>(result.Split(Constants.STRING_SPLIT_OR, System.StringSplitOptions.RemoveEmptyEntries));
+			resultTexts = new List<string>(result.Split(RLConstants.STRING_SPLIT_OR, System.StringSplitOptions.RemoveEmptyEntries));
 			unlockAdd = new List<string>();
 			unlockRemove = new List<string>();
-			foreach (string unlock in unlocks.Split(Constants.STRING_SPLIT_AND, System.StringSplitOptions.RemoveEmptyEntries)) {
+			foreach (string unlock in unlocks.Split(RLConstants.STRING_SPLIT_AND, System.StringSplitOptions.RemoveEmptyEntries)) {
 				if (unlock.StartsWith("-")) unlockRemove.Add(unlock.Remove(0, 1));
 				else unlockAdd.Add(unlock);
 			}
@@ -56,7 +56,7 @@ public class Decision {
 		statRequirements = new IntRange[stats.Count];
 		for (int s = 0; s < stats.Count; s++) statRequirements[s] = new IntRange(GameManager.Instance.MinStatValue - 1, GameManager.Instance.MaxStatValue + 1);
 
-		foreach (string req in requirements.Split(Constants.STRING_SPLIT_AND, System.StringSplitOptions.RemoveEmptyEntries)) {
+		foreach (string req in requirements.Split(RLConstants.STRING_SPLIT_AND, System.StringSplitOptions.RemoveEmptyEntries)) {
 			string curReq = req.Trim();
 			if (curReq.Contains("<") || curReq.Contains(">")) { // Stat requirement
 				string[] statReqSplit = curReq.Split(ltgt, System.StringSplitOptions.None);
@@ -72,7 +72,7 @@ public class Decision {
 
 			else if (curReq.StartsWith(TURNS_REQ)) {    // Do within turns
 				curReq = curReq.Remove(0, TURNS_REQ.Length).Trim();
-				string[] turnsMinMax = curReq.Split(Constants.STRING_SPLIT_RANGE);
+				string[] turnsMinMax = curReq.Split(RLConstants.STRING_SPLIT_RANGE);
 				try {
 					int minTurns = int.Parse(turnsMinMax[0]),
 						maxTurns = turnsMinMax.Length > 1 ? int.Parse(turnsMinMax[1]) : minTurns;

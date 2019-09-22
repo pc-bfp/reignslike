@@ -33,10 +33,11 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] DecisionDisplay decisionDisplay;
 	[SerializeField] TurnsDisplay turnsDisplay;
 	[SerializeField] List<StatHolder> statHolders;
+	[SerializeField] EndgameDisplay endgameDisplay;
 	[SerializeField] float dramaticPause = 0.5f, timeBetweenStatUpdates = 0.25f;
 
-	DecisionsHolder decisionsHolder;
-	EndgameHolder endgame;
+	DecisionHolder decisionsHolder;
+	EndgameHolder endgameHolder;
 	Decision curDecision;
 	bool isDecisionMade = false;
 
@@ -49,7 +50,8 @@ public class GameManager : MonoBehaviour {
 		statHolders.ForEach(sh => sh.Initialize(initialStatValue));
 		CurGameState = new GameState() { stats = new int[statHolders.Count] };
 		for (int s = 0; s < CurGameState.stats.Length; s++) CurGameState.stats[s] = initialStatValue;
-		decisionsHolder = new DecisionsHolder(decisionsFile);
+		decisionsHolder = new DecisionHolder(decisionsFile);
+		endgameHolder = new EndgameHolder(endgameFile);
 		DecisionDisplay.OnDecisionMade += OnDecisionMade;
 		StartCoroutine(StartCR());
 	}
@@ -109,7 +111,7 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (turnsDisplay.NumTurns <= 0) {
-			// We're in the endgame now
+			if (endgameDisplay) endgameDisplay.ShowResults(endgameHolder.GetResults());
 		}
 		else NextDecision();
 	}

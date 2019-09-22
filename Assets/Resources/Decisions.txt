@@ -32,8 +32,8 @@ Turn the White House grounds into a playground.	Yes	It's tough to install a jung
 Add something to the library.	Free bubble gum dispensers	While it's expensive...it's neat at first. But wads of gum stuck everywhere make the library a gross place to be. / It's expensive to hang out free gum, but it's fun! Soon, though, it's hard to concentrate with all the chewing noises, the bubble popping and the librarian shushing.		-1		1	-1	More comfy chairs	Comfy chairs don't come cheap. But now more people come to hang out and the library, and books are read more thoroughly because no one wants to get up and fetch new ones.		-1		1	1	Library, Wealth > 7	FALSE
 Bedtime at sunset.	Yes	Students wake up at midnight, and reach school before teachers. / The roosters are confused cause kids wake up before they do. And even the roosters are having more fun.			-1	-2		No	Adults are relieved because you don't wake up at midnight.			1			Early to bed, Turns: 3-5	FALSE
 																FALSE
-A bubonic plague struck your town!	Oh no	Good thing you invested in those flu shots. Disaster averted! 			1										Flu shots, Turns: 2-8	TRUE
-A bubonic plague struck your town! Oh man, if only you had had invested in flu shots!	Oh no	Everyone is falling sick left and right. It's expensive, it isn't fun, it's a disaster!		-1	-5	-3									Antivax, Health < 2	TRUE
+A bubonic plague struck your town!	Oh no	Good thing you invested in those flu shots. Disaster averted! 	Plague		1										-Plague, Flu shots, Turns: 2-8	TRUE
+A bubonic plague struck your town! Oh man, if only you had had invested in flu shots!	Oh no	Everyone is falling sick left and right. It's expensive, it isn't fun, it's a disaster!	Plague	-1	-5	-3									-Plague, Antivax, Health < 2	TRUE
 																FALSE
 War is hell. Everyone says so.	Keep fighting	The war continues to take its toll on the health and wealth of the kingdom.	War	-1	-1			End the war	The people rejoice!	-War			3		War, Turns: 3	FALSE
 																FALSE
