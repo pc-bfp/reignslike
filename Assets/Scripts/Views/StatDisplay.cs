@@ -9,6 +9,7 @@ public class StatDisplay : MonoBehaviour {
 	[SerializeField] string statUpColor = "\"blue\"", statDownColor = "\"red\"";
 	[SerializeField] Gradient valueGradient;
 	[SerializeField] Image applyValueColor;
+	[SerializeField] AudioClip sfxUp, sfxDown;
 
 	public int StatValue { get; private set; }
 
@@ -35,8 +36,10 @@ public class StatDisplay : MonoBehaviour {
 		if (statValueText) statValueText.text = newValue.ToString();
 		if (applyValueColor) applyValueColor.color = valueGradient.Evaluate(newValue / (float)GameManager.Instance.MaxStatValue);
 		if (updateValue != 0) {
-			if (updateText) updateText.text = string.Format("<color={0}>{1}</color>", updateValue > 0 ? statUpColor : statDownColor, updateValue.ToString("+0;-#"));
+			bool goingUp = updateValue > 0;
+			if (updateText) updateText.text = string.Format("<color={0}>{1}</color>", goingUp ? statUpColor : statDownColor, updateValue.ToString("+0;-#"));
 			if (animator) animator.SetBool(UPDATE_PARAM_BOOL, true);
+			SoundManager.PlaySFX(goingUp ? sfxUp : sfxDown);
 		}
 	}
 

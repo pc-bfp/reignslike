@@ -6,6 +6,7 @@ using TMPro;
 
 public class DecisionButton : MonoBehaviour {
 	[SerializeField] TextMeshProUGUI buttonText;
+	[SerializeField] AudioClip sfxPress;
 
 	public delegate void ButtonPressEvent(int buttonIndex);
 	public ButtonPressEvent OnButtonPressed;
@@ -23,5 +24,6 @@ public class DecisionButton : MonoBehaviour {
 
 	public void ButtonPressed() {
 		OnButtonPressed?.Invoke(ButtonIndex);
+		SoundManager.PlaySFX(sfxPress);
 	}
 }
