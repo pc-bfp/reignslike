@@ -9,6 +9,7 @@ public class TurnsDisplay : MonoBehaviour {
 	[SerializeField] TextMeshProUGUI turnsText;
 	[SerializeField] Image turnMeter;
 	[SerializeField] float turnsDisplayTime;
+	[SerializeField] AudioClip sfxInitialize, sfxTurn;
 
 	public int NumTurns { get; private set; }
 	public float AnimTime {
@@ -32,6 +33,7 @@ public class TurnsDisplay : MonoBehaviour {
 		if (turnMeter) turnMeter.fillAmount = 0;
 		ShowAnim(false);
 		UpdateTurnMeter(turnsDisplayTime / 2f);
+		SoundManager.PlaySFX(sfxInitialize);
 	}
 
 	public void ReduceTurns(int reduceBy = 1) {
@@ -45,6 +47,7 @@ public class TurnsDisplay : MonoBehaviour {
 		UpdateText();
 		UpdateTurnMeter(0.25f);
 		doChangeText = false;
+		SoundManager.PlaySFX(sfxTurn);
 	}
 
 	void UpdateText() {

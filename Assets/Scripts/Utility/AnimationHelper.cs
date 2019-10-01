@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimationHelper : MonoBehaviour {
 	[SerializeField] List<AudioClip> randomClips;
-	[SerializeField] float minVolume, maxVolume;
+	[SerializeField] float minVolume = 1, maxVolume = 1;
 
 	public void PlaySound(AudioClip clip) {
 		SoundManager.PlaySFX(clip, minVolume, maxVolume);

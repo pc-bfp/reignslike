@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] List<StatHolder> statHolders;
 	[SerializeField] EndgameDisplay endgameDisplay;
 	[SerializeField] float dramaticPause = 0.5f, timeBetweenStatUpdates = 0.25f;
+	[SerializeField] AudioClip bgmClip;
 
 	DecisionHolder decisionsHolder;
 	EndgameHolder endgameHolder;
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour {
 		isDecisionMade = false;
 		curDecision = decisionsHolder.GetDecision();
 		decisionDisplay.ShowDecision(curDecision);
+		SoundManager.PlayBGM(bgmClip);
 	}
 
 	void OnDecisionMade(int answerIndex) {
@@ -92,8 +94,7 @@ public class GameManager : MonoBehaviour {
 		unlocksChanged |= !result.unlockRemove.TrueForAll(unlock => !CurGameState.ChangeUnlock(unlock, false));
 
 		OnDecisionTaken?.Invoke();
-
-		yield return new WaitForSeconds(dramaticPause);
+		yield return new WaitForSeconds(timeBetweenStatUpdates + dramaticPause);
 
 		decisionDisplay.ShowOutcome(result.ResultText);
 		yield return new WaitForSeconds(dramaticPause);
@@ -104,6 +105,7 @@ public class GameManager : MonoBehaviour {
 		bool hasEnded = false;
 		decisionDisplay.End(() => hasEnded = true);
 		while (!hasEnded) yield return null;
+		yield return new WaitForSeconds(dramaticPause);
 
 		if (curDecision.turnCost > 0) {
 			turnsDisplay.ReduceTurns(curDecision.turnCost);

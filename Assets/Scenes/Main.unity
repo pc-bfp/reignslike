@@ -631,6 +631,8 @@ MonoBehaviour:
   turnsText: {fileID: 1823236113}
   turnMeter: {fileID: 1668284387}
   turnsDisplayTime: 2.5
+  sfxInitialize: {fileID: 8300000, guid: 219e8db95edae914f9602def2d11897d, type: 3}
+  sfxTurn: {fileID: 8300000, guid: 7c3e459edc7c1c24d8cab2f45bdf383a, type: 3}
 --- !u!95 &231124899
 Animator:
   serializedVersion: 3
@@ -3570,6 +3572,7 @@ GameObject:
   - component: {fileID: 1507237967}
   - component: {fileID: 1507237968}
   - component: {fileID: 1507237969}
+  - component: {fileID: 1507237970}
   m_Layer: 5
   m_Name: Decision display
   m_TagString: Untagged
@@ -3638,6 +3641,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1507237970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507237966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4a903dc39cc78144b5356b843995a97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomClips: []
+  minVolume: 1
+  maxVolume: 1
 --- !u!1 &1520128842
 GameObject:
   m_ObjectHideFlags: 0
@@ -4689,6 +4707,7 @@ MonoBehaviour:
   endgameDisplay: {fileID: 522174029}
   dramaticPause: 0.5
   timeBetweenStatUpdates: 0.33
+  bgmClip: {fileID: 8300000, guid: 3b78d9b43d3cfc04c9928fa073b70d30, type: 3}
 --- !u!4 &1989752685
 Transform:
   m_ObjectHideFlags: 0

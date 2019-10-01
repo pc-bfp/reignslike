@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonText: {fileID: 9212898513081629527}
+  sfxPress: {fileID: 8300000, guid: 800efbc34b86f2e43bdb4d75b4e881d6, type: 3}
 --- !u!114 &9212898512366045712
 MonoBehaviour:
   m_ObjectHideFlags: 0
