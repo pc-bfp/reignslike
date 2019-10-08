@@ -33,7 +33,7 @@ public class TurnsDisplay : MonoBehaviour {
 		if (turnMeter) turnMeter.fillAmount = 0;
 		ShowAnim(false);
 		UpdateTurnMeter(turnsDisplayTime / 2f);
-		SoundManager.PlaySFX(sfxInitialize);
+		AudioManager.PlayOneShot(sfxInitialize);
 	}
 
 	public void ReduceTurns(int reduceBy = 1) {
@@ -47,7 +47,7 @@ public class TurnsDisplay : MonoBehaviour {
 		UpdateText();
 		UpdateTurnMeter(0.25f);
 		doChangeText = false;
-		SoundManager.PlaySFX(sfxTurn);
+		AudioManager.PlayOneShot(sfxTurn);
 	}
 
 	void UpdateText() {

@@ -30,7 +30,7 @@ public class Decision {
 					string statName = RLConstants.STAT_NAMES[sn];
 					if (statChangeText.StartsWith(statName)) {
 						statIndex = sn;
-						statChangeStr = statChangeText.Remove(0, statName.Length).Trim();
+						statChangeStr = statChangeText.Replace(statName, "").Trim();
 						break;
 					}
 				}
@@ -48,7 +48,7 @@ public class Decision {
 
 		private StatEffect() { }
 
-		public static StatEffect Create(string fieldText) {
+		public static StatEffect Create(string fieldText, Sprite image) {
 			if (string.IsNullOrEmpty(fieldText)) return null;
 			StatEffect retval = new StatEffect();
 			int splitIndex = fieldText.IndexOf('\n');
@@ -57,6 +57,9 @@ public class Decision {
 				retval.statChanges.Add(new StatChange(scText.Trim()));
 
 			retval.effectTexts = new List<string>(fieldText.Substring(splitIndex + 1).Split(RLConstants.STRING_SPLIT_OR, System.StringSplitOptions.RemoveEmptyEntries));
+			for (int e = 0; e < retval.effectTexts.Count; e++) retval.effectTexts[e] = RLUtilities.ApplyBoldItalic(retval.effectTexts[e]);
+
+			retval.EffectImage = image;
 			return retval;
 		}
 	}
@@ -67,7 +70,7 @@ public class Decision {
 		public List<string> unlockAdd, unlockRemove;
 		public List<StatEffect> statEffects;
 
-		public ButtonResult(string buttonText, string unlocks, List<string> statEffectFields) {
+		public ButtonResult(string buttonText, string unlocks, List<string> statEffectFields, List<Sprite> statImages) {
 			this.buttonText = buttonText;
 			unlockAdd = new List<string>();
 			unlockRemove = new List<string>();
@@ -75,14 +78,15 @@ public class Decision {
 				if (unlock.StartsWith("-")) unlockRemove.Add(unlock.Remove(0, 1));
 				else unlockAdd.Add(unlock);
 			}
-			foreach (string seField in statEffectFields) {
-				StatEffect curSE = StatEffect.Create(seField);
+			statEffects = new List<StatEffect>();
+			for (int sf = 0; sf < statEffectFields.Count; sf++) {
+				StatEffect curSE = StatEffect.Create(statEffectFields[sf], statImages != null && sf < statImages.Count ? statImages[sf] : null);
 				if (curSE != null) statEffects.Add(curSE);
 			}
 		}
 	}
 
-	public string decisionText;
+	public string decisionID, decisionText;
 	public Sprite decisionImage;
 	public List<ButtonResult> buttonResults = new List<ButtonResult>();
 	public IntRange[] statRequirements;
@@ -93,7 +97,7 @@ public class Decision {
 	public bool IsRecurring { get; private set; }
 
 	const string TURNS_REQ = "Turns:";
-	static string[] ltgt = { "<", ">" };
+	static string[] LT_GT = { "<", ">" };
 
 	public void SetRequirements(string requirements) {
 		if (string.IsNullOrEmpty(requirements)) return;
@@ -103,7 +107,7 @@ public class Decision {
 		foreach (string req in requirements.Split(RLConstants.STRING_SPLIT_AND, System.StringSplitOptions.RemoveEmptyEntries)) {
 			string curReq = req.Trim();
 			if (curReq.Contains("<") || curReq.Contains(">")) { // Stat requirement
-				string[] statReqSplit = curReq.Split(ltgt, System.StringSplitOptions.None);
+				string[] statReqSplit = curReq.Split(LT_GT, System.StringSplitOptions.None);
 				for (int i = 0; i < 2; i++) statReqSplit[i] = statReqSplit[i].Trim();
 
 				int statVal = 0;

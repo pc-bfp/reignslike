@@ -12,7 +12,7 @@ public class DecisionHolder {
 		alwaysAvailable = new List<Decision>();
 		unavailable = new List<Decision>();
 		decisionQueue = new List<Decision>();
-		string[][] allDecisions = SheetReader.ReadSheet(decisionsFile.text);
+		string[][] allDecisions = RLUtilities.ReadSheet(decisionsFile.text);
 		int decisionFieldIndex = -1, fieldsPerButton = 0, fieldsBeforeButtons = 0, numResults = 0;
 
 		for (int d = 0; d < allDecisions.Length; d++) {
@@ -40,8 +40,12 @@ public class DecisionHolder {
 			if (allDecisions[d].Length < 1 || string.IsNullOrEmpty(allDecisions[d][decisionFieldIndex])) continue; // Invalid row. REJECTED
 
 			Decision curDec = new Decision() {
-				decisionText = allDecisions[d][decisionFieldIndex]
+				decisionText = RLUtilities.ApplyBoldItalic(allDecisions[d][decisionFieldIndex]),
+				decisionID = allDecisions[d][0].Substring(0, allDecisions[d][0].IndexOf('\n')),
 			};
+
+			ImagesHolder.DecisionImages curImages = ImagesHolder.GetImages(curDec.decisionID);
+			if (curImages != null) curDec.decisionImage = curImages.decisionImage;
 
 			for (int b = 0; b < BUTTON_COUNT; b++) {
 				int i = fieldsBeforeButtons + (b * fieldsPerButton);    // Button info start index
@@ -52,7 +56,7 @@ public class DecisionHolder {
 					string curEffect = allDecisions[d][i + BUTTON_INFO_FIELDS + s];
 					if (!string.IsNullOrEmpty(curEffect)) curStatEffects.Add(curEffect);
 				}
-				curDec.buttonResults.Add(new Decision.ButtonResult(allDecisions[d][i], allDecisions[d][i + 1], curStatEffects));
+				curDec.buttonResults.Add(new Decision.ButtonResult(allDecisions[d][i], allDecisions[d][i + 1], curStatEffects, curImages == null ? null : curImages.resultImages[b]));
 			}
 
 			int reqIndex = fieldsBeforeButtons + (BUTTON_COUNT * fieldsPerButton),

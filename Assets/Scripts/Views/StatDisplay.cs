@@ -39,7 +39,7 @@ public class StatDisplay : MonoBehaviour {
 			bool goingUp = updateValue > 0;
 			if (updateText) updateText.text = string.Format("<color={0}>{1}</color>", goingUp ? statUpColor : statDownColor, updateValue.ToString("+0;-#"));
 			if (animator) animator.SetBool(UPDATE_PARAM_BOOL, true);
-			SoundManager.PlaySFX(goingUp ? sfxUp : sfxDown);
+			AudioManager.PlayOneShot(goingUp ? sfxUp : sfxDown);
 		}
 	}
 

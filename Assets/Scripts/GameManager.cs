@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour {
 	public delegate void DecisionTakenEvent();
 	public DecisionTakenEvent OnDecisionTaken;
 
-	[SerializeField] TextAsset decisionsFile, endgameFile;
+	[SerializeField] TextAsset decisionsFile, endgameFile, imageSubmissionsFile, imageMapFile;
+	[SerializeField] AudioInfoHolder audioInfo;
 	[SerializeField] int numTurns = 10, initialStatValue = 5, minStatValue = 0, maxStatValue = 10;
 	[SerializeField] DecisionDisplay decisionDisplay;
 	[SerializeField] TurnsDisplay turnsDisplay;
@@ -40,10 +41,13 @@ public class GameManager : MonoBehaviour {
 	DecisionHolder decisionsHolder;
 	EndgameHolder endgameHolder;
 	Decision curDecision;
-	bool isDecisionMade = false;
-
+	bool isDecisionMade = false, canShowNextOutcome = false;
+	Decision.ButtonResult curResult;
+	int curStatEffectIndex = -1;
 
 	void Awake() {
+		RLUtilities.Initialize();
+		AudioManager.Initialize(audioInfo);
 		Instance = this;
 	}
 
@@ -51,10 +55,13 @@ public class GameManager : MonoBehaviour {
 		statHolders.ForEach(sh => sh.Initialize(initialStatValue));
 		CurGameState = new GameState() { stats = new int[statHolders.Count] };
 		for (int s = 0; s < CurGameState.stats.Length; s++) CurGameState.stats[s] = initialStatValue;
+		ImagesHolder.Initialize(imageSubmissionsFile, imageMapFile);
 		decisionsHolder = new DecisionHolder(decisionsFile);
 		endgameHolder = new EndgameHolder(endgameFile);
 		DecisionDisplay.OnDecisionMade += OnDecisionMade;
-		DecisionDisplay.OnNextOutcome += () => StartCoroutine(NextOutcomeCR());
+		DecisionDisplay.OnNextOutcome += () => {
+			if (canShowNextOutcome) StartCoroutine(NextOutcomeCR());
+		};
 		StartCoroutine(StartCR());
 	}
 
@@ -69,11 +76,8 @@ public class GameManager : MonoBehaviour {
 		isDecisionMade = false;
 		curDecision = decisionsHolder.GetDecision();
 		decisionDisplay.ShowDecision(curDecision);
-		SoundManager.PlayBGM(bgmClip);
+		AudioManager.PlayBGM(bgmClip);
 	}
-
-	Decision.ButtonResult curResult;
-	int curStatEffectIndex = -1;
 
 	void OnDecisionMade(int answerIndex) {
 		if (isDecisionMade) return; // Safeguard against accidental double presses
@@ -91,12 +95,15 @@ public class GameManager : MonoBehaviour {
 
 
 	IEnumerator NextOutcomeCR() {
+		canShowNextOutcome = false;
 		if (curStatEffectIndex >= 0) statHolders.ForEach(sh => sh.display.EndSetValue());
 		curStatEffectIndex++;
-		yield return new WaitForSeconds(dramaticPause);
 
 		if (curStatEffectIndex < curResult.statEffects.Count) {
 			// Next stat effect
+			decisionDisplay.HideOutcome();
+			yield return new WaitForSeconds(timeBetweenStatUpdates);
+
 			Decision.StatEffect statEffect = curResult.statEffects[curStatEffectIndex];
 			foreach (var sc in statEffect.statChanges) {
 				statHolders[sc.statIndex].display.SetValue(Mathf.Clamp(statHolders[sc.statIndex].Value + sc.statChange, MinStatValue, MaxStatValue), sc.statChange);
@@ -104,9 +111,11 @@ public class GameManager : MonoBehaviour {
 				CurGameState.stats[sc.statIndex] = statHolders[sc.statIndex].Value;
 			}
 			decisionDisplay.ShowOutcome(statEffect.EffectText, statEffect.EffectImage);
+			canShowNextOutcome = true;
 		}
 		else {
 			// Decision end
+			yield return new WaitForSeconds(timeBetweenStatUpdates);
 			decisionDisplay.End(() => StartCoroutine(EndDecisionCR()));
 		}
 	}

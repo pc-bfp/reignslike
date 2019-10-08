@@ -68,9 +68,9 @@ Material:
     - _OutlineWidth: 0.33
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 0.6666667
+    - _ScaleRatioA: 0.5747126
     - _ScaleRatioB: 1
-    - _ScaleRatioC: 0.16083331
+    - _ScaleRatioC: 0.056666654
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -89,7 +89,7 @@ Material:
     - _UnderlaySoftness: 0
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
-    - _WeightBold: 0.75
+    - _WeightBold: 2
     - _WeightNormal: 0
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}

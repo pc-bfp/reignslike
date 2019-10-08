@@ -87,7 +87,7 @@ public class EndgameHolder {
 	List<Endgame> endgames;
 
 	public EndgameHolder(TextAsset endgameFile) {
-		string[][] allEndgameRows = SheetReader.ReadSheet(endgameFile.text);
+		string[][] allEndgameRows = RLUtilities.ReadSheet(endgameFile.text);
 		endgames = new List<Endgame>();
 		int numStats = RLConstants.STAT_NAMES.Count;
 		

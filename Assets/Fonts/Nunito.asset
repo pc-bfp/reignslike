@@ -2461,7 +2461,7 @@ MonoBehaviour:
   - regularTypeface: {fileID: 0}
     italicTypeface: {fileID: 0}
   - regularTypeface: {fileID: 0}
-    italicTypeface: {fileID: 11400000, guid: d4cb6246feb766c45a64f7343ff7c414, type: 2}
+    italicTypeface: {fileID: 0}
   - regularTypeface: {fileID: 0}
     italicTypeface: {fileID: 0}
   - regularTypeface: {fileID: 0}
@@ -2475,9 +2475,9 @@ MonoBehaviour:
   fontWeights: []
   normalStyle: 0
   normalSpacingOffset: 0
-  boldStyle: 0.75
+  boldStyle: 2
   boldSpacing: 7
-  italicStyle: 35
+  italicStyle: 20
   tabSize: 10
 --- !u!21 &2688954725962149084
 Material:
@@ -2529,7 +2529,7 @@ Material:
     - _BumpOutline: 0
     - _ColorMask: 15
     - _Diffuse: 0.5
-    - _FaceDilate: 0
+    - _FaceDilate: 0.1
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
     - _GlowInner: 0.05
@@ -2548,7 +2548,7 @@ Material:
     - _Reflectivity: 10
     - _ScaleRatioA: 0.6666667
     - _ScaleRatioB: 1
-    - _ScaleRatioC: 0.5416667
+    - _ScaleRatioC: 0.26666665
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -2567,7 +2567,7 @@ Material:
     - _UnderlaySoftness: 0
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
-    - _WeightBold: 0.75
+    - _WeightBold: 2
     - _WeightNormal: 0
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}

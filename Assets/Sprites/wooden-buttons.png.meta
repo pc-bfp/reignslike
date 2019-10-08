@@ -29,6 +29,9 @@ TextureImporter:
   - first:
       213: -2430907386829221681
     second: wooden_hollow
+  - first:
+      213: 6515093153924733673
+    second: wooden-buttons_next
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -138,10 +141,10 @@ TextureImporter:
         serializedVersion: 2
         x: 57
         y: 536
-        width: 310
+        width: 311
         height: 141
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 31, y: 43, z: 33, w: 31}
       outline: []
       physicsShape: []
@@ -159,10 +162,10 @@ TextureImporter:
         serializedVersion: 2
         x: 433
         y: 536
-        width: 310
-        height: 141
+        width: 311
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 31, y: 30, z: 33, w: 44}
       outline: []
       physicsShape: []
@@ -183,7 +186,7 @@ TextureImporter:
         width: 128
         height: 141
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -201,10 +204,10 @@ TextureImporter:
         serializedVersion: 2
         x: 233
         y: 324
-        width: 128
-        height: 141
+        width: 129
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -222,10 +225,10 @@ TextureImporter:
         serializedVersion: 2
         x: 436
         y: 315
-        width: 135
+        width: 136
         height: 146
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -244,9 +247,9 @@ TextureImporter:
         x: 602
         y: 315
         width: 135
-        height: 146
+        height: 135
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -267,7 +270,7 @@ TextureImporter:
         width: 107
         height: 142
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -286,9 +289,9 @@ TextureImporter:
         x: 233
         y: 107
         width: 107
-        height: 142
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -305,11 +308,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 433
-        y: 105
-        width: 310
-        height: 137
+        y: 104
+        width: 311
+        height: 138
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 33, y: 39, z: 33, w: 39}
       outline: []
       physicsShape: []
@@ -317,6 +320,27 @@ TextureImporter:
       bones: []
       spriteID: 8c4e3d7493da4194289fde72e98d89f4
       internalID: -2430907386829221681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden-buttons_next
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 719
+        width: 38
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7201b2c50569cbe46a5bc6484fcf047e
+      internalID: 6515093153924733673
       vertices: []
       indices: 
       edges: []

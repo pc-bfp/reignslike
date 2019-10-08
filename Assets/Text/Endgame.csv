@@ -1,0 +1,22 @@
+Wealth,Health,Fun,Learning,Unlock path,Summary,Hints,Learning Outcome
+3 - 7,3 - 7,3 - 7,3 - 7,,Your time as ruler was the least memorable in the entire history of the kingdom. It was neither the best of times nor the worst of times. It was the most adequate of times.,,"Your are a Planner! You make decisions keeping their consequences in mind. Because of your strategic thinking, you don't let anything get out of hand. "
+< 3,,,,,Your kingdom's coffers are empty. / Your subjects never have any money in their pockets. Most of them don't even have pockets.,"Some decisions are opportunities to make money. / When your wealth is low, try to avoid spending money.","You are a Risk-taker! You don't worry about the cost of your decisions, because you believe that the benefits outweigh them. Because of your commitment to change, you made the world a very different place from when it started - the economy just has to catch up with it now."
+> 7,< 3,> 7,3 - 7,,"Your treasury is quite full. / Your kingdom is so prosperous, it's coloured gold on the map. / Money, money everywhere.",,"You are All Business! At the end of the day, you want your economy to be strong and you do anything to keep it growing. Your focus on financial management helps you rake in the big bucks and stay on top of the market."
+,< 3,,,,"Quite a sickly kingdom. / People spend half their time sneezing, and the other half saying ""bless you"".",,"You are a Risk-taker! You know that you only live once, so you go out and do things that might not be the best for your health. But it sure beats living afraid of things! Your fearlessness helps you make decisions bravely, and you're willing to bear the consequences."
+,> 7,,,,Your subjects are hale and hearty and long-lived.,,You are Caring! You never want to see anybody suffer. Your ability to have empathy for those around you makes you a strong leader who thinks about what is best for well-being.
+,,< 3,,,No one knows how to have a good time. / The most popular board game is Monopoly.,,"You are Working Your Way to the Top! You know what you want, you zero in on your goals, and you work towards them. Your drive will take you far, because you know that hard work leads to success."
+,,> 7,,,Your kingdom is well-known for its legendary parties.,,"You are a Networker! You know that it's important to play hard, even if you work. Your ability to give people what they want will help you to make friends and keep them in a busy world."
+,,,< 3,,Most of your subjects can't read or write.,,"You are a Can Do-er. You don't want to spend your time thinking about things, you want to do them. And you learn on the job while you're at it, taking you far."
+,,,> 7,,Your kingdom's scholars invented Wikipedia.,,"You are a Deep Thinker. You don't just want to make decisions, you want to make informed decisions. Your thirst for knowledge will help you to understand things at a very deep level, and this will lead to keen insights."
+,,,,,,,
+,< 3,> 7,,,Your subjects' lives are joyful but short.,,
+< 3,,,< 3,,"No one in your kingdom has any money, and they don't know how to make more.",,
+> 7,,< 3,,,"For all your kingdom's riches, no one bothered building a single amusement park.",,
+< 3,,,> 7,,"Your subjects have brilliant ideas, but no money to spend on them.",,
+,,> 7,< 3,,Your subjects have a lot of fun making the same mistakes over and over again.,,
+< 3,,> 7,,,Your kingdom doesn't have much money. Maybe because they spent it all on having fun.,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,"Wealth < 3, Wealth > 7","Your kingdom was on the brink of poverty, but you made a miraculous recovery!",,
