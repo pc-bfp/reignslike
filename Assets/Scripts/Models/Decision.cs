@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+
 [System.Serializable]
 public class Decision {
 	
@@ -18,28 +19,71 @@ public class Decision {
 	}
 
 	[System.Serializable]
-	public class ButtonResult {
-		public string buttonText;
-		public List<string> resultTexts, unlockAdd, unlockRemove;
-		public int[] statEffects;
-		public string ResultText {
-			get { return resultTexts.Count == 0 ? string.Empty : resultTexts[Random.Range(0, resultTexts.Count)]; }
+	public class StatEffect {
+		[System.Serializable]
+		public class StatChange {
+			public int statIndex, statChange;
+
+			public StatChange(string statChangeText) {
+				string statChangeStr = string.Empty;
+				for (int sn = 0; sn < RLConstants.STAT_NAMES.Count; sn++) {
+					string statName = RLConstants.STAT_NAMES[sn];
+					if (statChangeText.StartsWith(statName)) {
+						statIndex = sn;
+						statChangeStr = statChangeText.Remove(0, statName.Length).Trim();
+						break;
+					}
+				}
+				statChange = int.Parse(statChangeStr, System.Globalization.NumberStyles.AllowLeadingSign);
+			}
 		}
 
-		public ButtonResult(string button, string result, string unlocks, int[] statEffects) {
-			buttonText = button;
-			resultTexts = new List<string>(result.Split(RLConstants.STRING_SPLIT_OR, System.StringSplitOptions.RemoveEmptyEntries));
+		public List<StatChange> statChanges = new List<StatChange>();
+		public string EffectText {
+			get { return effectTexts.Count == 0 ? string.Empty : effectTexts[Random.Range(0, effectTexts.Count)]; }
+		}
+		public Sprite EffectImage { get; private set; }
+
+		List<string> effectTexts;
+
+		private StatEffect() { }
+
+		public static StatEffect Create(string fieldText) {
+			if (string.IsNullOrEmpty(fieldText)) return null;
+			StatEffect retval = new StatEffect();
+			int splitIndex = fieldText.IndexOf('\n');
+			
+			foreach (string scText in fieldText.Substring(0, splitIndex).Split(RLConstants.STRING_SPLIT_AND))
+				retval.statChanges.Add(new StatChange(scText.Trim()));
+
+			retval.effectTexts = new List<string>(fieldText.Substring(splitIndex + 1).Split(RLConstants.STRING_SPLIT_OR, System.StringSplitOptions.RemoveEmptyEntries));
+			return retval;
+		}
+	}
+
+	[System.Serializable]
+	public class ButtonResult {
+		public string buttonText;
+		public List<string> unlockAdd, unlockRemove;
+		public List<StatEffect> statEffects;
+
+		public ButtonResult(string buttonText, string unlocks, List<string> statEffectFields) {
+			this.buttonText = buttonText;
 			unlockAdd = new List<string>();
 			unlockRemove = new List<string>();
 			foreach (string unlock in unlocks.Split(RLConstants.STRING_SPLIT_AND, System.StringSplitOptions.RemoveEmptyEntries)) {
 				if (unlock.StartsWith("-")) unlockRemove.Add(unlock.Remove(0, 1));
 				else unlockAdd.Add(unlock);
 			}
-			this.statEffects = statEffects;
+			foreach (string seField in statEffectFields) {
+				StatEffect curSE = StatEffect.Create(seField);
+				if (curSE != null) statEffects.Add(curSE);
+			}
 		}
 	}
 
 	public string decisionText;
+	public Sprite decisionImage;
 	public List<ButtonResult> buttonResults = new List<ButtonResult>();
 	public IntRange[] statRequirements;
 	public List<string> unlockedRequirements = new List<string>(), lockedRequirements = new List<string>();
@@ -51,10 +95,10 @@ public class Decision {
 	const string TURNS_REQ = "Turns:";
 	static string[] ltgt = { "<", ">" };
 
-	public void SetRequirements(string requirements, List<string> stats) {
+	public void SetRequirements(string requirements) {
 		if (string.IsNullOrEmpty(requirements)) return;
-		statRequirements = new IntRange[stats.Count];
-		for (int s = 0; s < stats.Count; s++) statRequirements[s] = new IntRange(GameManager.Instance.MinStatValue - 1, GameManager.Instance.MaxStatValue + 1);
+		statRequirements = new IntRange[RLConstants.STAT_NAMES.Count];
+		for (int s = 0; s < RLConstants.STAT_NAMES.Count; s++) statRequirements[s] = new IntRange(GameManager.Instance.MinStatValue - 1, GameManager.Instance.MaxStatValue + 1);
 
 		foreach (string req in requirements.Split(RLConstants.STRING_SPLIT_AND, System.StringSplitOptions.RemoveEmptyEntries)) {
 			string curReq = req.Trim();
@@ -64,7 +108,7 @@ public class Decision {
 
 				int statVal = 0;
 				if (!int.TryParse(statReqSplit[1], out statVal)) continue;
-				int statIndex = stats.IndexOf(statReqSplit[0].Trim());
+				int statIndex = RLConstants.STAT_NAMES.IndexOf(statReqSplit[0].Trim());
 				if (statIndex < 0) continue;
 				if (curReq.Contains(">")) statRequirements[statIndex].min = statVal;
 				else statRequirements[statIndex].max = statVal;

@@ -8,6 +8,14 @@ public class RLConstants {
 	public static char[] STRING_SPLIT_OR = { '/' };
 	public static char[] STRING_SPLIT_AND = { ',' };
 	public static char[] STRING_SPLIT_RANGE = { '-' };
+
+	static List<string> _statNames;
+	public static List<string> STAT_NAMES {
+		get {
+			if (_statNames == null) _statNames = new List<string>(new string[] { "Wealth", "Health", "Fun", "Learning" });
+			return _statNames;
+		}
+	}
 }
 
 public class SheetReader {

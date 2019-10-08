@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour {
 		decisionsHolder = new DecisionHolder(decisionsFile);
 		endgameHolder = new EndgameHolder(endgameFile);
 		DecisionDisplay.OnDecisionMade += OnDecisionMade;
+		DecisionDisplay.OnNextOutcome += () => StartCoroutine(NextOutcomeCR());
 		StartCoroutine(StartCR());
 	}
 
@@ -71,40 +72,46 @@ public class GameManager : MonoBehaviour {
 		SoundManager.PlayBGM(bgmClip);
 	}
 
+	Decision.ButtonResult curResult;
+	int curStatEffectIndex = -1;
+
 	void OnDecisionMade(int answerIndex) {
 		if (isDecisionMade) return; // Safeguard against accidental double presses
 		isDecisionMade = true;
-		StartCoroutine(OnDecisionMadeCR(answerIndex));
+		OnDecisionTaken?.Invoke();
+		curResult = curDecision.buttonResults[answerIndex];
+		curStatEffectIndex = -1;
+
+		bool unlocksChanged = false;    // Unused
+		unlocksChanged |= !curResult.unlockAdd.TrueForAll(unlock => !CurGameState.ChangeUnlock(unlock, true));
+		unlocksChanged |= !curResult.unlockRemove.TrueForAll(unlock => !CurGameState.ChangeUnlock(unlock, false));
+
+		StartCoroutine(NextOutcomeCR());
 	}
 
-	IEnumerator OnDecisionMadeCR(int answerIndex) {
+
+	IEnumerator NextOutcomeCR() {
+		if (curStatEffectIndex >= 0) statHolders.ForEach(sh => sh.display.EndSetValue());
+		curStatEffectIndex++;
 		yield return new WaitForSeconds(dramaticPause);
 
-		Decision.ButtonResult result = curDecision.buttonResults[answerIndex];
-
-		int[] statEffects = result.statEffects;
-		for (int s = 0; s < statEffects.Length && s < statHolders.Count; s++) {
-			if (statEffects[s] == 0) continue;
-			if (s > 0) yield return new WaitForSeconds(timeBetweenStatUpdates);
-			statHolders[s].display.SetValue(Mathf.Clamp(statHolders[s].Value + statEffects[s], MinStatValue, MaxStatValue), statEffects[s]);
-			CurGameState.stats[s] = statHolders[s].Value;
+		if (curStatEffectIndex < curResult.statEffects.Count) {
+			// Next stat effect
+			Decision.StatEffect statEffect = curResult.statEffects[curStatEffectIndex];
+			foreach (var sc in statEffect.statChanges) {
+				statHolders[sc.statIndex].display.SetValue(Mathf.Clamp(statHolders[sc.statIndex].Value + sc.statChange, MinStatValue, MaxStatValue), sc.statChange);
+				yield return new WaitForSeconds(timeBetweenStatUpdates);
+				CurGameState.stats[sc.statIndex] = statHolders[sc.statIndex].Value;
+			}
+			decisionDisplay.ShowOutcome(statEffect.EffectText, statEffect.EffectImage);
 		}
-		bool unlocksChanged = false;	// Unused
-		unlocksChanged |= !result.unlockAdd.TrueForAll(unlock => !CurGameState.ChangeUnlock(unlock, true));
-		unlocksChanged |= !result.unlockRemove.TrueForAll(unlock => !CurGameState.ChangeUnlock(unlock, false));
+		else {
+			// Decision end
+			decisionDisplay.End(() => StartCoroutine(EndDecisionCR()));
+		}
+	}
 
-		OnDecisionTaken?.Invoke();
-		yield return new WaitForSeconds(timeBetweenStatUpdates + dramaticPause);
-
-		decisionDisplay.ShowOutcome(result.ResultText);
-		yield return new WaitForSeconds(dramaticPause);
-
-		while (!Input.GetMouseButton(0) && !Input.anyKey) yield return null;
-
-		statHolders.ForEach(sh => sh.display.EndSetValue());
-		bool hasEnded = false;
-		decisionDisplay.End(() => hasEnded = true);
-		while (!hasEnded) yield return null;
+	IEnumerator EndDecisionCR() {
 		yield return new WaitForSeconds(dramaticPause);
 
 		if (curDecision.turnCost > 0) {

@@ -89,7 +89,7 @@ public class EndgameHolder {
 	public EndgameHolder(TextAsset endgameFile) {
 		string[][] allEndgameRows = SheetReader.ReadSheet(endgameFile.text);
 		endgames = new List<Endgame>();
-		int numStats = DecisionHolder.StatNames.Count;
+		int numStats = RLConstants.STAT_NAMES.Count;
 		
 		Endgame.MinMaxStat ParseRange(int statIndex, string range) {
 			if (string.IsNullOrEmpty(range)) return null;
@@ -128,7 +128,7 @@ public class EndgameHolder {
 						string up = untrimmedUP.Trim();
 						int rangeStartIndex = up.IndexOfAny(upSplitChars);
 						string statName = up.Substring(0, rangeStartIndex);
-						Endgame.MinMaxStat curUP = ParseRange(DecisionHolder.StatNames.IndexOf(statName), up.Substring(rangeStartIndex));
+						Endgame.MinMaxStat curUP = ParseRange(RLConstants.STAT_NAMES.IndexOf(statName), up.Substring(rangeStartIndex));
 						if (curUP != null) curEG.unlockPath.Add(curUP);
 					}
 				}

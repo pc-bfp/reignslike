@@ -4,19 +4,16 @@ using UnityEngine;
 
 [System.Serializable]
 public class DecisionHolder {
-	public static List<string> StatNames;
-
 	List<Decision> alwaysAvailable, unavailable, decisionQueue;
 
-	const int BUTTON_INFO_FIELDS = 3, BUTTON_COUNT = 2;
+	const int BUTTON_INFO_FIELDS = 2, BUTTON_COUNT = 2;
 
 	public DecisionHolder(TextAsset decisionsFile) {
 		alwaysAvailable = new List<Decision>();
 		unavailable = new List<Decision>();
 		decisionQueue = new List<Decision>();
-		StatNames = new List<string>();
 		string[][] allDecisions = SheetReader.ReadSheet(decisionsFile.text);
-		int fieldsPerButton = 0, fieldsBeforeButtons = 0;
+		int decisionFieldIndex = -1, fieldsPerButton = 0, fieldsBeforeButtons = 0, numResults = 0;
 
 		for (int d = 0; d < allDecisions.Length; d++) {
 
@@ -25,41 +22,42 @@ public class DecisionHolder {
 
 				for (int i = 0; i < allDecisions[d].Length; i++) {
 					string curField = allDecisions[d][i];
+					if (decisionFieldIndex < 0) {
+						if (curField == "Decision") decisionFieldIndex = i;
+						continue;
+					}
 					if (curField.StartsWith("Button:")) {
 						if (!string.IsNullOrEmpty(curButtonName)) break;
 						curButtonName = curField.Replace("Button:", "").Trim();
 						fieldsBeforeButtons = i;
 					}
-					else if (i >= fieldsBeforeButtons + BUTTON_INFO_FIELDS) {
-						StatNames.Add(curField);
-					}
+					else if (i >= fieldsBeforeButtons + BUTTON_INFO_FIELDS) numResults++;
 				}
-				fieldsPerButton = BUTTON_INFO_FIELDS + StatNames.Count;
+				fieldsPerButton = BUTTON_INFO_FIELDS + numResults;
 				continue;   // That's all we want from the first row
 			}
 
-			if (allDecisions[d].Length < 1 || string.IsNullOrEmpty(allDecisions[d][0])) continue; // Invalid row. REJECTED
+			if (allDecisions[d].Length < 1 || string.IsNullOrEmpty(allDecisions[d][decisionFieldIndex])) continue; // Invalid row. REJECTED
 
 			Decision curDec = new Decision() {
-				decisionText = allDecisions[d][0]
+				decisionText = allDecisions[d][decisionFieldIndex]
 			};
 
 			for (int b = 0; b < BUTTON_COUNT; b++) {
 				int i = fieldsBeforeButtons + (b * fieldsPerButton);    // Button info start index
-				int[] curStatEffects = new int[StatNames.Count];
+				List<string> curStatEffects = new List<string>();
 
-				for (int s = 0; s < StatNames.Count; s++) {
+				for (int s = 0; s < numResults; s++) {
 					// Stat effects
 					string curEffect = allDecisions[d][i + BUTTON_INFO_FIELDS + s];
-					if (string.IsNullOrEmpty(curEffect)) continue;
-					int.TryParse(curEffect, out curStatEffects[s]);
+					if (!string.IsNullOrEmpty(curEffect)) curStatEffects.Add(curEffect);
 				}
-				curDec.buttonResults.Add(new Decision.ButtonResult(allDecisions[d][i], allDecisions[d][i + 1], allDecisions[d][i + 2], curStatEffects));
+				curDec.buttonResults.Add(new Decision.ButtonResult(allDecisions[d][i], allDecisions[d][i + 1], curStatEffects));
 			}
 
 			int reqIndex = fieldsBeforeButtons + (BUTTON_COUNT * fieldsPerButton),
 				freeTurnIndex = reqIndex + 1;
-			curDec.SetRequirements(allDecisions[d][reqIndex], StatNames);
+			curDec.SetRequirements(allDecisions[d][reqIndex]);
 			curDec.turnCost = allDecisions[d][freeTurnIndex] == "TRUE" ? 0 : 1;
 
 			(string.IsNullOrEmpty(allDecisions[d][reqIndex]) ? alwaysAvailable : unavailable).Add(curDec);
@@ -68,7 +66,7 @@ public class DecisionHolder {
 		// Set up decision queue
 		decisionQueue.Clear();
 		decisionQueue.InsertRange(0, alwaysAvailable);
-		decisionQueue.Sort((d1, d2) => { // Shuffle it
+		decisionQueue.Sort((d1, d2) => { // Shuffle
 			return Random.value > 0.5f ? 1 : -1;
 		});
 		UpdateAvailableDecisions();
