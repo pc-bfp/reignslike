@@ -29,7 +29,7 @@ public class AudioManager {
 			sfxPool = new RLPool<AudioSource>(allSFX);
 			sfxPool.OnReturned += sfx => sfx.Stop();
 
-			if (audioInfo) {
+			if (audioInfo != null) {
 				sfxSource.outputAudioMixerGroup = audioInfo.sfxGroup;
 				bgmSource.outputAudioMixerGroup = audioInfo.bgmGroup;
 				allSFX.ForEach(sfx => sfx.outputAudioMixerGroup = audioInfo.sfxGroup);
@@ -79,8 +79,8 @@ public class AudioManager {
 
 public enum SFXType { SCRIBBLE };
 
-[CreateAssetMenu(fileName = "AudioInfo", menuName = "Custom/Audio info holder")]
-public class AudioInfoHolder : ScriptableObject {
+[System.Serializable]
+public class AudioInfoHolder {
 	public AudioMixerGroup sfxGroup, bgmGroup;
 	[SerializeField] List<SFXMapper> sfxList;
 

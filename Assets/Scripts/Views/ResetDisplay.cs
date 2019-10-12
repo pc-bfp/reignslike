@@ -39,4 +39,8 @@ public class ResetDisplay : MonoBehaviour {
 		Time.timeScale = isQuickplayOn ? SPEED_QUICK : SPEED_NORMAL;
 		quickplayButton.SetButtonText(string.Format("Turbo {0}", isQuickplayOn ? "ON" : "off"));
 	}
+
+	private void Update() {
+		if (Input.GetKeyUp(KeyCode.Escape)) SetVisible(!animator.GetBool(PARAM_BOOL_VISIBLE));
+	}
 }

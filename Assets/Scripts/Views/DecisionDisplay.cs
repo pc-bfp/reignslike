@@ -10,7 +10,9 @@ public class DecisionDisplay : MonoBehaviour {
 	[SerializeField] Image mainImage;
 	[SerializeField] Sprite placeholder;
 	[SerializeField] List<DecisionButton> decisionButtons;
-	[SerializeField] Button nextButton;
+	[SerializeField] Button nextButton, doodleCreditButton;
+	[SerializeField] Transform doodleCredit;
+	[SerializeField] TextMeshProUGUI doodleCreditText;
 	[SerializeField] float textSpeed = 20f, textDelay = 0.5f;
 
 	public delegate void DecisionMadeEvent(int answerIndex);
@@ -20,6 +22,8 @@ public class DecisionDisplay : MonoBehaviour {
 	public static NextOutcomeEvent OnNextOutcome;
 
 	Animator animator;
+	Vector3 origDoodleCreditScale;
+	string origDoodleCreditText;
 
 	const string ANIM_TRIGGER_SHOW = "Show", ANIM_TRIGGER_BUTTONS = "Buttons", ANIM_TRIGGER_DECIDED = "Decided", ANIM_BOOL_OUTCOME = "Outcome", ANIM_TRIGGER_END = "End";
 
@@ -37,6 +41,16 @@ public class DecisionDisplay : MonoBehaviour {
 			mainImage.preserveAspect = true;
 			mainImage.type = Image.Type.Simple;
 		}
+
+		if (doodleCredit) {
+			origDoodleCreditScale = doodleCredit.localScale;
+			doodleCredit.localScale = Vector3.zero;
+		}
+		if (doodleCreditButton) {
+			doodleCreditButton.onClick.AddListener(() => ShowDoodleCredit(!isShowingCredit));
+			doodleCreditButton.interactable = false;
+		}
+		if (doodleCreditText) origDoodleCreditText = doodleCreditText.text;
 	}
 
 	public void ShowDecision(Decision decision) {
@@ -55,6 +69,7 @@ public class DecisionDisplay : MonoBehaviour {
 
 	void DecisionMade(int buttonIndex) {
 		if (statusText) statusText.text = decisionButtons[buttonIndex].ButtonText;
+		HideImage();
 		StartCoroutine(ActionSandwichCR(() => animator.SetTrigger(ANIM_TRIGGER_DECIDED), () => OnDecisionMade?.Invoke(buttonIndex)));
 	}
 
@@ -74,10 +89,12 @@ public class DecisionDisplay : MonoBehaviour {
 		if (outcomeTween != null && outcomeTween.IsPlaying()) outcomeTween.Complete();
 		if (animator) animator.SetBool(ANIM_BOOL_OUTCOME, false);
 		SetNextButtonState(false);
+		HideImage();
 	}
 
 	public void End(System.Action doOnEnd) {
 		SetNextButtonState(false);
+		HideImage();
 		StartCoroutine(ActionSandwichCR(() => animator.SetTrigger(ANIM_TRIGGER_END), doOnEnd));
 	}
 
@@ -96,5 +113,28 @@ public class DecisionDisplay : MonoBehaviour {
 	void SetImage(Sprite image) {
 		if (!mainImage) return;
 		mainImage.sprite = image ? image : placeholder;
+		if (!image) {
+			doodleCreditButton.interactable = false;
+			return;
+		}
+		int creditIndex = image.name.LastIndexOf(" - ");
+		if (doodleCreditButton.interactable = (creditIndex >= 0)) {
+			creditIndex += 3;
+			if (doodleCreditText) doodleCreditText.text = origDoodleCreditText + image.name.Substring(creditIndex);
+		}
+	}
+
+	void HideImage() {
+		if (!mainImage) return;
+		if (doodleCreditButton) doodleCreditButton.interactable = false;
+		ShowDoodleCredit(false);
+	}
+
+	bool isShowingCredit = false;
+
+	void ShowDoodleCredit(bool doShow) {
+		if (!doodleCredit || isShowingCredit == doShow) return;
+		doodleCredit.DOScale(doShow ? origDoodleCreditScale : Vector3.zero, 0.33f);
+		isShowingCredit = doShow;
 	}
 }
