@@ -71,23 +71,25 @@ public class RLUtilities {
 		return retval;
 	}
 
+	const char TEMP_QUOTE = '¶', ACTUAL_COLUMN_SEPARATOR = '§';
 
 	public static string[][] ReadSheet(string sheetString) {
 		if (string.IsNullOrEmpty(sheetString)) return null;
 
 		// Deal with "enclosed" substrings
-		char tempQuote = '¶', actualColumnSeparator = '§';
-		sheetString = sheetString.Replace("\"\"", tempQuote.ToString());
+		sheetString = sheetString.Replace("\"\"", TEMP_QUOTE.ToString());
 		bool isWithinQuotes = false;
+		List<int> removeCharsAtIndices = new List<int>();
 
 		char[] sheetChars = sheetString.ToCharArray();
 		for (int c = 0; c < sheetChars.Length; c++) {
 			if (sheetChars[c] == '\"') isWithinQuotes = !isWithinQuotes;
-			else if (sheetChars[c] == RLConstants.COLUMN_SEPARATOR && !isWithinQuotes) sheetChars[c] = actualColumnSeparator;
+			else if (sheetChars[c] == RLConstants.COLUMN_SEPARATOR && !isWithinQuotes) sheetChars[c] = ACTUAL_COLUMN_SEPARATOR;
+			else if (sheetChars[c] == RLConstants.ROW_SEPARATOR && isWithinQuotes) sheetChars[c] = '\"';
 		}
-		sheetString = new string(sheetChars).Replace("\"", "").Replace(tempQuote, '\"');
+		sheetString = new string(sheetChars).Replace("\"", "").Replace(TEMP_QUOTE, '\"');
 
-		char[] rowSplit = { RLConstants.ROW_SEPARATOR }, columnSplit = { actualColumnSeparator };
+		char[] rowSplit = { RLConstants.ROW_SEPARATOR }, columnSplit = { ACTUAL_COLUMN_SEPARATOR };
 		string[] rowStrings = sheetString.Split(rowSplit, StringSplitOptions.RemoveEmptyEntries);
 		string[][] retval = new string[rowStrings.Length][];
 
