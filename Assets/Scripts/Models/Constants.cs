@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum StatDisplayType { NUMBER, PROGRESS, ICON }
+
 public class RLConstants {
 	public static char[] STRING_SPLIT_OR = { '/' };
 	public static char[] STRING_SPLIT_AND = { ',' };
