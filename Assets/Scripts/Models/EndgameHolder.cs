@@ -40,6 +40,7 @@ public class Endgame {
 		#endregion
 	}
 
+	public string id;
 	public List<string> summaries = new List<string>(), hints = new List<string>(), learning = new List<string>();
 	public List<MinMaxStat> statConditions = new List<MinMaxStat>(), unlockPath = new List<MinMaxStat>();
 
@@ -78,8 +79,22 @@ public class Endgame {
 
 
 public class EndgameResults {
+	public string id = string.Empty;
 	public Dictionary<string, string> summaryHintMap = new Dictionary<string, string>();
-	public List<string> learning = new List<string>();
+	public List<Learning> learning = new List<Learning>();
+
+	public class Learning {
+		public string LearningID { get; private set; }
+		public string BoldText { get; private set; }
+		public string FollowText { get; private set; }
+
+		public Learning(string learningID, string learningText) {
+			LearningID = learningID;
+			int boldEndIndex = Mathf.Max(0, learningText.IndexOf('\n'));
+			BoldText = boldEndIndex > 0 ? learningText.Substring(0, boldEndIndex) : string.Empty;
+			FollowText = RLUtilities.ApplyBoldItalic(learningText.Substring(boldEndIndex + 1));
+		}
+	}
 }
 
 [System.Serializable]
@@ -132,17 +147,20 @@ public class EndgameHolder {
 						if (curUP != null) curEG.unlockPath.Add(curUP);
 					}
 				}
+				else if (eg == numStats + 1) {
+					curEG.id = curField;
+				}
 				else {
 					List<string> stringList = new List<string>(curField.Split(RLConstants.STRING_SPLIT_OR, System.StringSplitOptions.RemoveEmptyEntries));
 					switch (eg - numStats) {
-					case 1: // Summary
+					case 2: // Summary
 						curEG.summaries = stringList;
-						break;
-					case 2: // Hint
-						curEG.hints = stringList;
 						break;
 					case 3: // Learning outcomes
 						curEG.learning = stringList;
+						break;
+					case 4: // Hint
+						curEG.hints = stringList;
 						break;
 					default: // ???
 						break;
@@ -166,7 +184,7 @@ public class EndgameHolder {
 		// Unlock Paths and Learning Outcomes are easy, just get all that apply
 		validEndgames.ForEach(eg => {
 			maxNumStats = Mathf.Max(maxNumStats, eg.statConditions.Count);
-			if (eg.learning.Count > 0) retval.learning.Add(RLUtilities.RandomFromList(eg.learning));
+			if (eg.learning.Count > 0) retval.learning.Add(new EndgameResults.Learning(eg.id, RLUtilities.RandomFromList(eg.learning)));
 		});
 
 		// Stat-based endgames are a bit trickier though

@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
 
 	[SerializeField] TextAsset decisionsFile, endgameFile, imageSubmissionsFile, imageMapFile;
 	[SerializeField] AudioInfoHolder audioInfo;
-	[SerializeField] int numTurns = 10, initialStatValue = 5, minStatValue = 0, maxStatValue = 10;
+	[SerializeField] int numTurns = 10, editorNumTurns = 10, initialStatValue = 5, minStatValue = 0, maxStatValue = 10;
 	[SerializeField] DecisionDisplay decisionDisplay;
 	[SerializeField] TurnsDisplay turnsDisplay;
 	[SerializeField] List<StatHolder> statHolders;
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator StartCR() {
 		yield return new WaitForSeconds(dramaticPause);
-		turnsDisplay.Initialize(numTurns);
+		turnsDisplay.Initialize(Application.isEditor ? editorNumTurns : numTurns);
 		yield return new WaitForSeconds(turnsDisplay.AnimTime);
 		NextDecision();
 	}

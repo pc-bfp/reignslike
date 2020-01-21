@@ -16,7 +16,7 @@ public class ResetDisplay : MonoBehaviour {
 
 	private void Awake() {
 		animator = GetComponent<Animator>();
-		resetButton.onClick.AddListener(() => RLUtilities.ResetGame());
+		resetButton.onClick.AddListener(() => RLUtilities.ResetScene());
 		quitButton.onClick.AddListener(() => Application.Quit());
 		showButton.onClick.AddListener(() => SetVisible(true));
 		hideButton.onClick.AddListener(() => SetVisible(false));

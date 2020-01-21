@@ -60,6 +60,8 @@ public class ImagesHolder {
 
 			decisionLookup[curDI.decisionID] = curDI;
 		}
+
+		Debug.Log("Processed submissions");
 	}
 
 

@@ -31,7 +31,11 @@ public class RLUtilities {
 		return list[UnityEngine.Random.Range(0, list.Count)];
 	}
 
-	public static void ResetGame() {
+	public static void LoadNextScene() {
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+	}
+
+	public static void ResetScene() {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
@@ -95,8 +99,6 @@ public class RLUtilities {
 
 		for (int r = 0; r < rowStrings.Length; r++) {
 			retval[r] = rowStrings[r].Split(columnSplit, StringSplitOptions.None);
-
-			// Apply bold and italic formatting
 			for (int f = 0; f < retval[r].Length; f++) retval[r][f] = retval[r][f].Trim(RLConstants.TRIM_CHARS);
 		}
 

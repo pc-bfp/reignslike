@@ -5,27 +5,29 @@ using UnityEngine.UI;
 using TMPro;
 
 public class EndgameDisplay : MonoBehaviour {
-	[SerializeField] TextMeshProUGUI resultsText, hintsText, learningText;
-	[SerializeField] Button showLearningButton, hideLearningButton, showHintsButton, hideHintsButton, resetButton;
+	[SerializeField] TextMeshProUGUI resultsText, hintsText;
+	[SerializeField] LearningDisplay learningDisplay;
+	[SerializeField] Button showLearningButton, showHintsButton, hideHintsButton;
 
 	Animator animator;
 
-	const string ANIM_TRIGGER_RESULT = "Result", ANIM_BOOL_HINTS = "Hints", ANIM_BOOL_LEARNING = "Learning";
+	const string ANIM_TRIGGER_RESULT = "Result", ANIM_BOOL_HINTS = "Hints", ANIM_TRIGGER_HIDE = "Hide";
 
 	private void Awake() {
 		animator = GetComponent<Animator>();
-		if (showLearningButton) showLearningButton.onClick.AddListener(() => SetAnimBoolParam(ANIM_BOOL_LEARNING, true));
-		if (hideLearningButton) hideLearningButton.onClick.AddListener(() => SetAnimBoolParam(ANIM_BOOL_LEARNING, false));
 		if (showHintsButton) showHintsButton.onClick.AddListener(() => SetAnimBoolParam(ANIM_BOOL_HINTS, true));
 		if (hideHintsButton) hideHintsButton.onClick.AddListener(() => SetAnimBoolParam(ANIM_BOOL_HINTS, false));
-		if (resetButton) resetButton.onClick.AddListener(() => RLUtilities.ResetGame());
+		if (showLearningButton) showLearningButton.onClick.AddListener(() => {
+			SetAnimBoolParam(ANIM_TRIGGER_HIDE, true);
+			learningDisplay.ShowNext();
+		});
 		gameObject.SetActive(false);
 	}
 
 	public void ShowResults(EndgameResults results) {
 		gameObject.SetActive(true);
 
-		foreach (TextMeshProUGUI text in new TextMeshProUGUI[] { resultsText, hintsText, learningText }) if (text) text.text = string.Empty;
+		foreach (TextMeshProUGUI text in new TextMeshProUGUI[] { resultsText, hintsText }) if (text) text.text = string.Empty;
 
 		void AddStringToText(string str, TextMeshProUGUI text) {
 			if (text && !string.IsNullOrEmpty(str)) text.text += (string.IsNullOrEmpty(text.text) ? string.Empty : "\n") + str;
@@ -35,7 +37,8 @@ public class EndgameDisplay : MonoBehaviour {
 			AddStringToText(summaryHint.Key, resultsText);
 			AddStringToText(summaryHint.Value, hintsText);
 		}
-		results.learning.ForEach(learning => AddStringToText(learning, learningText));
+
+		if (learningDisplay) learningDisplay.Learnings = results.learning;
 
 		if (animator) animator.SetTrigger(ANIM_TRIGGER_RESULT);
 	}
