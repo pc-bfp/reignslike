@@ -1,37 +1,37 @@
 fileFormatVersion: 2
-guid: 140ee4d96b3db6e4582d7f8d89c65277
+guid: f0c55e8e0d401fc49a479066eba8f05d
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 8382625425847801477
-    second: wooden_rectangle
+    second: wooden-buttons_0
   - first:
       213: 7079417023144570718
-    second: wooden_rectangle_pressed
+    second: wooden-buttons_1
   - first:
       213: 2719968687417080001
-    second: wooden_square
+    second: wooden-buttons_2
   - first:
       213: -7422253085969718516
-    second: wooden_square_pressed
+    second: wooden-buttons_3
   - first:
       213: -2373826933490958684
-    second: wooden_circle
+    second: wooden-buttons_4
   - first:
       213: 8019169738657499180
-    second: wooden_circle_pressed
+    second: wooden-buttons_5
   - first:
       213: -7901839971829964752
-    second: wooden_next
+    second: wooden-buttons_6
   - first:
       213: 5535944218388254613
-    second: wooden_next_pressed
+    second: wooden-buttons_7
   - first:
       213: -2430907386829221681
-    second: wooden_hollow
+    second: wooden-buttons_8
   - first:
-      213: 6515093153924733673
-    second: wooden-buttons_next
+      213: -2771999944607661779
+    second: wooden-buttons_9
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -66,7 +66,7 @@ TextureImporter:
     mipBias: -100
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -88,7 +88,7 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -99,7 +99,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,7 +111,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -121,7 +123,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -132,11 +135,33 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wooden_rectangle
+      name: wooden-buttons_0
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 719
+        width: 37
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b40c49ae6c0fa3479162d7defe9f010
+      internalID: 8382625425847801477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden-buttons_1
       rect:
         serializedVersion: 2
         x: 57
@@ -145,19 +170,19 @@ TextureImporter:
         height: 141
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 31, y: 43, z: 33, w: 31}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6007308f033c7c948b439816ee7031ba
-      internalID: 8382625425847801477
+      spriteID: 280c90e561c7a5b4682bbce127875d16
+      internalID: 7079417023144570718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wooden_rectangle_pressed
+      name: wooden-buttons_2
       rect:
         serializedVersion: 2
         x: 433
@@ -166,19 +191,19 @@ TextureImporter:
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 31, y: 30, z: 33, w: 44}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f52ea0a458628dd4da6c129a1d67cfdb
-      internalID: 7079417023144570718
+      spriteID: 0871b034f919cc04fa713ec6f748def9
+      internalID: 2719968687417080001
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wooden_square
+      name: wooden-buttons_3
       rect:
         serializedVersion: 2
         x: 65
@@ -192,14 +217,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f14dd7bd7253d74ab0a11e97d701909
-      internalID: 2719968687417080001
+      spriteID: 69a33cfa975243041b5fbb9ede80b2f9
+      internalID: -7422253085969718516
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wooden_square_pressed
+      name: wooden-buttons_4
       rect:
         serializedVersion: 2
         x: 233
@@ -213,41 +238,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: daea2d05856950346847ff20f1cf28c0
-      internalID: -7422253085969718516
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wooden_circle
-      rect:
-        serializedVersion: 2
-        x: 436
-        y: 315
-        width: 136
-        height: 146
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3d81fe9f732825241b017f03ee17d189
+      spriteID: d7878498d9435ca4db8ecd5ed61e0de3
       internalID: -2373826933490958684
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wooden_circle_pressed
+      name: wooden-buttons_5
       rect:
         serializedVersion: 2
-        x: 602
-        y: 315
-        width: 135
-        height: 135
+        x: 436
+        y: 314
+        width: 136
+        height: 147
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,19 +259,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 191f24b96483fd44798e87428ae93e4c
+      spriteID: fb967633f57a9a94d8ea0a60d60d7742
       internalID: 8019169738657499180
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wooden_next
+      name: wooden-buttons_6
+      rect:
+        serializedVersion: 2
+        x: 602
+        y: 314
+        width: 136
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1256b3eff4123a44e81798ad58169f41
+      internalID: -7901839971829964752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden-buttons_7
       rect:
         serializedVersion: 2
         x: 86
         y: 107
-        width: 107
+        width: 108
         height: 142
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -276,20 +301,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b035b3485960a5d418404c2ffdecea42
-      internalID: -7901839971829964752
+      spriteID: d7667503373008a478aeb8d44ccd5de2
+      internalID: 5535944218388254613
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wooden_next_pressed
+      name: wooden-buttons_8
       rect:
         serializedVersion: 2
         x: 233
-        y: 107
+        y: 108
         width: 107
-        height: 128
+        height: 127
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -297,14 +322,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba42e6167fea6e54b9fe7d075011cd72
-      internalID: 5535944218388254613
+      spriteID: 0d479add5a324d6499715245791b2f1f
+      internalID: -2430907386829221681
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wooden_hollow
+      name: wooden-buttons_9
       rect:
         serializedVersion: 2
         x: 433
@@ -313,34 +338,13 @@ TextureImporter:
         height: 138
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 33, y: 39, z: 33, w: 39}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8c4e3d7493da4194289fde72e98d89f4
-      internalID: -2430907386829221681
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wooden-buttons_next
-      rect:
-        serializedVersion: 2
-        x: 387
-        y: 719
-        width: 38
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7201b2c50569cbe46a5bc6484fcf047e
-      internalID: 6515093153924733673
+      spriteID: 8f2e86cde5430af46bae089ecdb822e9
+      internalID: -2771999944607661779
       vertices: []
       indices: 
       edges: []
@@ -348,7 +352,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4dbcb125f0a61f947aaa7c53072b973b
+    spriteID: e1b5e8b4c3890114f994890942840e56
     internalID: 0
     vertices: []
     indices: 

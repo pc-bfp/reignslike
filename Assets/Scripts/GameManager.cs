@@ -33,7 +33,9 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] int numTurns = 10, editorNumTurns = 10, initialStatValue = 5, minStatValue = 0, maxStatValue = 10;
 	[SerializeField] DecisionDisplay decisionDisplay;
 	[SerializeField] TurnsDisplay turnsDisplay;
+	[SerializeField] GameObject statsObject;
 	[SerializeField] List<StatHolder> statHolders;
+	[SerializeField] StoryView introDisplay, outroDisplay;
 	[SerializeField] EndgameDisplay endgameDisplay;
 	[SerializeField] float dramaticPause = 0.5f, timeBetweenStatUpdates = 0.25f;
 	[SerializeField] AudioClip bgmClip;
@@ -49,9 +51,23 @@ public class GameManager : MonoBehaviour {
 		RLUtilities.Initialize();
 		AudioManager.Initialize(audioInfo);
 		Instance = this;
+		if (introDisplay) {
+			decisionDisplay.gameObject.SetActive(false);
+			statsObject.SetActive(false);
+		}
 	}
 
 	void Start() {
+		if (introDisplay) {
+			introDisplay.Begin();
+			introDisplay.OnCompleted += Activate;
+		}
+		else Activate();
+	}
+
+	void Activate() {
+		decisionDisplay.gameObject.SetActive(true);
+		statsObject.SetActive(true);
 		statHolders.ForEach(sh => sh.Initialize(initialStatValue));
 		CurGameState = new GameState() { stats = new int[statHolders.Count] };
 		for (int s = 0; s < CurGameState.stats.Length; s++) CurGameState.stats[s] = initialStatValue;
@@ -129,9 +145,17 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (turnsDisplay.NumTurns <= 0) {
-			if (endgameDisplay) endgameDisplay.ShowResults(endgameHolder.GetResults());
+			if (outroDisplay) {
+				outroDisplay.Begin();
+				outroDisplay.OnCompleted += ShowEndgame;
+			}
+			else ShowEndgame();
 		}
 		else NextDecision();
+	}
+
+	void ShowEndgame() {
+		if (endgameDisplay) endgameDisplay.ShowResults(endgameHolder.GetResults());
 	}
 }
 

@@ -4,24 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
+[System.Serializable]
 public class TextImage {
-	public string Text { get; private set; }
-	public Sprite Image { get; private set; }
+	[Multiline] public string text;
+	[Multiline] public List<string> extraText;
+	public Sprite image;
+	public List<Sprite> extraImages;
 
 	public TextImage(string text, Sprite image) {
-		Text = text;
-		Image = image;
+		this.text = text;
+		this.image = image;
 	}
 }
 
-
 public class TextImageDisplay : MonoBehaviour {
-	[SerializeField] TextMeshProUGUI displayText;
-	[SerializeField] Image displayImage;
-	[SerializeField] GameObject textHolder, imageHolder;
+	public TextMeshProUGUI displayText;
+	public Image displayImage;
 	[SerializeField] Button nextButton;
 	[SerializeField] float nextTimeDelay = 1f;
+	[SerializeField] bool autoHideOnNext = true;
 
 	public delegate void NextEvent();
 	public NextEvent OnNext;
@@ -41,8 +42,6 @@ public class TextImageDisplay : MonoBehaviour {
 	private void Awake() {
 		animator = GetComponent<Animator>();
 		if (nextButton) nextButton.onClick.AddListener(NextPressed);
-		if (displayText && !textHolder) textHolder = displayText.gameObject;
-		if (displayImage && !imageHolder) imageHolder = displayImage.gameObject;
 	}
 
 	public void ShowText(string text) {
@@ -73,8 +72,10 @@ public class TextImageDisplay : MonoBehaviour {
 
 	void NextPressed() {
 		if (!isShowingText && !isShowingImage) return;
-		HideText();
-		HideImage();
+		if (autoHideOnNext) {
+			HideText();
+			HideImage();
+		}
 		OnNext?.Invoke();
 	}
 }
