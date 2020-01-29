@@ -25,13 +25,19 @@ TextureImporter:
     second: wooden-buttons_6
   - first:
       213: 5535944218388254613
-    second: wooden-buttons_7
+    second: wooden-buttons_right
   - first:
       213: -2430907386829221681
-    second: wooden-buttons_8
+    second: wooden-buttons_right-pressed
   - first:
       213: -2771999944607661779
     second: wooden-buttons_9
+  - first:
+      213: -2534872311540445952
+    second: wooden-buttons_up
+  - first:
+      213: 351186532592907616
+    second: wooden-buttons_up-pressed
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -148,7 +154,7 @@ TextureImporter:
         width: 37
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -169,7 +175,7 @@ TextureImporter:
         width: 311
         height: 141
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -190,7 +196,7 @@ TextureImporter:
         width: 311
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -211,7 +217,7 @@ TextureImporter:
         width: 128
         height: 141
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -232,7 +238,7 @@ TextureImporter:
         width: 129
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -253,7 +259,7 @@ TextureImporter:
         width: 136
         height: 147
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -274,7 +280,7 @@ TextureImporter:
         width: 136
         height: 136
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -287,7 +293,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wooden-buttons_7
+      name: wooden-buttons_right
       rect:
         serializedVersion: 2
         x: 86
@@ -295,7 +301,7 @@ TextureImporter:
         width: 108
         height: 142
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -308,7 +314,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wooden-buttons_8
+      name: wooden-buttons_right-pressed
       rect:
         serializedVersion: 2
         x: 233
@@ -316,7 +322,7 @@ TextureImporter:
         width: 107
         height: 127
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -337,7 +343,7 @@ TextureImporter:
         width: 311
         height: 138
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -345,6 +351,48 @@ TextureImporter:
       bones: []
       spriteID: 8f2e86cde5430af46bae089ecdb822e9
       internalID: -2771999944607661779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden-buttons_up
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 737
+        width: 142
+        height: 108
+      alignment: 9
+      pivot: {x: 0.55, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 588b121caf1932747b40a67fc68f2b71
+      internalID: -2534872311540445952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden-buttons_up-pressed
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 736
+        width: 128
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52902c89b518fba47a83791dbc506b71
+      internalID: 351186532592907616
       vertices: []
       indices: 
       edges: []

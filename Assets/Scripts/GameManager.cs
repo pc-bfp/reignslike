@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 	public static GameManager Instance { get; private set; }
 
 	[System.Serializable]
-	class StatHolder {
+	public class StatHolder {
 		[SerializeField] string statName;
 		public StatDisplay display;
 		public int Value {
@@ -22,15 +22,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public GameState CurGameState { get; private set; }
-	public int MinStatValue { get { return minStatValue; } }
-	public int MaxStatValue { get { return maxStatValue; } }
+	public int MinStatValue { get; set; }
+	public int MaxStatValue { get; set; }
 
 	public delegate void DecisionTakenEvent();
 	public DecisionTakenEvent OnDecisionTaken;
 
 	[SerializeField] TextAsset decisionsFile, endgameFile, imageSubmissionsFile, imageMapFile;
 	[SerializeField] AudioInfoHolder audioInfo;
-	[SerializeField] int numTurns = 10, editorNumTurns = 10, initialStatValue = 5, minStatValue = 0, maxStatValue = 10;
+	[SerializeField] SetupDisplay setupDisplay;
 	[SerializeField] DecisionDisplay decisionDisplay;
 	[SerializeField] TurnsDisplay turnsDisplay;
 	[SerializeField] GameObject statsObject;
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
 	Decision curDecision;
 	bool isDecisionMade = false, canShowNextOutcome = false;
 	Decision.ButtonResult curResult;
-	int curStatEffectIndex = -1;
+	int numTurns = 10, curStatEffectIndex = -1;
 
 	void Awake() {
 		RLUtilities.Initialize();
@@ -59,18 +59,28 @@ public class GameManager : MonoBehaviour {
 
 	void Start() {
 		if (introDisplay) {
-			introDisplay.Begin();
-			introDisplay.OnCompleted += Activate;
+			introDisplay.Activate();
+			introDisplay.OnCompleted += Setup;
+		}
+		else Setup();
+	}
+
+	void Setup() {
+		statsObject.SetActive(true);
+		if (setupDisplay) {
+			setupDisplay.Activate(statHolders);
+			setupDisplay.OnCompleted += () => {
+				numTurns = setupDisplay.NumTurns;
+				Activate();
+			};
 		}
 		else Activate();
 	}
 
 	void Activate() {
 		decisionDisplay.gameObject.SetActive(true);
-		statsObject.SetActive(true);
-		statHolders.ForEach(sh => sh.Initialize(initialStatValue));
 		CurGameState = new GameState() { stats = new int[statHolders.Count] };
-		for (int s = 0; s < CurGameState.stats.Length; s++) CurGameState.stats[s] = initialStatValue;
+		for (int s = 0; s < CurGameState.stats.Length; s++) CurGameState.stats[s] = statHolders[s].Value;
 		ImagesHolder.Initialize(imageSubmissionsFile, imageMapFile);
 		decisionsHolder = new DecisionHolder(decisionsFile);
 		endgameHolder = new EndgameHolder(endgameFile);
@@ -83,7 +93,7 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator StartCR() {
 		yield return new WaitForSeconds(dramaticPause);
-		turnsDisplay.Initialize(Application.isEditor ? editorNumTurns : numTurns);
+		turnsDisplay.Initialize(numTurns);
 		yield return new WaitForSeconds(turnsDisplay.AnimTime);
 		NextDecision();
 	}
@@ -146,7 +156,7 @@ public class GameManager : MonoBehaviour {
 
 		if (turnsDisplay.NumTurns <= 0) {
 			if (outroDisplay) {
-				outroDisplay.Begin();
+				outroDisplay.Activate();
 				outroDisplay.OnCompleted += ShowEndgame;
 			}
 			else ShowEndgame();

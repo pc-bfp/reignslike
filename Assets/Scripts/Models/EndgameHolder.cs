@@ -17,7 +17,17 @@ public class Endgame {
 		}
 
 		public bool IsWithinBounds() {
-			return GameManager.Instance.CurGameState.stats[statIndex] > minValue - (minInclusive ? 1 : 0) && GameManager.Instance.CurGameState.stats[statIndex] < maxValue + (maxInclusive ? 1 : 0);
+			int curStat = GameManager.Instance.CurGameState.stats[statIndex];
+			return curStat > minValue - (minInclusive ? 1 : 0) && curStat < maxValue + (maxInclusive ? 1 : 0);
+		}
+
+		// Scale min, max from range [0,10] to current range
+		public void AdjustMinMaxValues() {
+			int AdjustValue(int value) {
+				return Mathf.RoundToInt(Mathf.Lerp(GameManager.Instance.MinStatValue, GameManager.Instance.MaxStatValue, Mathf.InverseLerp(value, 0, 10)));
+			}
+			minValue = AdjustValue(minValue);
+			maxValue = AdjustValue(maxValue);
 		}
 
 		#region IEquatable_IMPLEMENTATION
@@ -118,6 +128,7 @@ public class EndgameHolder {
 					&& int.TryParse(range.Substring(range.IndexOf("-") + 1), out retval.maxValue);
 				retval.minInclusive = retval.maxInclusive = true;
 			}
+			if (isValid) retval.AdjustMinMaxValues();
 			return isValid ? retval : null;
 		}
 

@@ -22,7 +22,7 @@ public class StoryView : MonoBehaviour {
 		gameObject.SetActive(false);
 	}
 
-	public void Begin() {
+	public void Activate() {
 		gameObject.SetActive(true);
 		OnNext();
 	}

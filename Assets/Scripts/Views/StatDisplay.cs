@@ -10,6 +10,8 @@ public class StatDisplay : MonoBehaviour {
 	[SerializeField] Gradient valueGradient;
 	[SerializeField] Image applyValueColor;
 	[SerializeField] AudioClip sfxUp, sfxDown;
+	[SerializeField] GameObject setupButtonHolder;
+	[SerializeField] Button upButton, downButton;
 
 	public int StatValue { get; private set; }
 
@@ -27,12 +29,14 @@ public class StatDisplay : MonoBehaviour {
 
 	void Awake() {
 		animator = GetComponent<Animator>();
+		if (upButton) upButton.onClick.AddListener(() => IncrementValue(true));
+		if (downButton) downButton.onClick.AddListener(() => IncrementValue(false));
 	}
 
 	const string UPDATE_PARAM_BOOL = "Updating";
 
 	public void SetValue(int newValue, int updateValue = 0) {
-		StatValue = newValue;
+		StatValue = Mathf.Clamp(newValue, GameManager.Instance.MinStatValue, GameManager.Instance.MaxStatValue);
 		if (statValueText) statValueText.text = newValue.ToString();
 		if (applyValueColor) applyValueColor.color = valueGradient.Evaluate(newValue / (float)GameManager.Instance.MaxStatValue);
 		if (updateValue != 0) {
@@ -45,6 +49,15 @@ public class StatDisplay : MonoBehaviour {
 
 	public void EndSetValue() {
 		if (animator) animator.SetBool(UPDATE_PARAM_BOOL, false);
+	}
+
+	public void SetButtonVisibility(bool isVisible) {
+		if (setupButtonHolder) setupButtonHolder.SetActive(isVisible);
+	}
+
+	void IncrementValue(bool up) {
+		int newValue = Mathf.Clamp(StatValue + (up ? 1 : -1), GameManager.Instance.MinStatValue, GameManager.Instance.MaxStatValue);
+		if (newValue != StatValue) SetValue(newValue);
 	}
 
 	//void Update() {
