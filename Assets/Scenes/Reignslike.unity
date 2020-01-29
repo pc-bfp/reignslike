@@ -9166,6 +9166,7 @@ MonoBehaviour:
   endgameDisplay: {fileID: 522174029}
   dramaticPause: 0.5
   timeBetweenStatUpdates: 0.5
+  introBgmCClip: {fileID: 8300000, guid: 6e97d65582293fa47b5a66793b72ca17, type: 3}
   bgmClip: {fileID: 8300000, guid: 3b78d9b43d3cfc04c9928fa073b70d30, type: 3}
 --- !u!4 &1989752685
 Transform:

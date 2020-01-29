@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] StoryView introDisplay, outroDisplay;
 	[SerializeField] EndgameDisplay endgameDisplay;
 	[SerializeField] float dramaticPause = 0.5f, timeBetweenStatUpdates = 0.25f;
-	[SerializeField] AudioClip bgmClip;
+	[SerializeField] AudioClip introBgmCClip, bgmClip;
 
 	DecisionHolder decisionsHolder;
 	EndgameHolder endgameHolder;
@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour {
 			introDisplay.OnCompleted += Setup;
 		}
 		else Setup();
+		AudioManager.PlayBGM(introBgmCClip);
 	}
 
 	void Setup() {
@@ -92,6 +93,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	IEnumerator StartCR() {
+		AudioManager.PauseBGM(true);
 		yield return new WaitForSeconds(dramaticPause);
 		turnsDisplay.Initialize(numTurns);
 		yield return new WaitForSeconds(turnsDisplay.AnimTime);
