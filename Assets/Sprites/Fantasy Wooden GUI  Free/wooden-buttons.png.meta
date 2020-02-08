@@ -13,10 +13,10 @@ TextureImporter:
     second: wooden-buttons_2
   - first:
       213: -7422253085969718516
-    second: wooden-buttons_3
+    second: wooden-button-small
   - first:
       213: -2373826933490958684
-    second: wooden-buttons_4
+    second: wooden-button-small-pressed
   - first:
       213: 8019169738657499180
     second: wooden-buttons_5
@@ -38,6 +38,15 @@ TextureImporter:
   - first:
       213: 351186532592907616
     second: wooden-buttons_up-pressed
+  - first:
+      213: 3267181357846083150
+    second: white-button-up
+  - first:
+      213: -742696312585184853
+    second: white-button-down
+  - first:
+      213: -8490535697745676852
+    second: wooden-button-white-small
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -209,7 +218,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wooden-buttons_3
+      name: wooden-button-small
       rect:
         serializedVersion: 2
         x: 65
@@ -218,7 +227,7 @@ TextureImporter:
         height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 60, y: 66, z: 60, w: 66}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -230,16 +239,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wooden-buttons_4
+      name: wooden-button-small-pressed
       rect:
         serializedVersion: 2
         x: 233
         y: 324
         width: 129
-        height: 128
+        height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 60, y: 66, z: 60, w: 66}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -363,8 +372,8 @@ TextureImporter:
         y: 737
         width: 142
         height: 108
-      alignment: 9
-      pivot: {x: 0.55, y: 0.5}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -384,7 +393,7 @@ TextureImporter:
         y: 736
         width: 128
         height: 107
-      alignment: 9
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -393,6 +402,69 @@ TextureImporter:
       bones: []
       spriteID: 52902c89b518fba47a83791dbc506b71
       internalID: 351186532592907616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white-button-up
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 737
+        width: 141
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59ab1df5b00dbd644aaaaa484ac50bef
+      internalID: 3267181357846083150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white-button-down
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 735
+        width: 142
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08ba4a49398c0e345ae0180e82eee4c0
+      internalID: -742696312585184853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden-button-white-small
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 324
+        width: 128
+        height: 141
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 60, y: 66, z: 60, w: 66}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db1432e686fa3994db8803e0717c0bfb
+      internalID: -8490535697745676852
       vertices: []
       indices: 
       edges: []

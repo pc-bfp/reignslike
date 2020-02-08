@@ -69,8 +69,9 @@ public class Decision {
 		public string buttonText;
 		public List<string> unlockAdd, unlockRemove;
 		public List<StatEffect> statEffects;
+		public float pressTime;
 
-		public ButtonResult(string buttonText, string unlocks, List<string> statEffectFields, List<Sprite> statImages) {
+		public ButtonResult(string buttonText, string unlocks, List<string> statEffectFields, List<Sprite> statImages, float pressTime = 0) {
 			this.buttonText = buttonText;
 			unlockAdd = new List<string>();
 			unlockRemove = new List<string>();
@@ -93,6 +94,7 @@ public class Decision {
 	public List<string> unlockedRequirements = new List<string>(), lockedRequirements = new List<string>();
 	public IntRange doWithinTurns = null;
 	public int turnCost = 1;
+	public bool requireConfirmation = false;
 
 	public bool IsRecurring { get; private set; }
 

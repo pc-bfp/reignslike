@@ -5,11 +5,13 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
+
 public class DecisionDisplay : MonoBehaviour {
 	[SerializeField] TextMeshProUGUI decisionText, statusText, outcomeText;
 	[SerializeField] Image mainImage;
 	[SerializeField] Sprite placeholder;
 	[SerializeField] List<DecisionButton> decisionButtons;
+	[SerializeField] DecisionButton confirmButton;
 	[SerializeField] Button nextButton, doodleCreditButton;
 	[SerializeField] Transform doodleCredit;
 	[SerializeField] TextMeshProUGUI doodleCreditText;
@@ -31,6 +33,7 @@ public class DecisionDisplay : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		for (int d = 0; d < decisionButtons.Count; d++) {
 			decisionButtons[d].ButtonIndex = d;
+			decisionButtons[d].HoldTime = 2f;
 			decisionButtons[d].OnButtonPressed += DecisionMade;
 		}
 		if (nextButton) {
