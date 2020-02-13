@@ -15,7 +15,7 @@ public class DecisionDisplay : MonoBehaviour {
 	[SerializeField] Button nextButton, doodleCreditButton;
 	[SerializeField] Transform doodleCredit;
 	[SerializeField] TextMeshProUGUI doodleCreditText;
-	[SerializeField] float textSpeed = 20f, textDelay = 0.5f;
+	[SerializeField] float textSpeed = 20f, textDelay = 0.5f, buttonHoldTime = 1f;
 
 	public delegate void DecisionMadeEvent(int answerIndex);
 	public static DecisionMadeEvent OnDecisionMade;
@@ -33,7 +33,7 @@ public class DecisionDisplay : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		for (int d = 0; d < decisionButtons.Count; d++) {
 			decisionButtons[d].ButtonIndex = d;
-			decisionButtons[d].HoldTime = 2f;
+			decisionButtons[d].HoldTime = buttonHoldTime;
 			decisionButtons[d].OnButtonPressed += DecisionMade;
 		}
 		if (nextButton) {
