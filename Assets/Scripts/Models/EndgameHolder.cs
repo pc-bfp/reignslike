@@ -24,7 +24,11 @@ public class Endgame {
 		// Scale min, max from range [0,10] to current range
 		public void AdjustMinMaxValues() {
 			int AdjustValue(int value) {
-				return Mathf.RoundToInt(Mathf.Lerp(GameManager.Instance.MinStatValue, GameManager.Instance.MaxStatValue, Mathf.InverseLerp(value, 0, 10)));
+				//float retval = value;
+				//retval = Mathf.InverseLerp(0, 10, retval);
+				//retval = Mathf.Lerp(GameManager.Instance.MinStatValue, GameManager.Instance.MaxStatValue, retval);
+				//return Mathf.RoundToInt(retval);
+				return Mathf.RoundToInt(Mathf.Lerp(GameManager.Instance.MinStatValue, GameManager.Instance.MaxStatValue, Mathf.InverseLerp(0, 10, value)));
 			}
 			minValue = AdjustValue(minValue);
 			maxValue = AdjustValue(maxValue);
@@ -188,7 +192,9 @@ public class EndgameHolder {
 
 	public EndgameResults GetResults() {
 		EndgameResults retval = new EndgameResults();
-		List<Endgame> validEndgames = endgames.FindAll(eg => eg.StatConditionsMet && eg.UnlockPathComplete);
+		List<Endgame> validEndgames = endgames.FindAll(eg => {
+			return eg.StatConditionsMet && eg.UnlockPathComplete;
+		});
 
 		int maxNumStats = 0;
 
