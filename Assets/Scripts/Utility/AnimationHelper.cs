@@ -7,10 +7,10 @@ public class AnimationHelper : MonoBehaviour {
 	[SerializeField] float minVolume = 1, maxVolume = 1;
 
 	public void PlaySound(AudioClip clip) {
-		AudioManager.PlayOneShot(clip, minVolume, maxVolume);
+		AudioManager.PlayOneShot(clip, false, minVolume, maxVolume);
 	}
 
 	public void PlayRandomSound() {
-		AudioManager.PlayOneShot(randomClips, minVolume, maxVolume);
+		AudioManager.PlayOneShot(randomClips, false, minVolume, maxVolume);
 	}
 }

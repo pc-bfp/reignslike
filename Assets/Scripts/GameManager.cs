@@ -36,44 +36,60 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] GameObject statsObject;
 	[SerializeField] List<StatHolder> statHolders;
 	[SerializeField] StoryView introDisplay, outroDisplay;
+	[SerializeField] string prefTurns, prefStatMin, prefStatMax, prefStatStart;
+	[SerializeField] bool playStoryOnlyOnce = true;
 	[SerializeField] EndgameDisplay endgameDisplay;
 	[SerializeField] float dramaticPause = 0.5f, timeBetweenStatUpdates = 0.25f;
 	[SerializeField] AudioClip introBgmCClip, bgmClip;
 
+	static bool introPlayed = false, outroPlayed = false;
+
 	DecisionHolder decisionsHolder;
 	EndgameHolder endgameHolder;
 	Decision curDecision;
-	bool isDecisionMade = false, canShowNextOutcome = false;
+	bool isDecisionMade = false, canShowNextOutcome = false, doPlayIntro = false, doPlayOutro = false;
 	Decision.ButtonResult curResult;
 	int numTurns = 10, curStatEffectIndex = -1;
 
 	void Awake() {
-		RLUtilities.Initialize();
-		AudioManager.Initialize(audioInfo);
+		if (!Instance) {
+			RLUtilities.Initialize();
+			AudioManager.Initialize(audioInfo);
+		}
 		Instance = this;
-		if (introDisplay) {
+		doPlayIntro = introDisplay && (!playStoryOnlyOnce || !introPlayed);
+		doPlayOutro = outroDisplay && (!playStoryOnlyOnce || !outroPlayed);
+		if (doPlayIntro) {
 			decisionDisplay.gameObject.SetActive(false);
 			statsObject.SetActive(false);
 		}
+		AudioManager.PauseBGM(true);
 	}
 
 	void Start() {
-		if (introDisplay) {
+		if (doPlayIntro) {
+			introPlayed = true;
+			AudioManager.PlayBGM(introBgmCClip);
 			introDisplay.Activate();
-			introDisplay.OnCompleted += Setup;
+			introDisplay.OnCompleted += () => {
+				Setup();
+			};
 		}
-		else Setup();
-		AudioManager.PlayBGM(introBgmCClip);
+		else {
+			if (introDisplay) introDisplay.gameObject.SetActive(false);
+			Setup();
+		}
+		print(Application.persistentDataPath);
 	}
 
 	void Setup() {
 		statsObject.SetActive(true);
 		if (setupDisplay) {
-			setupDisplay.Activate(statHolders);
 			setupDisplay.OnCompleted += () => {
 				numTurns = setupDisplay.NumTurns;
 				Activate();
 			};
+			setupDisplay.Initialize(statHolders);
 		}
 		else Activate();
 	}
@@ -86,9 +102,7 @@ public class GameManager : MonoBehaviour {
 		decisionsHolder = new DecisionHolder(decisionsFile);
 		endgameHolder = new EndgameHolder(endgameFile);
 		DecisionDisplay.OnDecisionMade += OnDecisionMade;
-		DecisionDisplay.OnNextOutcome += () => {
-			if (canShowNextOutcome) StartCoroutine(NextOutcomeCR());
-		};
+		DecisionDisplay.OnNextOutcome += NextOutcome;
 		StartCoroutine(StartCR());
 	}
 
@@ -96,7 +110,8 @@ public class GameManager : MonoBehaviour {
 		AudioManager.PauseBGM(true);
 		yield return new WaitForSeconds(dramaticPause);
 		turnsDisplay.Initialize(numTurns);
-		yield return new WaitForSeconds(turnsDisplay.AnimTime);
+		yield return new WaitForSeconds(turnsDisplay.AnimDelayTime);
+		AudioManager.PlayBGM(bgmClip);
 		NextDecision();
 	}
 
@@ -104,7 +119,6 @@ public class GameManager : MonoBehaviour {
 		isDecisionMade = false;
 		curDecision = decisionsHolder.GetDecision();
 		decisionDisplay.ShowDecision(curDecision);
-		AudioManager.PlayBGM(bgmClip);
 	}
 
 	void OnDecisionMade(int answerIndex) {
@@ -121,6 +135,9 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine(NextOutcomeCR());
 	}
 
+	void NextOutcome() {
+		if (canShowNextOutcome) StartCoroutine(NextOutcomeCR());
+	}
 
 	IEnumerator NextOutcomeCR() {
 		canShowNextOutcome = false;
@@ -144,8 +161,12 @@ public class GameManager : MonoBehaviour {
 		else {
 			// Decision end
 			yield return new WaitForSeconds(timeBetweenStatUpdates);
-			decisionDisplay.End(() => StartCoroutine(EndDecisionCR()));
+			decisionDisplay.End(() => EndDecision());
 		}
+	}
+
+	void EndDecision() {
+		StartCoroutine(EndDecisionCR());
 	}
 
 	IEnumerator EndDecisionCR() {
@@ -153,11 +174,12 @@ public class GameManager : MonoBehaviour {
 
 		if (curDecision.turnCost > 0) {
 			turnsDisplay.ReduceTurns(curDecision.turnCost);
-			yield return new WaitForSeconds(turnsDisplay.AnimTime);
+			yield return new WaitForSeconds(turnsDisplay.AnimDelayTime);
 		}
 
 		if (turnsDisplay.NumTurns <= 0) {
-			if (outroDisplay) {
+			if (doPlayOutro) {
+				outroPlayed = true;
 				outroDisplay.Activate();
 				outroDisplay.OnCompleted += ShowEndgame;
 			}
@@ -169,6 +191,17 @@ public class GameManager : MonoBehaviour {
 	void ShowEndgame() {
 		if (endgameDisplay) endgameDisplay.ShowResults(endgameHolder.GetResults());
 	}
+
+	private void OnDestroy() {
+		DecisionDisplay.OnDecisionMade -= OnDecisionMade;
+		DecisionDisplay.OnNextOutcome -= NextOutcome;
+	}
+
+#if UNITY_EDITOR
+	private void OnGUI() {
+		if (GUILayout.Button("Reset PlayerPrefs")) PlayerPrefs.DeleteAll();
+	}
+#endif
 }
 
 [System.Serializable]

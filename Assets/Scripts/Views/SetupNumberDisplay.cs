@@ -25,13 +25,13 @@ public class SetupNumberDisplay : MonoBehaviour {
 		}
 	}
 	int _value = int.MaxValue;
-
+	
 	bool isInitialized = false;
 
 	public delegate void ValueChangeEvent(int newValue);
 	public ValueChangeEvent OnValueChanged;
 
-	private void Awake() {
+	public void Initialize() {
 		if (!string.IsNullOrEmpty(prefSaveName) && PlayerPrefs.HasKey(prefSaveName)) Value = PlayerPrefs.GetInt(prefSaveName);
 		else Value = defaultValue;
 		if (buttonUp) buttonUp.onClick.AddListener(() => ChangeValue(true));

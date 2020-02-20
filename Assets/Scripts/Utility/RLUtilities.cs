@@ -35,7 +35,8 @@ public class RLUtilities {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
-	public static void ResetScene() {
+	public static void ResetScene(bool withSetup = false) {
+		SetupDisplay.DoShowSetup = withSetup;
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 

@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 
 public class AudioManager {
-	static AudioSource sfxSource, bgmSource;
+	static AudioSource sfxSource, sfxPrioritySource, bgmSource;
 	static RLPool<AudioSource> sfxPool;
 	static AudioInfoHolder audioInfo;
 
@@ -14,11 +14,12 @@ public class AudioManager {
 	class AudioHolder : MonoBehaviour {
 		void Awake() {
 			sfxSource = gameObject.AddComponent<AudioSource>();
+			sfxPrioritySource = gameObject.AddComponent<AudioSource>();
 			bgmSource = gameObject.AddComponent<AudioSource>();
 
-			sfxSource.loop = false;
+			sfxSource.loop = sfxPrioritySource.loop = false;
 			bgmSource.loop = true;
-			sfxSource.playOnAwake = bgmSource.playOnAwake = false;
+			sfxSource.playOnAwake = sfxPrioritySource.playOnAwake = bgmSource.playOnAwake = false;
 
 			List<AudioSource> allSFX = new List<AudioSource>();
 			for (int i = 0; i < SFX_POOL_SIZE; i++) {
@@ -31,6 +32,7 @@ public class AudioManager {
 
 			if (audioInfo != null) {
 				sfxSource.outputAudioMixerGroup = audioInfo.sfxGroup;
+				sfxPrioritySource.outputAudioMixerGroup = audioInfo.sfxPriorityGroup;
 				bgmSource.outputAudioMixerGroup = audioInfo.bgmGroup;
 				allSFX.ForEach(sfx => sfx.outputAudioMixerGroup = audioInfo.sfxGroup);
 			}
@@ -47,10 +49,11 @@ public class AudioManager {
 	}
 
 	public static void PlayBGM(AudioClip bgmClip) {
-		if (!bgmClip || bgmSource.clip == bgmClip) return;
+		if (!bgmClip || (bgmSource.isPlaying && bgmSource.clip == bgmClip)) return;
 		bgmSource.Stop();
 		bgmSource.clip = bgmClip;
 		bgmSource.Play();
+		bgmSource.UnPause();
 	}
 
 	public static void PauseBGM(bool doPause) {
@@ -58,14 +61,14 @@ public class AudioManager {
 		else bgmSource.UnPause();
 	}
 
-	public static void PlayOneShot(AudioClip sfxClip, float minVolume = 1f, float maxVolume = 1f) {
+	public static void PlayOneShot(AudioClip sfxClip, bool isPriority = false, float minVolume = 1f, float maxVolume = 1f) {
 		if (!sfxClip) return;
-		sfxSource.PlayOneShot(sfxClip, Random.Range(minVolume, maxVolume));
+		(isPriority ? sfxPrioritySource : sfxSource).PlayOneShot(sfxClip, Random.Range(minVolume, maxVolume));
 	}
 
-	public static void PlayOneShot(List<AudioClip> sfxClips, float minVolume = 1f, float maxVolume = 1f) {
+	public static void PlayOneShot(List<AudioClip> sfxClips, bool isPriority = false, float minVolume = 1f, float maxVolume = 1f) {
 		if (sfxClips == null || sfxClips.Count == 0) return;
-		PlayOneShot(sfxClips[Random.Range(0, sfxClips.Count)], minVolume, maxVolume);
+		PlayOneShot(sfxClips[Random.Range(0, sfxClips.Count)], isPriority, minVolume, maxVolume);
 	}
 
 	public static AudioSource PlaySFX(SFXType sfx, bool startPlaying = true) {
@@ -81,7 +84,7 @@ public enum SFXType { SCRIBBLE };
 
 [System.Serializable]
 public class AudioInfoHolder {
-	public AudioMixerGroup sfxGroup, bgmGroup;
+	public AudioMixerGroup sfxGroup, sfxPriorityGroup, bgmGroup;
 	[SerializeField] List<SFXMapper> sfxList;
 
 	[System.Serializable]

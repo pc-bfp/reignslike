@@ -38,6 +38,9 @@ TextureImporter:
   - first:
       213: 351186532592907616
     second: wooden-buttons_up-pressed
+  - first:
+      213: 3063067361251041271
+    second: wooden-buttons_right-highlight
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -393,6 +396,27 @@ TextureImporter:
       bones: []
       spriteID: 52902c89b518fba47a83791dbc506b71
       internalID: 351186532592907616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden-buttons_right-highlight
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 725
+        width: 107
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ff16764983328a20800000000000000
+      internalID: 3063067361251041271
       vertices: []
       indices: 
       edges: []

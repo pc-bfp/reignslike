@@ -26,7 +26,6 @@ public class EndgameDisplay : MonoBehaviour {
 
 	public void ShowResults(EndgameResults results) {
 		gameObject.SetActive(true);
-
 		foreach (TextMeshProUGUI text in new TextMeshProUGUI[] { resultsText, hintsText }) if (text) text.text = string.Empty;
 
 		void AddStringToText(string str, TextMeshProUGUI text) {
