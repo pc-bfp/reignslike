@@ -7,31 +7,30 @@ public class Endgame {
 	
 	[System.Serializable]
 	public class MinMaxStat : System.IEquatable<MinMaxStat> {
-		public int statIndex, minValue, maxValue;
-		public bool minInclusive = false, maxInclusive = false;
+		public int statIndex { get; private set; }
+
+		float minValueFloat, maxValueFloat;
+		int minValue, maxValue;
+		bool maxInclusive = false;
 
 		public MinMaxStat(int statIndex) {
 			this.statIndex = statIndex;
-			minValue = GameManager.Instance.MinStatValue - 1;
-			maxValue = GameManager.Instance.MaxStatValue + 1;
+			minValueFloat = minValue = GameManager.Instance.MinStatValue;
+			maxValueFloat = maxValue = GameManager.Instance.MaxStatValue;
 		}
 
 		public bool IsWithinBounds() {
 			int curStat = GameManager.Instance.CurGameState.stats[statIndex];
-			return curStat > minValue - (minInclusive ? 1 : 0) && curStat < maxValue + (maxInclusive ? 1 : 0);
+			return curStat >= minValueFloat && (maxInclusive ? curStat <= maxValueFloat : curStat < maxValueFloat);
 		}
-
-		// Scale min, max from range [0,10] to current range
-		public void AdjustMinMaxValues() {
-			int AdjustValue(int value) {
-				//float retval = value;
-				//retval = Mathf.InverseLerp(0, 10, retval);
-				//retval = Mathf.Lerp(GameManager.Instance.MinStatValue, GameManager.Instance.MaxStatValue, retval);
-				//return Mathf.RoundToInt(retval);
-				return Mathf.RoundToInt(Mathf.Lerp(GameManager.Instance.MinStatValue, GameManager.Instance.MaxStatValue, Mathf.InverseLerp(0, 10, value)));
+		
+		public void SetValuesOutOfTen(int min, int max) {
+			float AdjustValue(int value) {
+				return Mathf.Lerp(GameManager.Instance.MinStatValue, GameManager.Instance.MaxStatValue, Mathf.InverseLerp(0, 10, value));
 			}
-			minValue = AdjustValue(minValue);
-			maxValue = AdjustValue(maxValue);
+			minValue = Mathf.RoundToInt(minValueFloat = AdjustValue(min));
+			maxValue = Mathf.RoundToInt(maxValueFloat = AdjustValue(max));
+			maxInclusive = max == 10;
 		}
 
 		#region IEquatable_IMPLEMENTATION
@@ -94,19 +93,50 @@ public class Endgame {
 
 public class EndgameResults {
 	public string id = string.Empty;
-	public Dictionary<string, string> summaryHintMap = new Dictionary<string, string>();
+	public List<Summary> summaries = new List<Summary>();
 	public List<Learning> learning = new List<Learning>();
 
+	public class Summary {
+		public string ID { get; private set; }
+		public string SummaryText { get; private set; }
+		public string HintText { get; private set; }
+		public Sprite Image { get; private set; } = null;
+
+		const string IMAGE_LOCATION = "Summaries/";
+		static Dictionary<string, Sprite> imageMap = null;
+
+		public Summary(string summaryID, string summaryText, string hintText = null) {
+			ID = summaryID;
+			SummaryText = summaryText;
+			HintText = hintText;
+			SetupResourceDictionary(ref imageMap, IMAGE_LOCATION);
+			if (imageMap.ContainsKey(ID)) Image = imageMap[ID];
+		}
+	}
+
 	public class Learning {
-		public string LearningID { get; private set; }
+		public string ID { get; private set; }
 		public string BoldText { get; private set; }
 		public string FollowText { get; private set; }
+		public Sprite Image { get; private set; } = null;
+
+		const string IMAGE_LOCATION = "Learnings/";
+		static Dictionary<string, Sprite> imageMap = null;
 
 		public Learning(string learningID, string learningText) {
-			LearningID = learningID;
+			ID = learningID;
 			int boldEndIndex = Mathf.Max(0, learningText.IndexOf('\n'));
 			BoldText = boldEndIndex > 0 ? learningText.Substring(0, boldEndIndex) : string.Empty;
 			FollowText = RLUtilities.ApplyBoldItalic(learningText.Substring(boldEndIndex + 1));
+			SetupResourceDictionary(ref imageMap, IMAGE_LOCATION);
+			if (imageMap.ContainsKey(ID)) Image = imageMap[ID];
+		}
+	}
+
+	static void SetupResourceDictionary(ref Dictionary<string, Sprite> dict, string location) {
+		if (dict == null) {
+			dict = new Dictionary<string, Sprite>();
+			foreach (Sprite sprite in Resources.LoadAll<Sprite>(location)) dict[sprite.name] = sprite;
 		}
 	}
 }
@@ -118,21 +148,26 @@ public class EndgameHolder {
 	public EndgameHolder(TextAsset endgameFile) {
 		string[][] allEndgameRows = RLUtilities.ReadSheet(endgameFile.text);
 		endgames = new List<Endgame>();
-		int numStats = RLConstants.STAT_NAMES.Count;
+		int numStats = RLConstants.STAT_NAMES.Count,
+			hyphenIndex;	// To avoid repeated allocation
 		
 		Endgame.MinMaxStat ParseRange(int statIndex, string range) {
 			if (string.IsNullOrEmpty(range)) return null;
 			bool isValid = false;
 			Endgame.MinMaxStat retval = new Endgame.MinMaxStat(statIndex);
 			range = range.Replace(" ", "");
-			if (range.Contains("<")) isValid = int.TryParse(range.Substring(range.IndexOf("<") + 1), out retval.maxValue);
-			else if (range.Contains(">")) isValid = int.TryParse(range.Substring(range.IndexOf(">") + 1), out retval.minValue);
+			int minStat = 0, maxStat = 10;
+
+			if (range.Contains("<"))
+				isValid = int.TryParse(range.Substring(range.IndexOf("<") + 1), out maxStat);
+			else if (range.Contains(">"))
+				isValid = int.TryParse(range.Substring(range.IndexOf(">") + 1), out minStat);
 			else if (range.Contains("-")) {
-				isValid = int.TryParse(range.Substring(0, range.IndexOf("-")), out retval.minValue)
-					&& int.TryParse(range.Substring(range.IndexOf("-") + 1), out retval.maxValue);
-				retval.minInclusive = retval.maxInclusive = true;
+				hyphenIndex = range.IndexOf("-");
+				isValid = int.TryParse(range.Substring(0, hyphenIndex), out minStat) && int.TryParse(range.Substring(hyphenIndex + 1), out maxStat);
 			}
-			if (isValid) retval.AdjustMinMaxValues();
+
+			if (isValid) retval.SetValuesOutOfTen(minStat, maxStat);
 			return isValid ? retval : null;
 		}
 
@@ -236,7 +271,8 @@ public class EndgameHolder {
 			if (eg.summaries.Count > 0) {
 				string curSummary = RLUtilities.RandomFromList(eg.summaries),
 					   curHint = eg.hints.Count > 0 ? RLUtilities.RandomFromList(eg.hints) : null;
-				retval.summaryHintMap[curSummary] = curHint;
+				retval.summaries.Add(new EndgameResults.Summary(eg.id, curSummary, curHint));
+				//retval.summaryHintMap[curSummary] = curHint;
 			}
 		}
 

@@ -7,7 +7,7 @@ public class StoryView : MonoBehaviour {
 	[SerializeField] TextImageDisplay display;
 	[SerializeField] float timeBetweenPanels = 0.5f;
 	[SerializeField] int animLayerForDelay = -1;
-	[SerializeField] List<TextImage> textImages;
+	public List<TextImage> textImages;
 
 	public delegate void CompletedEvent();
 	public CompletedEvent OnCompleted;
@@ -64,7 +64,7 @@ public class StoryView : MonoBehaviour {
 
 	public void Reset(List<TextImage> newStory) {
 		textImages = newStory;
-		storyIndex = -1;
+		storyIndex = 0;
 		isShowing = false;
 	}
 

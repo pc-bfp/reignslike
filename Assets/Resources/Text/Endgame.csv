@@ -1,26 +1,26 @@
 Wealth,Health,Fun,Learning,Unlock path,Endgame ID,Summary,Learning Outcome
-3 - 7,3 - 7,3 - 7,3 - 7,,average_all,"Everyone in your town was moderately happy, moderately healthy, moderately intelligent, and had a moderate amount of fun. It was neither the best of times, nor the worst of times. It was a pleasant time.","You are strategic
+3 - 7,3 - 7,3 - 7,3 - 7,,average_all,"Everyone in your town was moderately happy, moderately healthy, moderately intelligent, and had a moderate amount of fun. It was neither the best of times, nor the worst of times. It was a pleasant time.","You are *strategic*
 You make decisions keeping their consequences in mind. "
-< 3,,,,,fearless,"You did a lot of things, but you spent a lot of cash! Your townspeople never have any money in their pockets. Most of them don't even have pockets.","You are fearless
+< 3,,,,,fearless,"You did a lot of things, but you spent a lot of cash! Your townspeople never have any money in their pockets. Most of them don't even have pockets.","You are *fearless*
 You don't worry about the cost of your decisions, because you believe that the benefits outweigh them. "
-> 7,< 3,> 7,3 - 7,,goal-oriented,"You made a lot of money, and your town had a lot of fun in the process! Granted, working that hard made them pretty unhealthy. But now your town is so rich it's coloured gold on the map.","You are goal-oriented
+> 7,< 3,> 7,3 - 7,,goal-oriented,"You made a lot of money, and your town had a lot of fun in the process! Granted, working that hard made them pretty unhealthy. But now your town is so rich it's coloured gold on the map.","You are *goal-oriented*
 At the end of the day, you want your economy to be strong and you do anything to keep it growing. "
-,< 3,,,,risk-taker,"Your town did very well in many ways, except at being well. People spent half their time sneezing, and the other half saying ""bless you"".","You take risks
+,< 3,,,,risk-taker,"Your town did very well in many ways, except at *being* well. People spent half their time sneezing, and the other half saying ""bless you"".","You *take risks*
 You know that you only live once, so you go out and do things that might not be the best for your health. But it sure beats living afraid of things! "
-,> 7,,,,empathetic,"If health is wealth, your town is really wealthy! You took great care of the people in your town, and they are hale and hearty and long-lived.","You are empathetic
+,> 7,,,,empathetic,"If health is wealth, your town is really wealthy! You took great care of the people in your town, and they are hale and hearty and long-lived.","You are *empathetic*
 You never want to see anybody suffer. "
-,,< 3,,,focussed,You helped your town get good at a lot of things - except at having a good time. The most popular game is watching paint dry on park benches.,"You are focussed
+,,< 3,,,focussed,You helped your town get good at a lot of things - except at having a good time. The most popular game is watching paint dry on park benches.,"You are *focussed*
 You know what you want, you zero in on your goals, and you work towards them. "
-,,> 7,,,communicative,"Your town is well-known for its legendary parties! Everybody is so busy having a great time, they do very little else.","You are communicative
+,,> 7,,,communicative,"Your town is well-known for its legendary parties! Everybody is so busy having a great time, they do very little else.","You are *communicative*
 You know that it's important to play hard and take care of your emotional well being, even if you work."
-,,,< 3,,determined,"Most people in your town can't read or write. But since they never really spent a lot of time learning, they don't know what they don't know.","You are determined
-You don't want to spend your time thinking about things, you want to do them."
-,,,> 7,,rational,"Your town's scholars invented Wikipedia.The people in your town are so smart, sometimes you wonder how they let you rule them.","You are rational
-You don't just want to make decisions, you want to make informed decisions."
+,,,< 3,,determined,"Most people in your town can't read or write. But since they never really spent a lot of time learning, they don't know what they don't know.","You are *determined*
+You don't want to spend your time thinking about things, you want to _do_ them."
+,,,> 7,,rational,"Your town's scholars invented Wikipedia.The people in your town are so smart, sometimes you wonder how they let you rule them.","You are *rational*
+You don't just want to make decisions, you want to make _informed_ decisions."
 ,,,,,,,
-,< 3,> 7,,,,"The people in your town live really joyful lives. But because they're really unhealthy, they also live really short lives.",
-< 3,,,< 3,,,"No one in your town has any money, and they didn't spend enough time learning to know how to make more.",
-> 7,,< 3,,,,"Your town made a whole lot of money. But because fun wasn't very important, no one ever used it to build an amusement park. ",
-< 3,,,> 7,,,The people in your town have brilliant ideas. But they have no money to spend on making those ideas real.,
-,,> 7,< 3,,,"Your town has a lot of fun. But since they didn't spend a lot of time learning, the people aren't very smart. At least they have fun making the same mistakes over and over again!",
-< 3,,> 7,,,,Your people don't have much money. Maybe because they used all their money to make confetti for the parties they threw!,
+,< 3,> 7,,,happy_sick,"The people in your town live really joyful lives. But because they're really unhealthy, they also live really short lives.",
+< 3,,,< 3,,poor_dumb,"No one in your town has any money, and they didn't spend enough time learning to know how to make more.",
+> 7,,< 3,,,rich_boring,"Your town made a whole lot of money. But because fun wasn't very important, no one ever used it to build an amusement park. ",
+< 3,,,> 7,,smart_poor,The people in your town have brilliant ideas. But they have no money to spend on making those ideas real.,
+,,> 7,< 3,,fun_dumb,"Your town has a lot of fun. But since they didn't spend a lot of time learning, the people aren't very smart. At least they have fun making the same mistakes over and over again!",
+< 3,,> 7,,,poor_fun,Your people don't have much money. Maybe because they used all their money to make confetti for the parties they threw!,

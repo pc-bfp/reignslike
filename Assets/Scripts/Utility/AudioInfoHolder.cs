@@ -57,6 +57,7 @@ public class AudioManager {
 	}
 
 	public static void PauseBGM(bool doPause) {
+		if (!bgmSource.clip) return;
 		if (doPause) bgmSource.Pause();
 		else bgmSource.UnPause();
 	}

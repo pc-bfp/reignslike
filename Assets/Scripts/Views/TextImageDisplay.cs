@@ -14,6 +14,8 @@ public class TextImage {
 	public TextImage(string text, Sprite image) {
 		this.text = text;
 		this.image = image;
+		extraText = new List<string>();
+		extraImages = new List<Sprite>();
 	}
 }
 

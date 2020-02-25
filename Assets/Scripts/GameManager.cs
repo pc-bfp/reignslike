@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour {
 	public static GameManager Instance { get; private set; }
@@ -33,16 +33,18 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] SetupDisplay setupDisplay;
 	[SerializeField] DecisionDisplay decisionDisplay;
 	[SerializeField] TurnsDisplay turnsDisplay;
-	[SerializeField] GameObject statsObject;
+	[SerializeField] Animator statsAnim;
 	[SerializeField] List<StatHolder> statHolders;
-	[SerializeField] StoryView introDisplay, outroDisplay;
+	[SerializeField] VideoView videoPlayer;
+	[SerializeField] VideoClip introClip, outroClip;
 	[SerializeField] string prefTurns, prefStatMin, prefStatMax, prefStatStart;
 	[SerializeField] bool playStoryOnlyOnce = true;
 	[SerializeField] EndgameDisplay endgameDisplay;
 	[SerializeField] float dramaticPause = 0.5f, timeBetweenStatUpdates = 0.25f;
-	[SerializeField] AudioClip introBgmCClip, bgmClip;
+	[SerializeField] AudioClip bgmClip;
 
 	static bool introPlayed = false, outroPlayed = false;
+	const string STATS_SHOW_BOOL_PARAM = "Show";
 
 	DecisionHolder decisionsHolder;
 	EndgameHolder endgameHolder;
@@ -51,39 +53,37 @@ public class GameManager : MonoBehaviour {
 	Decision.ButtonResult curResult;
 	int numTurns = 10, curStatEffectIndex = -1;
 
+	bool DoShowStats {
+		get { return statsAnim ? statsAnim.GetBool(STATS_SHOW_BOOL_PARAM) : false; }
+		set { if (statsAnim) statsAnim.SetBool(STATS_SHOW_BOOL_PARAM, value); }
+	}
+
 	void Awake() {
 		if (!Instance) {
 			RLUtilities.Initialize();
 			AudioManager.Initialize(audioInfo);
 		}
 		Instance = this;
-		doPlayIntro = introDisplay && (!playStoryOnlyOnce || !introPlayed);
-		doPlayOutro = outroDisplay && (!playStoryOnlyOnce || !outroPlayed);
-		if (doPlayIntro) {
-			decisionDisplay.gameObject.SetActive(false);
-			statsObject.SetActive(false);
-		}
-		AudioManager.PauseBGM(true);
+		doPlayIntro = videoPlayer && introClip && !(playStoryOnlyOnce && introPlayed);
+		doPlayOutro = videoPlayer && outroClip && !(playStoryOnlyOnce && outroPlayed);
+		if (doPlayIntro) DoShowStats = false;
 	}
 
 	void Start() {
 		if (doPlayIntro) {
 			introPlayed = true;
-			AudioManager.PlayBGM(introBgmCClip);
-			introDisplay.Activate();
-			introDisplay.OnCompleted += () => {
-				Setup();
-			};
+			videoPlayer.Activate(introClip);
+			videoPlayer.OnCompleted += Setup;
 		}
 		else {
-			if (introDisplay) introDisplay.gameObject.SetActive(false);
 			Setup();
 		}
 		print(Application.persistentDataPath);
 	}
 
 	void Setup() {
-		statsObject.SetActive(true);
+		if (videoPlayer) videoPlayer.OnCompleted -= Setup;
+		DoShowStats = true;
 		if (setupDisplay) {
 			setupDisplay.OnCompleted += () => {
 				numTurns = setupDisplay.NumTurns;
@@ -95,7 +95,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Activate() {
-		decisionDisplay.gameObject.SetActive(true);
 		CurGameState = new GameState() { stats = new int[statHolders.Count] };
 		for (int s = 0; s < CurGameState.stats.Length; s++) CurGameState.stats[s] = statHolders[s].Value;
 		ImagesHolder.Initialize(imageSubmissionsFile, imageMapFile);
@@ -107,7 +106,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	IEnumerator StartCR() {
-		AudioManager.PauseBGM(true);
 		yield return new WaitForSeconds(dramaticPause);
 		turnsDisplay.Initialize(numTurns);
 		yield return new WaitForSeconds(turnsDisplay.AnimDelayTime);
@@ -180,8 +178,9 @@ public class GameManager : MonoBehaviour {
 		if (turnsDisplay.NumTurns <= 0) {
 			if (doPlayOutro) {
 				outroPlayed = true;
-				outroDisplay.Activate();
-				outroDisplay.OnCompleted += ShowEndgame;
+				videoPlayer.Activate(outroClip);
+				DoShowStats = false;
+				videoPlayer.OnCompleted += ShowEndgame;
 			}
 			else ShowEndgame();
 		}
@@ -190,6 +189,7 @@ public class GameManager : MonoBehaviour {
 
 	void ShowEndgame() {
 		if (endgameDisplay) endgameDisplay.ShowResults(endgameHolder.GetResults());
+		DoShowStats = true;
 	}
 
 	private void OnDestroy() {

@@ -41,6 +41,9 @@ TextureImporter:
   - first:
       213: 3063067361251041271
     second: wooden-buttons_right-highlight
+  - first:
+      213: 2501884264155548978
+    second: wooden-buttons_right-pressed_outline
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -409,7 +412,7 @@ TextureImporter:
         width: 107
         height: 142
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -417,6 +420,27 @@ TextureImporter:
       bones: []
       spriteID: 7ff16764983328a20800000000000000
       internalID: 3063067361251041271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden-buttons_right-pressed_outline
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 96
+        width: 130
+        height: 151
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23d81229b7a78b220800000000000000
+      internalID: 2501884264155548978
       vertices: []
       indices: 
       edges: []

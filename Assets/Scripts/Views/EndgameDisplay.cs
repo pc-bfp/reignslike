@@ -8,6 +8,7 @@ public class EndgameDisplay : MonoBehaviour {
 	[SerializeField] TextMeshProUGUI resultsText, hintsText;
 	[SerializeField] LearningDisplay learningDisplay;
 	[SerializeField] Button showLearningButton, showHintsButton, hideHintsButton;
+	[SerializeField] StoryView summaryDisplay;
 
 	Animator animator;
 
@@ -21,6 +22,7 @@ public class EndgameDisplay : MonoBehaviour {
 			SetAnimBoolParam(ANIM_TRIGGER_HIDE, true);
 			learningDisplay.ShowNext();
 		});
+		if (summaryDisplay) summaryDisplay.OnCompleted += () => learningDisplay.ShowNext();
 		gameObject.SetActive(false);
 	}
 
@@ -28,18 +30,21 @@ public class EndgameDisplay : MonoBehaviour {
 		gameObject.SetActive(true);
 		foreach (TextMeshProUGUI text in new TextMeshProUGUI[] { resultsText, hintsText }) if (text) text.text = string.Empty;
 
-		void AddStringToText(string str, TextMeshProUGUI text) {
-			if (text && !string.IsNullOrEmpty(str)) text.text += (string.IsNullOrEmpty(text.text) ? string.Empty : "\n") + str;
-		}
+		//void AddStringToText(string str, TextMeshProUGUI text) {
+		//	if (text && !string.IsNullOrEmpty(str)) text.text += (string.IsNullOrEmpty(text.text) ? string.Empty : "\n") + str;
+		//}
 
-		foreach (var summaryHint in results.summaryHintMap) {
-			AddStringToText(summaryHint.Key, resultsText);
-			AddStringToText(summaryHint.Value, hintsText);
+		List<TextImage> summaries = new List<TextImage>();
+		foreach (var curSummary in results.summaries) {
+			summaries.Add(new TextImage(curSummary.SummaryText, curSummary.Image));
+			//AddStringToText(summaryHint.Key, resultsText);
+			//AddStringToText(summaryHint.Value, hintsText);
 		}
+		summaryDisplay.Reset(summaries);
+		summaryDisplay.Activate();
 
 		if (learningDisplay) learningDisplay.Learnings = results.learning;
-
-		if (animator) animator.SetTrigger(ANIM_TRIGGER_RESULT);
+		//if (animator) animator.SetTrigger(ANIM_TRIGGER_RESULT);
 	}
 
 	void SetAnimBoolParam(string boolParam, bool setTo) {

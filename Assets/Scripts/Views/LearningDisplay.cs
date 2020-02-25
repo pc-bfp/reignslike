@@ -43,8 +43,8 @@ public class LearningDisplay : MonoBehaviour {
 		EndgameResults.Learning nextLearning = Learnings[curLearningIndex];
 		boldText.text = nextLearning.BoldText;
 		followText.text = nextLearning.FollowText;
-		if (doodleImage) doodleImage.sprite = Resources.Load<Sprite>(IMAGE_LOCATION + nextLearning.LearningID + "_doodle");
-		if (medalImage) medalImage.sprite = Resources.Load<Sprite>(IMAGE_LOCATION + nextLearning.LearningID + "_medal");
+		if (doodleImage) doodleImage.sprite = Resources.Load<Sprite>(IMAGE_LOCATION + nextLearning.ID + "_doodle");
+		if (medalImage) medalImage.sprite = Resources.Load<Sprite>(IMAGE_LOCATION + nextLearning.ID + "_medal");
 		bool isThereMore = curLearningIndex < Learnings.Count - 1;
 		if (nextButton) nextButton.gameObject.SetActive(isThereMore);
 		if (resetButton) resetButton.gameObject.SetActive(!isThereMore);
