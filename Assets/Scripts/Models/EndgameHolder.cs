@@ -54,7 +54,8 @@ public class Endgame {
 	}
 
 	public string id;
-	public List<string> summaries = new List<string>(), hints = new List<string>(), learning = new List<string>();
+	public List<string> summaries = new List<string>(), hints = new List<string>(),
+		learning = new List<string>(), celebsReal = new List<string>(), celebsFictional = new List<string>();
 	public List<MinMaxStat> statConditions = new List<MinMaxStat>(), unlockPath = new List<MinMaxStat>();
 
 	public bool UnlockPathComplete {
@@ -118,6 +119,8 @@ public class EndgameResults {
 		public string ID { get; private set; }
 		public string BoldText { get; private set; }
 		public string FollowText { get; private set; }
+		public string CelebReal { get; set; }
+		public string CelebFictional { get; set; }
 		public Sprite Image { get; private set; } = null;
 
 		const string IMAGE_LOCATION = "Learnings/";
@@ -209,8 +212,14 @@ public class EndgameHolder {
 					case 3: // Learning outcomes
 						curEG.learning = stringList;
 						break;
-					case 4: // Hint
-						curEG.hints = stringList;
+					//case 4: // Hint
+					//	curEG.hints = stringList;
+					//	break;
+					case 4:
+						curEG.celebsReal = stringList;
+						break;
+					case 5:
+						curEG.celebsFictional = stringList;
 						break;
 					default: // ???
 						break;
@@ -236,7 +245,12 @@ public class EndgameHolder {
 		// Unlock Paths and Learning Outcomes are easy, just get all that apply
 		validEndgames.ForEach(eg => {
 			maxNumStats = Mathf.Max(maxNumStats, eg.statConditions.Count);
-			if (eg.learning.Count > 0) retval.learning.Add(new EndgameResults.Learning(eg.id, RLUtilities.RandomFromList(eg.learning)));
+			if (eg.learning.Count > 0) {
+				var curLearning = new EndgameResults.Learning(eg.id, RLUtilities.RandomFromList(eg.learning));
+				if (eg.celebsReal.Count > 0) curLearning.CelebReal = RLUtilities.RandomFromList(eg.celebsReal).Trim();
+				if (eg.celebsFictional.Count > 0) curLearning.CelebFictional = RLUtilities.RandomFromList(eg.celebsFictional).Trim();
+				retval.learning.Add(curLearning);
+			}
 		});
 
 		// Stat-based endgames are a bit trickier though
@@ -272,7 +286,6 @@ public class EndgameHolder {
 				string curSummary = RLUtilities.RandomFromList(eg.summaries),
 					   curHint = eg.hints.Count > 0 ? RLUtilities.RandomFromList(eg.hints) : null;
 				retval.summaries.Add(new EndgameResults.Summary(eg.id, curSummary, curHint));
-				//retval.summaryHintMap[curSummary] = curHint;
 			}
 		}
 

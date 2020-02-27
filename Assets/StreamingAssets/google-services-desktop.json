@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "422789944300",
+    "firebase_url": "https://reignslike-prototype.firebaseio.com",
+    "project_id": "reignslike-prototype",
+    "storage_bucket": "reignslike-prototype.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422789944300:android:6394fe6fd57e201a8be6c9",
+        "android_client_info": {
+          "package_name": "com.bigfatphoenix.reignslike.prototype"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422789944300-9opni04j2bv0oo0rjv5lredhg8jujv60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc8-qnV5ZDiApM924aymgNOYUb7-W9GAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422789944300-9opni04j2bv0oo0rjv5lredhg8jujv60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

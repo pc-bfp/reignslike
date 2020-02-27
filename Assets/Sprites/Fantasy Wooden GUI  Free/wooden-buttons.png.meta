@@ -44,6 +44,12 @@ TextureImporter:
   - first:
       213: 2501884264155548978
     second: wooden-buttons_right-pressed_outline
+  - first:
+      213: -5882364859685033272
+    second: white-buttons_right
+  - first:
+      213: 420679601362438185
+    second: white-buttons_right-pressed
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -350,7 +356,7 @@ TextureImporter:
         height: 138
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 32, y: 61, z: 33, w: 57}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -441,6 +447,48 @@ TextureImporter:
       bones: []
       spriteID: 23d81229b7a78b220800000000000000
       internalID: 2501884264155548978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white-buttons_right
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 719
+        width: 107
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8caab338354ad5ea0800000000000000
+      internalID: -5882364859685033272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white-buttons_right-pressed
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 720
+        width: 107
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 928067b5edd86d500800000000000000
+      internalID: 420679601362438185
       vertices: []
       indices: 
       edges: []
