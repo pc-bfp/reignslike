@@ -730,6 +730,7 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 0
     UNet: 1
   luminIcon:
     m_Name: 
@@ -743,10 +744,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 4f016522-634f-4755-aba6-bcc2d24541c3
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: Reignslike prototype
+  organizationId: bfp-r-d
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour {
@@ -12,6 +13,9 @@ public class GameManager : MonoBehaviour {
 		public StatDisplay display;
 		public int Value {
 			get { return display ? display.StatValue : 0; }
+		}
+		public float NormalizedValue {
+			get { return display ? Mathf.InverseLerp(Instance.MinStatValue, Instance.MaxStatValue, display.StatValue) : 0; }
 		}
 
 		public void Initialize(int initValue) {
@@ -51,7 +55,11 @@ public class GameManager : MonoBehaviour {
 	Decision curDecision;
 	bool isDecisionMade = false, canShowNextOutcome = false, doPlayIntro = false, doPlayOutro = false;
 	Decision.ButtonResult curResult;
-	int numTurns = 10, curStatEffectIndex = -1;
+	int curStatEffectIndex = -1;
+	float curDecisionShownAt = 0, sessionStartTime = 0;
+
+	Dictionary<string, object> analDecisionMade = new Dictionary<string, object>();
+	Dictionary<string, object> analSessionEnd = new Dictionary<string, object>();
 
 	bool DoShowStats {
 		get { return statsAnim ? statsAnim.GetBool(STATS_SHOW_BOOL_PARAM) : false; }
@@ -78,17 +86,13 @@ public class GameManager : MonoBehaviour {
 		else {
 			Setup();
 		}
-		print(Application.persistentDataPath);
 	}
 
 	void Setup() {
 		if (videoPlayer) videoPlayer.OnCompleted -= Setup;
 		DoShowStats = true;
 		if (setupDisplay) {
-			setupDisplay.OnCompleted += () => {
-				numTurns = setupDisplay.NumTurns;
-				Activate();
-			};
+			setupDisplay.OnCompleted += Activate;
 			setupDisplay.Initialize(statHolders);
 		}
 		else Activate();
@@ -102,12 +106,13 @@ public class GameManager : MonoBehaviour {
 		endgameHolder = new EndgameHolder(endgameFile);
 		DecisionDisplay.OnDecisionMade += OnDecisionMade;
 		DecisionDisplay.OnNextOutcome += NextOutcome;
-		StartCoroutine(StartCR());
+		sessionStartTime = Time.timeSinceLevelLoad;
+		StartCoroutine(ActivateCR());
 	}
 
-	IEnumerator StartCR() {
+	IEnumerator ActivateCR() {
 		yield return new WaitForSeconds(dramaticPause);
-		turnsDisplay.Initialize(numTurns);
+		turnsDisplay.Initialize(setupDisplay ? setupDisplay.NumTurns : 10);
 		yield return new WaitForSeconds(turnsDisplay.AnimDelayTime);
 		AudioManager.PlayBGM(bgmClip);
 		NextDecision();
@@ -117,14 +122,24 @@ public class GameManager : MonoBehaviour {
 		isDecisionMade = false;
 		curDecision = decisionsHolder.GetDecision();
 		decisionDisplay.ShowDecision(curDecision);
+		curDecisionShownAt = Time.timeSinceLevelLoad;
 	}
 
 	void OnDecisionMade(int answerIndex) {
 		if (isDecisionMade) return; // Safeguard against accidental double presses
 		isDecisionMade = true;
+
 		OnDecisionTaken?.Invoke();
 		curResult = curDecision.buttonResults[answerIndex];
 		curStatEffectIndex = -1;
+
+		// Analytics event
+		analDecisionMade["id"] = curDecision.decisionID;
+		analDecisionMade["answer"] = answerIndex;
+		analDecisionMade["turns_left"] = turnsDisplay.NumTurns;
+		analDecisionMade["time_taken"] = Time.timeSinceLevelLoad - curDecisionShownAt;
+		AddStatsToAnal(ref analDecisionMade);
+		print(AnalyticsEvent.Custom("decision_made", analDecisionMade));
 
 		bool unlocksChanged = false;    // Unused
 		unlocksChanged |= !curResult.unlockAdd.TrueForAll(unlock => !CurGameState.ChangeUnlock(unlock, true));
@@ -176,6 +191,14 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (turnsDisplay.NumTurns <= 0) {
+			// Reign is ended
+			analSessionEnd["turns_left"] = 0;
+			analSessionEnd["last_decision"] = null;
+			analSessionEnd["session_length"] = Time.timeSinceLevelLoad - sessionStartTime;
+			AddStatsToAnal(ref analSessionEnd);
+			AnalyticsEvent.LevelComplete(0, analSessionEnd);
+			Analytics.FlushEvents();
+
 			if (doPlayOutro) {
 				outroPlayed = true;
 				videoPlayer.Activate(outroClip);
@@ -195,6 +218,18 @@ public class GameManager : MonoBehaviour {
 	private void OnDestroy() {
 		DecisionDisplay.OnDecisionMade -= OnDecisionMade;
 		DecisionDisplay.OnNextOutcome -= NextOutcome;
+		if (turnsDisplay.NumTurns > 0) {
+			analSessionEnd["turns_left"] = turnsDisplay.NumTurns;
+			analSessionEnd["last_decision"] = curDecision.decisionID;
+			analSessionEnd["session_length"] = Time.timeSinceLevelLoad - sessionStartTime;
+			AddStatsToAnal(ref analSessionEnd);
+			AnalyticsEvent.LevelQuit(0, analSessionEnd);
+			Analytics.FlushEvents();
+		}
+	}
+
+	void AddStatsToAnal(ref Dictionary<string, object> analData) {
+		for (int s = 0; s < statHolders.Count; s++) analData["stat_" + statHolders[s].display.StatName] = statHolders[s].NormalizedValue;
 	}
 
 #if UNITY_EDITOR
