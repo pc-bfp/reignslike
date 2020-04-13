@@ -1,0 +1,2 @@
+# Always have CRLF line endings on checkout
+*.csv text eol=crlf
