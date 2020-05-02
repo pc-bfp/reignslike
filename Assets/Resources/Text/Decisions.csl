@@ -1,0 +1,217 @@
+Doodle assignment,Decision,Button:A,Unlocks,Result 1,Result 2,Result 3,Result 4,Button:B,Unlocks,Result 1,Result 2,Result 3,Result 4,Requirements,Free turn
+"cookies_dinner
+Bhamini",Chocolate chip cookies for dinner?,Yes,,"Health -3
+Mo' cookies, mo' stomach problems.","Fun +3
+But mo' cookies, mo' fun!",,,No,,"Health +2
+Your subjects live longer..."," Fun -3
+...if you call that _living_.",,,,FALSE
+"no_homework
+Anand",No more homework!,Yes,,"Fun +1
+There's so much time to have all the fun you want to!","Learning -3
+but how To sentence wh@t y0u want|?",,,No,,"Learning +2
+Your subjects are wiser...","Fun -2
+...but not happier for it.",,,,FALSE
+"puppies_everyone
+Projjal",Puppies for everyone!,Yes,,"Wealth -2
+To fill the world with puppies you had to empty out your treasury. ","Fun +3
+But BOOP! You got the puppy's nose!","Health +2
+And a world filled with happy people is a world filled with healthy people!",,No,,"Fun -2
+Only the cat people are happy now.","Health -1
+And unhappy people are unhealthy people.",,,,FALSE
+"flu_shots
+Raisa",Invest in flu shots.,Yes,Flu shots,"Wealth -2
+This hurts your wealth.","Fun -1
+It also physically hurts.","Health +4
+But nobody falls sick.",,No,Antivax,"Wealth +2
+You build up wealth in your treasury.","Health -4
+But now your subjects have to build up immunity the old fashioned way: Painful, life-threatening illness.",,,"-Flu shots, -Antivax",FALSE
+"build_library
+Mourvi",Build a library.,Yes,Library,"Wealth -3
+All those bricks and books don't come cheap.","Fun +2
+But now you can travel all over the world every time you read a new book!","Learning +3
+And whether it's reading about underpants or Ubuntu, you learn a lot.",,No,,"Learning -1
+Your subjects are just as unaware as they were yesterday.",,,,-Library,FALSE
+"chocolate_brocolli
+Videep",Replace all brocolli with chocolate.,Yes,,"Fun +2
+The brocolli farmers are very confused.","Wealth -2
+But all that replacing takes a toll on your wealth...","Health -2
+And all that chocolate takes a toll on your health.",,No,,"Fun -1
+Chocolate and brussel sprouts? Thanks, but you'll pass.","Health +1
+And so your doctors thank you for your decision.",,,,FALSE
+"everyday_holiday
+Pavithra",Every day is a holiday.,Yes,,"Wealth -1
+Nobody makes any money.","Fun +2
+But they have a lot of fun! ","Learning -2
+At least they think they do: they're not going to school and learning, so they aren't sure what to think.",,No,,"Fun -2
+Work work work work work work",,,,,FALSE
+"declare_war
+Inis",Declare war on the castle next door!,Yes,War,"Fun -2
+It's fun to play warriors, but war isn't fun. Nobody enjoys it...","Health -3
+...especially the people who die.","Wealth -2
+Your coffin budget shoots through the roof.","Learning +3
+But the remaining population learns a lot about what _not_ to do.",No,,"Fun +1
+Everyone can go back to doing the things they want to do, so they sigh with relief.","Health +1
+And with all their arms and legs intact.",,,-War,FALSE
+"purple_moustaches
+Dhruv",Make all moustaches purple.,Yes,,"Wealth -2
+It's very hard to take a businessman in a suit with a purple moustache seriously, so the economy suffers. ","Fun +2
+But it's very enjoyable to watch!",,,No,,"Fun -1
+The quickest way to get rid of ugly mustaches is to shave them, but it's definitely less fun.",,,,,FALSE
+"midnight_bedtime
+Aravindh",Bedtime at midnight.,Yes,,"Fun +2
+The slumber party is less slumber and more party.","Health -2
+But everyone's very sleepy the next day.",,,No,Early to bed,"Wealth +2
+Everybody goes to work with a full night's rest and makes epically good decisions.","Learning +2
+Everyobdy goes to school with a full night's rest and does some epically good learning.","Fun -1
+But you miss ouy on an epically slumberless party.",,-Early to bed,FALSE
+"remove_q
+Raisa",Eliminate the letter Q.,Yes,,"Wealth -2
+The Kween needs to order a lot of new stationary.","Fun +1
+At first this kwirky plan is kwite enjoyable...","Learning -1
+...but spelling kwickly declines.",,No,,"Fun -1
+Letters are less fun to decipher.","Learning +1
+But everybody learns new words so they can use the Q tile in Scrabble.",,,,FALSE
+"old_music
+Raisa",Ban all old music.,Yes,,"Fun +1
+Elevators now play Top 40 hits!","Learning -1
+But we don't get to learn from famous dead guys. And Mozart was pretty cool - he rewrote Twinkle Twinkle Little Star, and now that's gone too. ",,,No,,"Fun -1
+Every elevator still plays the same ol' boring music composed by famous dead guy child geniuses. Yawn.",,,,,FALSE
+"numbers_1000
+Raisa",Stop numbers at 1000.,Yes,,"Learning -1
+Math tests are easier.","Wealth -2
+But suddenly everyone has a lot less money.",,,No,,"Learning +1
+Nobody can still solve for ""x,"" but at least they keep trying.",,,,,FALSE
+"assignments_teachers
+Raisa",Assignments for all teachers.,Yes,,"Fun +1
+Teachers start skipping school!","Learning -1
+But wait, teachers start skipping school.",,,No,,"Learning -1
+Teachers are learners too, and now they never learn anything new.",,,,,FALSE
+"build_hospital
+Raisa",Build a hospital.,Yes,Hospital,"Wealth -2
+Sure you have less money...","Health +2
+...but now you have more health to enjoy your less money with.","Learning +1
+And the hospital begins to fund research into important things, like cancer and cooties.",,No,,"Health -3
+People get sicker...","Learning -2
+..and without the kind of research that hospitals do, they don't know how to find cures for it.",,,-Hospital,FALSE
+"pray_thor
+Raisa",Everybody prays only to Thor.,Yes,,"Wealth -2
+The Sistine Chapel gets a very expensive facelift.",,"Fun +2
+Now you're the first one up to go to Church.",,No,,"Health -2
+People keep fighting about who the ""real"" God is, and they get sick with anger and worry.",,,,,FALSE
+"cartoon_news
+Projjal",All news channels have cartoons reporting the news.,Yes,,"Wealth -1
+TV production is already expensive, and this makes it even more so.","Fun +1
+But this is totally worth it cause soon everyone starts watching it and ratings go up!","Learning +1
+And because everyone's watching, they're better informed.",,No,,"Learning -1
+A lot of grown ups stop watching the news and so they miss out on a lot of important information.",,,,,FALSE
+"aeroplane_play
+Projjal",All new aeroplanes will have play areas instead of seats.,Yes,,"Wealth +1
+Aeroplane manufacturers save a lot of money because they don't have to buy anymore seats.","Fun +1
+And flying was always fun, but now it's even better!","Health -1
+Takeoffs and landings are scary without seatbealts, though.",,No,,"Fun -1
+Well, flying is still fun. But less so.",,,,,FALSE
+"school_uniforms
+Projjal",Uniforms in schools.,Yes,,"Wealth -1
+Engaging the right fashion designers is expensive.","Fun -2
+But soon schools start looking like the military.",,,No,,"Fun +1
+Nobody can tell who's the student and who's the teacher.","Learning +1
+Students learn a lot about themselves when express themselves through their outfits.",,,,FALSE
+"tomato_speeches
+Projjal",Anyone giving a boring speech will have tomatoes thrown at them.,Yes,,"Wealth +1
+Tomato farmers see a spike in sales.","Fun +2
+All speeches now have soundtracks!",,,No,,"Learning -1
+Important people say important things but everyone's too bored to listen to them.",,,,,FALSE
+"build_bank
+Projjal",Build a bank.,Yes,Bank,"Wealth -2
+First you lose money building it...","Wealth +3
+...but soon you gain money saving money. ","Learning +1
+Plus, the bank researches better ways to bank.",,No,,"Wealth -3
+People keep having their money stolen from under their mattresses.",,,,-Bank,FALSE
+"a_rated
+Projjal","Everyone can watch every movie, even A-rated ones.",Yes,,"Fun -1
+You watch some things that give you nightmares. ","Health -1
+You can't sleep for days.",,,No,,"Fun -1
+You miss out on some movies the grown ups are talking about.","Health +1
+But you don't have nightmares about weird and scary stuff, and you can always catch up on the movies later.",,,,FALSE
+"birthday_holiday
+Anand",Everybody gets a holiday on their birthday.,Yes,,"Fun +2
+Birthdays are happy again. ","Health +1
+And happy people are healthy people. ","Wealth -1
+But the economy isn't happy.",,No,,"Wealth +1
+The economy is happy...","Fun -1
+...but some people have unhappy birthdays.",,,,FALSE
+"3_syllables
+Anand",All words are cut off at 3 syllables.,Yes,,"Wealth -1
+Ja-nu-a-** and Feb-u-a-** need to be renamed on all calendars. ","Fun +1
+You find this ri-di-cu-**** and funny. ","Learning -1
+But soon un-der-stand*** people becomes difficult and in-tell-i-***** takes a hit. ",,No,,"Wealth +1
+Dic-tion-a-RY publishers are relieved that they don't have to print new copies.","Learning +1
+People learn to app-re-ci-ATE the or-di-na-RY worlds that are a part of every day life in A-mer-i-CA and use more of them.",,,,FALSE
+"everyday_christmas
+Anand",Everyday is Christmas.,Yes,,"Wealth -2
+Toy makers are thrilled, but people who have to buy you presents are less so.
+","Health -1
+Cake and cookie makers are thrilled, but doctors who have to treat your tummy are less so.","Learning -1
+You learn a lot about Christmas, but very little about anything else.","Fun +2
+You have a lot of fun, until every day feels like it's the same and you go back to normal.",No,,"Wealth +1
+Everybody goes back to work so they can make money to spend on next Christmas.","Health +1
+Your tummy gets time to recover from all those cakes and cookies.","Learning +1
+You get to learn new things at school, like how exactly you could reach the North Pole.","Fun +1 
+And you get to spend every day from December 26th looking forward to your next Christmas!",,FALSE
+"north_pole
+Anand",Set up an expedition to the North Pole to look for Santa.,Yes,,"Wealth -1
+Going to the coldest place in the world needs a lot of cold, hard cash.","Fun +1
+Santa's hard to find but you have a lot of fun looking for him.","Learning +1
+And you meet and learn about a lot of interesting animals along the way.",,No,,"Fun -3
+You don't get to meet Santa!","Learning -1
+And you never get to learn the adventure skills you'd need to reach the North Pole.",,,,FALSE
+"peanut_butter
+Anand",All school lunches will be peanut butter.,Yes,,"Wealth +1
+Peanut growers rejoice because their profits grow very quickly.","Fun +1
+Your friends are thrilled because you made lunch great again.","Health +1
+Your doctors aren't thrilled: Since you are what you eat, and _all_ you eat are peanuts, they think you're a nut!",,No,,"Health +2
+You get variety for lunch, and the healthy food balances out the unhealthy.",,,,,FALSE
+"shoe_wheels
+Anand",All shoes need to have wheels.,Yes,,"Wealth +2
+The shoe industry scales to new heights because a lot of new shoes have to be made.","Health -3
+There are a lot more accidents because not all shoes have brakes.","Fun +2
+But you get to the park faster!",,No,,"Health +1
+Your doctors are relieved that you aren't rolling down the slippery slope to bad posture and accidents.",,,,,FALSE
+"political_playground
+Bhamini",Turn the White House grounds into a playground.,Yes,,"Wealth -1
+It took a lot of lobbying to get politicians to agree to install a jungle gym in the political jungle.","Fun +1
+But now you can totally play in the political arena.","Learning +2
+And since it became more fun, more people are paying attention to the government!",,No,,"Fun -2
+Politics isn't playtime. ","Learning -1
+But because politics seems so serious all the time, nobody pays enough attention to them to learn.",,,,FALSE
+,,,,,,,,,,,,,,,FALSE
+"enhance_library
+Bhamini",Someone died and left a lot of money to the library fund! What do you want to add to the library?,Free bubble gum dispensers,,"Fun +1
+Free bubble gum makes the library really fun and popular. ","Learning -1
+But soon it's hard to pay attention and read with all the chewing noises, the bubble popping, and the librarian shushing.",,,More comfy chairs,,"Fun +1
+Now, more people come to the library and you get to meet and talk to them.","Learning +1
+Plus, books are read more thoroughly because no one wants to get up and pick up new ones.",,,"Library, Wealth > 7",FALSE
+"bedtime_sunset
+Bhamini",Bedtime at sunset.,Yes,,"Health -1
+The roosters are confused because the kids wake up before they do, throwing everyone's clock off.","Fun -1
+And even the roosters are having more fun.",,,No,,"Health +1
+Adults and doctors and adult doctors are relieved because you don't wake up at midnight.",,,,"Early to bed, Turns: 3-5",FALSE
+,,,,,,,,,,,,,,,FALSE
+"bubonic_plague_good
+Bhamini",A bubonic plague struck your town!,Oh no,Plague,,"Health +1
+Good thing you invested in those flu shots. Disaster averted! ",,,,,,,,,"-Plague, Flu shots, Turns: 2-8",TRUE
+"bubonic_plague_bad
+Bhamini","A bubonic plague struck your town! Oh man, if only you had had invested in flu shots!",Oh no,Plague,"Health -5
+Everyone is falling sick left and right. ","Wealth -3
+It's super expensive to treat everyone so that the sick town doesn't make a ghost town.","Fun -3
+And it's super, duper *not* fun!",,,,,,,,"-Plague, Antivax, Health < 2",TRUE
+,,,,,,,,,,,,,,,FALSE
+"war_sux
+Bhamini",War is hell. Everyone says so.,Keep fighting,War,"Wealth -1
+This really isn't good for the wealth of the nation.","Health -1
+It might be even worse for the health of the nation.",,,End the war,-War,"Fun +3
+The people rejoice! Phew.",,,,"War, Turns: 3",FALSE
+,,,,,,,,,,,,,,,FALSE
+"savings_bank
+Bhamini",You gain money from your savings at the bank.,Neat!,Bank,"Wealth +2
+Toldya it was a good idea.",,,,,,,,,,"Bank, Turns: 3-4",TRUE
