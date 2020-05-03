@@ -11,7 +11,7 @@
 
 <tw-story></tw-story>
 
-<tw-storydata name="Reignslite" startnode="13" creator="Twine" creator-version="2.3.7" ifid="8F9DE9D5-2EB6-4233-8BB7-67CD2B8A20AF" zoom="1" format="Harlowe" format-version="3.1.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url(http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic);
+<tw-storydata name="Reignslite" startnode="13" creator="Twine" creator-version="2.3.7" ifid="8F9DE9D5-2EB6-4233-8BB7-67CD2B8A20AF" zoom="0.6" format="Harlowe" format-version="3.1.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url(http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic);
  
 tw-story
 {
@@ -22,7 +22,7 @@ tw-story
 
 tw-sidebar tw-icon.redo, tw-sidebar tw-icon.undo {
 	display: none;
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Intro" tags="" position="786,46" size="200,100">{
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Intro" tags="" position="642,92" size="200,100">{
   (set:_advance to 0)
 }Welcome to **REIGNSLITE**, trim and svelte cousin to the much beefier Reignslike!
 
@@ -30,7 +30,7 @@ $page_click[You are the new, self-appointed [ruler of the Earth]&lt;c1|(click-re
 
 (event: when _advance &gt; 1)[$page_click[You take your limited purview very seriously. In fact, given the state of things nowadays, your house practically //is// your world. Through this lens, many of the decisions coming your way might appear to have a world-wide impact.
 
-$page_click[Are you ready? [[Let&#39;s go!|Decision time]]]]]]</tw-passagedata><tw-passagedata pid="2" name="Decision time" tags="" position="802,257" size="200,100">{
+$page_click[Are you ready? [[Let&#39;s go!|Decision time]]]]]]</tw-passagedata><tw-passagedata pid="2" name="Decision time" tags="" position="658,303" size="200,100">{
   (unless: (saved-games:) contains $intro_complete)[
 	(save-game:$intro_complete)
   ]
@@ -39,8 +39,6 @@ $page_click[Are you ready? [[Let&#39;s go!|Decision time]]]]]]</tw-passagedata><
 	$speaker_format to (text-style: &quot;bold&quot;) + (colour: #aaaaaa),
 	$stat_format to (font: &quot;Helvetica&quot;) + (text-style: &quot;bold&quot;),
 	$decision_end to [[Decision time&lt;-The day ends.]],
-	_decision_text to &quot;It&#39;s decision time.&quot;,
-	_decision_number to (random: 1, $decisions&#39;s length),
 	$min_value to 0, $max_value to 10
   )
   (set: $stat_health to (min: $max_value, (max: it, $min_value)))
@@ -55,47 +53,54 @@ $page_click[Are you ready? [[Let&#39;s go!|Decision time]]]]]]</tw-passagedata><
 
 $display_stats
 
-_decision_text(click-replace:_decision_text)[$fade_in[(display:(either: ...$decisions))]]</tw-passagedata><tw-passagedata pid="3" name="This JUST in: Ice-cream causes cavities." tags="" position="318,401" size="100,100">$speaker_format[News &amp; Nonsense Reporter]
+{
+  (if: $decisions_left&#39;s length is 0) [
+	(set: $decision_count to 16)
+	(set: $decisions_left to (range: 1, $decision_count))
+  ]
+  (move: $decisions_left&#39;s (random: 1, $decisions_left&#39;s length) into _decision_passage)
+  
+}[It&#39;s decision time.]&lt;decision_text|(click-replace: ?decision_text)[$fade_in[(display: &quot;Decision &quot; + (string: _decision_passage))]]</tw-passagedata><tw-passagedata pid="3" name="Decision 1" tags="decision" position="174,447" size="100,100">$speaker_format[News &amp; Nonsense Reporter]
 This JUST in: Ice-cream causes cavities.
 
 [[Ban ice-cream]]
 
-[[Ban cavities]]</tw-passagedata><tw-passagedata pid="4" name="If we melted the ice-caps we would be able to sell more ice-cubes." tags="" position="464,402" size="100,100">$speaker_format[Trade &amp; Money Man]
+[[Ban cavities]]</tw-passagedata><tw-passagedata pid="4" name="Decision 2" tags="decision" position="320,447" size="100,100">$speaker_format[Trade &amp; Money Man]
 If we melted the ice-caps we would be able to sell more ice-cubes.
 
 [[Build an enormous heat ray]]
 
-[[You&#39;ll have your drinks at room temperature]]</tw-passagedata><tw-passagedata pid="5" name="The town up North is throwing a party! Their perimeter is unguarded." tags="" position="617,402" size="100,100">$speaker_format[Chief Enforcement Officer]
+[[You&#39;ll have your drinks at room temperature]]</tw-passagedata><tw-passagedata pid="5" name="Decision 3" tags="decision" position="473,448" size="100,100">$speaker_format[Chief Enforcement Officer]
 The town up North is throwing a party! Their perimeter is unguarded.
 
 [[Send cake]]
 
-[[Send the army]]</tw-passagedata><tw-passagedata pid="6" name="Let&#39;s make shoes with wheels a thing." tags="" position="772,396" size="100,100">$speaker_format[Principal Party Planner]
+[[Send the army]]</tw-passagedata><tw-passagedata pid="6" name="Decision 4" tags="decision" position="628,442" size="100,100">$speaker_format[Principal Party Planner]
 Let&#39;s make shoes with wheels a //thing//.
 
 [[You&#39;re on the right track!]]
 
-[[Let&#39;s make HOVERCRAFTS a thing]]</tw-passagedata><tw-passagedata pid="7" name="Data, you hear me? Data shows that students who practice schoolwork, yes schoolwork, after school do better in frequent tests." tags="" position="917,402" size="100,100">$speaker_format[Leader: Cult of Curriculum]
+[[Let&#39;s make HOVERCRAFTS a thing]]</tw-passagedata><tw-passagedata pid="7" name="Decision 5" tags="decision" position="773,448" size="100,100">$speaker_format[Leader: Cult of Curriculum]
 Data, you hear me? Data shows that students who practice schoolwork, yes schoolwork, after school do better in frequent tests.
 
 [[Give out more homework]]
 
-[[Have less tests]]</tw-passagedata><tw-passagedata pid="8" name="Some stunning spiders have been spotted in our tip-top town!" tags="" position="1067,402" size="100,100">$speaker_format[Supreme Scientist]
+[[Have less tests]]</tw-passagedata><tw-passagedata pid="8" name="Decision 6" tags="decision" position="923,448" size="100,100">$speaker_format[Supreme Scientist]
 Some //stunning// spiders have been spotted in our tip-top town!
 
 [[Study the spiders]]
 
-[[EW.]]</tw-passagedata><tw-passagedata pid="9" name="There is an entire world of fuision food out there and I would like to venture forth to discover it!" tags="" position="1217,402" size="100,100">$speaker_format[Explorer at Large]
+[[EW.]]</tw-passagedata><tw-passagedata pid="9" name="Decision 7" tags="decision" position="1073,448" size="100,100">$speaker_format[Explorer at Large]
 There is an entire world of fusion food out there and I would like to venture forth to discover it!
 
 [[Too risky]]
 
-[[Have fun!]]</tw-passagedata><tw-passagedata pid="10" name="BREAKING NEWS: Animal shelters are full and they&#39;re running out of money!" tags="" position="1367,402" size="100,100">$speaker_format[News &amp; Nonsense Reporter]
+[[Have fun!]]</tw-passagedata><tw-passagedata pid="10" name="Decision 8" tags="decision" position="1223,448" size="100,100">$speaker_format[News &amp; Nonsense Reporter]
 BREAKING NEWS: Animal shelters are full and they&#39;re running out of money!
 
 [[Puppies for everyone!]]
 
-[[Send the shelters money]]</tw-passagedata><tw-passagedata pid="11" name="Ban ice-cream" tags="" position="257,551" size="100,100">This makes doctors very happy.
+[[Send the shelters money]]</tw-passagedata><tw-passagedata pid="11" name="Ban ice-cream" tags="" position="113,597" size="100,100">This makes doctors very happy.
 (set: $stat_health to it +1)Health $stat_format[+1]
 $page_click[$page_click[
 Until they realise that they can&#39;t have ice-cream too.
@@ -107,7 +112,7 @@ $decision_end]]
   (set: $trait_to_change to &quot;Practical&quot;)$increment_trait
   (set: $trait_to_change to &quot;Risk-averse&quot;)$increment_trait
   (set: $trait_to_change to &quot;Responsible&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="12" name="Ban cavities" tags="" position="321,680" size="100,100">The town has a great Sunday blacking the word c&#96;&#96;*&#96;&#96;vities out of textbooks.
+}</tw-passagedata><tw-passagedata pid="12" name="Ban cavities" tags="" position="177,726" size="100,100">The town has a great Sunday blacking the word c&#96;&#96;*&#96;&#96;vities out of textbooks.
 (set: $stat_fun to it +1)Fun $stat_format[+1]
 $page_click[$page_click[
 But this doesn&#39;t make the teachers very happy.
@@ -120,7 +125,7 @@ $decision_end]]]
 
 {
   (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="13" name="Start" tags="" position="587,50" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="13" name="Start" tags="" position="443,96" size="100,100">{
   (put: (num: (prompt: &quot;How many turns?&quot;, &quot;10&quot;)) into $turns_left)
   (set: $turns_left to it + 1)
   (set: $fade_in to (transition: &quot;dissolve&quot;) + (transition-time: 0.4s))
@@ -133,37 +138,27 @@ $decision_end]]]
 	$stat_fun to $starting_value,
 	$stat_learning to $starting_value
   )
-  (set: $decisions to (a:
-	  &quot;This JUST in: Ice-cream causes cavities.&quot;,
-	  &quot;If we melted the ice-caps we would be able to sell more ice-cubes.&quot;,
-	  &quot;The town up North is throwing a party! Their perimeter is unguarded.&quot;,
-	  &quot;Let&#39;s make shoes with wheels a thing.&quot;,
-	  &quot;Data, you hear me? Data shows that students who practice schoolwork, yes schoolwork, after school do better in frequent tests.&quot;,
-	  &quot;Some stunning spiders have been spotted in our tip-top town!&quot;,
-	  &quot;There is an entire world of fuision food out there and I would like to venture forth to discover it!&quot;,
-	  &quot;BREAKING NEWS: Animal shelters are full and they&#39;re running out of money!&quot;
-	)
-  )
   (set: $traits to (datamap:))
+  (set: $decisions_left to (a:))
 }(if: (saved-games:) contains $intro_complete)[Welcome back! You know the drill.
 
 [[Decisions now please|Decision time]]
 
 [[Actually, I&#39;d like the drill again|Intro]]]
 (else:)
-[(go-to: &quot;Intro&quot;)]</tw-passagedata><tw-passagedata pid="14" name="Increment trait" tags="" position="412,179" size="100,100">(if: $traits contains $trait_to_change) [
+[(go-to: &quot;Intro&quot;)]</tw-passagedata><tw-passagedata pid="14" name="Increment trait" tags="" position="1067,243" size="100,100">(if: $traits contains $trait_to_change) [
   (set: $traits&#39;s $trait_to_change to it + 1)
 ]
 (else:)[
   (set: $traits&#39;s $trait_to_change to 1)
-]</tw-passagedata><tw-passagedata pid="15" name="Decrement trait" tags="" position="286,181" size="100,100">{
+]</tw-passagedata><tw-passagedata pid="15" name="Decrement trait" tags="" position="1195,241" size="100,100">{
   (if: $traits contains $trait_to_change) [
 	(set: $traits&#39;s $trait_to_change to it - 1)
   ]
   (else:)[
 	(set: $traits&#39;s $trait_to_change to -1)
   ]
-}</tw-passagedata><tw-passagedata pid="16" name="Build an enormous heat ray" tags="" position="435,554" size="100,100">Folks love tanning under the heat ray...
+}</tw-passagedata><tw-passagedata pid="16" name="Build an enormous heat ray" tags="" position="291,600" size="100,100">Folks love tanning under the heat ray...
 (set: $stat_fun to it +1)Fun $stat_format[+1]
 $page_click[$page_click[
 ...until global warming makes it rain for a month straight.
@@ -180,7 +175,7 @@ $decision_end]]]]
 {
   (set: $trait_to_change to &quot;Strategic&quot;)$increment_trait
   (set: $trait_to_change to &quot;Ethical&quot;)$decrement_trait
-}</tw-passagedata><tw-passagedata pid="17" name="You&#39;ll have your drinks at room temperature" tags="" position="497,691" size="100,100">It turns out that polar bears are really fun to have around.
+}</tw-passagedata><tw-passagedata pid="17" name="You&#39;ll have your drinks at room temperature" tags="" position="353,737" size="100,100">It turns out that polar bears are really fun to have around.
 (set: $stat_fun to it +1)Fun $stat_format[+1]
 $page_click[$page_click[
 And since nobody drowns in flooded cities...
@@ -194,7 +189,7 @@ $decision_end]]]
 {
   (set: $trait_to_change to &quot;Self-control&quot;)$increment_trait
   (set: $trait_to_change to &quot;Ethical&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="18" name="Send cake" tags="" position="590,554" size="100,100">They love the cake and invite you over.
+}</tw-passagedata><tw-passagedata pid="18" name="Send cake" tags="" position="446,600" size="100,100">They love the cake and invite you over.
 (set: $stat_fun to it +2)Fun $stat_format[+2]
 $page_click[$page_click[
 The more you learn about them, the more you can personalise the next cake you bake.
@@ -208,17 +203,48 @@ $decision_end]]]
 {
   (set: $trait_to_change to &quot;Kind&quot;)$increment_trait
   (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="19" name="Ending" tags="" position="1264,235" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="19" name="Ending" tags="" position="412,291" size="100,100">{
   (set: $stat_health to (min: $max_value, (max: it, $min_value)))
   (set: $stat_wealth to (min: $max_value, (max: it, $min_value)))
   (set: $stat_fun to (min: $max_value, (max: it, $min_value)))
   (set: $stat_learning to (min: $max_value, (max: it, $min_value)))
-}**Final stats**
+  And so ends your rule.
+  (either:
+	&quot;Wow, what a ride. Whoo.&quot;,
+	&quot;Whoof, that was a rule and a half.&quot;,
+	&quot;And wow, did it ever rule.&quot;,
+	&quot;Hoo boy, that was a rollercoaster huh?&quot;,
+	&quot;Yowza, you&#39;re a natural huh?&quot;,
+	&quot;Well now, wasn&#39;t that exciting?&quot;
+  )
+  (either:
+	&quot;There sure were some memorable moments in there.&quot;,
+	&quot;Yup, lotta really colourful memories.&quot;,
+	&quot;There were some moments I&#39;ll never forget.&quot;,
+	&quot;Just, like, SO much stuff happened.&quot;,
+	&quot;They&#39;ll be telling stories for generations.&quot;
+  )
+  (set: _reactions to (a:
+	&quot;Like, that decision? Remember THAT one?&quot;,
+	&quot;I still have goosebumps.&quot;,
+	&quot;And, oh and the ... uh, the other time? That one with the ... yeah? Yeah.&quot;,
+	&quot;Who can forget when you did that thing and the other thing happened?&quot;,
+	&quot;Oh man, that one decision, I didn&#39;t know WHAT you were gonna do.&quot;,
+	&quot;Haha, remember when, hahaha, when that guy, hahahahaha, that, hahahaha ... haa ... Remember?&quot;,
+	&quot;Ahh, now THAT decision was a heck of a power move.&quot;,
+	&quot;So cool. SO cool.&quot;
+  ))
+  (move: _reactions&#39;s (random: 1, _reactions&#39;s length) into _reaction)_reaction
+  (move: _reactions&#39;s (random: 1, _reactions&#39;s length) into _reaction)_reaction
+  (either: &quot;Wow.&quot;, &quot;Heh.&quot;, &quot;Woo.&quot;, &quot;Ahem.&quot;, &quot;Hah.&quot;, &quot;Ahh.&quot;, &quot;Heh. Hmm.&quot;)
+}
+
+[Okay so here&#39;s how you did.]&lt;c1|(click-replace: ?c1)[$fade_in[**Final stats**
 $display_stats
 
-**Traits**(set: $traits_display to (dataentries: $traits))
-(for: each _pair, ...$traits_display)[(print: _pair&#39;s name): $stat_format[(print: _pair&#39;s value)]&lt;br&gt;]
-[[Play again|Start]]</tw-passagedata><tw-passagedata pid="20" name="Send the army" tags="" position="669,693" size="100,100">You make some money...
+**Traits**(set: _traitsdatamap to (dataentries: $traits))
+(for: each _pair, ..._traitsdatamap)[(print: _pair&#39;s name): $stat_format[(print: _pair&#39;s value)]&lt;br&gt;]
+[[Play again|Start]]]]</tw-passagedata><tw-passagedata pid="20" name="Send the army" tags="" position="525,739" size="100,100">You make some money...
 (set: $stat_wealth to it +1)Wealth $stat_format[+1]
 $page_click[$page_click[
 ...but you don&#39;t make any friends.
@@ -233,7 +259,7 @@ $decision_end]]]
   (set: $trait_to_change to &quot;Strategic&quot;)$increment_trait
   (set: $trait_to_change to &quot;Ethical&quot;)$decrement_trait
   (set: $trait_to_change to &quot;Kind&quot;)$decrement_trait
-}</tw-passagedata><tw-passagedata pid="21" name="You&#39;re on the right track!" tags="" position="740,555" size="100,100">The shoes are a big hit at parties.
+}</tw-passagedata><tw-passagedata pid="21" name="You&#39;re on the right track!" tags="" position="596,601" size="100,100">The shoes are a big hit at parties.
 (set: $stat_fun to it +1)Fun $stat_format[+1]
 $page_click[$page_click[
 In fact, you keep hitting other people when you roll into them.
@@ -243,7 +269,7 @@ $decision_end]]
 
 {
   (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="22" name="Give out more homework" tags="" position="872,549" size="100,100">Everybody learns how to spell &#96;&#96;&quot;fun.&quot;&#96;&#96;
+}</tw-passagedata><tw-passagedata pid="22" name="Give out more homework" tags="" position="745,602" size="100,100">Everybody learns how to spell &#96;&#96;&quot;fun.&quot;&#96;&#96;
 (set: $stat_learning to it +1)Learning $stat_format[+1]
 $page_click[$page_click[
 But nobody has it.
@@ -255,7 +281,7 @@ $decision_end]]
   (set: $trait_to_change to &quot;Practical&quot;)$increment_trait
   (set: $trait_to_change to &quot;Responsible&quot;)$increment_trait
   (set: $trait_to_change to &quot;Courageous&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="23" name="Have less tests" tags="" position="970,702" size="100,100">Everybody learns how little they&#39;re learning less frequently.
+}</tw-passagedata><tw-passagedata pid="23" name="Have less tests" tags="" position="826,748" size="100,100">Everybody learns how little they&#39;re learning less frequently.
 (set: $stat_fun to it +1)Fun $stat_format[+1]
 
 $decision_end
@@ -263,7 +289,7 @@ $decision_end
 {
   (set: $trait_to_change to &quot;Observant&quot;)$increment_trait
   (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="24" name="Study the spiders" tags="" position="1038,555" size="100,100">It&#39;s expensive to set up spider-safe environments.
+}</tw-passagedata><tw-passagedata pid="24" name="Study the spiders" tags="" position="894,601" size="100,100">It&#39;s expensive to set up spider-safe environments.
 (set: $stat_wealth to it -1)Wealth $stat_format[-1]
 $page_click[$page_click[
 But you learn all about the phylum arthropoda and the class arachnida.
@@ -281,7 +307,7 @@ $decision_end]]]]
   (set: $trait_to_change to &quot;Strategic&quot;)$increment_trait
   (set: $trait_to_change to &quot;Risk-taking&quot;)$increment_trait
   (set: $trait_to_change to &quot;Kind&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="25" name="EW." tags="" position="1128,702" size="100,100">Well, nobody gets bitten by spiders.
+}</tw-passagedata><tw-passagedata pid="25" name="EW." tags="" position="984,748" size="100,100">Well, nobody gets bitten by spiders.
 (set: $stat_health to it -1)Health $stat_format[-1]
 $page_click[$page_click[
 That means there are no superheroes in town.
@@ -295,7 +321,7 @@ $decision_end]]]
 {
   (set: $trait_to_change to &quot;Observant&quot;)$decrement_trait
   (set: $trait_to_change to &quot;Risk-taking&quot;)$decrement_trait
-}</tw-passagedata><tw-passagedata pid="26" name="Too risky" tags="" position="1186,555" size="100,100">Over time, people get bored of eating the same things and stop eating out.
+}</tw-passagedata><tw-passagedata pid="26" name="Too risky" tags="" position="1042,601" size="100,100">Over time, people get bored of eating the same things and stop eating out.
 (set: $stat_wealth to it -1)Wealth $stat_format[-1]
 $page_click[$page_click[
 You never get to discover some of the coolest foods ever.
@@ -311,7 +337,7 @@ $decision_end]]]]
 
 {
   (set: $trait_to_change to &quot;Risk-taking&quot;)$decrement_trait
-}</tw-passagedata><tw-passagedata pid="27" name="Have fun!" tags="" position="1260,701" size="100,100">Everyone brings their favourite food to the office and mixes them together. It&#39;s a rainbow explosion!
+}</tw-passagedata><tw-passagedata pid="27" name="Have fun!" tags="" position="1116,747" size="100,100">Everyone brings their favourite food to the office and mixes them together. It&#39;s a rainbow explosion!
 (set: $stat_fun to it +2)Fun $stat_format[+2]
 $page_click[$page_click[
 You learn that ice-cream goes with wasabi but does not go with onions.
@@ -324,7 +350,7 @@ $decision_end]]]
 
 {
   (set: $trait_to_change to &quot;Risk-taking&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="28" name="Puppies for everyone!" tags="" position="1340,556" size="100,100">It costs a bit to get the puppies to their people...
+}</tw-passagedata><tw-passagedata pid="28" name="Puppies for everyone!" tags="" position="1196,602" size="100,100">It costs a bit to get the puppies to their people...
 (set: $stat_wealth to it -1)Wealth $stat_format[-1]
 $page_click[$page_click[
 But BOOP! Now everyone gets a puppy&#39;s nose!
@@ -339,7 +365,7 @@ $decision_end]]]
   (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
   (set: $trait_to_change to &quot;Kind&quot;)$increment_trait
   (set: $trait_to_change to &quot;Friendly&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="29" name="Send the shelters money" tags="" position="1419,699" size="100,100">Puppies are small but they sure do eat a lot.
+}</tw-passagedata><tw-passagedata pid="29" name="Send the shelters money" tags="" position="1275,745" size="100,100">Puppies are small but they sure do eat a lot.
 (set: $stat_wealth to it -2)Wealth $stat_format[-2]
 
 $decision_end
@@ -347,24 +373,12 @@ $decision_end
 {
   (set: $trait_to_change to &quot;Practical&quot;)$increment_trait
   (set: $trait_to_change to &quot;Kind&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="30" name="Decision template" tags="" position="846,832" size="100,100">They love the cake and invite you over.
-(set: $stat_fun to it +1)Fun $stat_format[+1]
-$page_click[$page_click[
-The more you learn about them
-(set: $stat_learning to it +1)Learning $stat_format[+1]
-$page_click[
-...And then they love your cake so much that they promise to buy all their cake *only* from you!
-(set: $stat_wealth to it +1)Wealth $stat_format[+1]
-$page_click[
-...Too bad so many folks died in flooded cities and can&#39;t spend it.
-(set: $stat_health to it -1)Health $stat_format[-1]
+}</tw-passagedata><tw-passagedata pid="30" name="Decision 901" tags="" position="1419,877" size="100,100">$speaker_format[Trade &amp; Money Man]
+Banana numbers are down. We made a big mistake.
 
-$decision_end]]]]
+[[We?|D901-We?]]
 
-{
-  (set: $trait_to_change to &quot;Strategic&quot;)$increment_trait
-  (set: $trait_to_change to &quot;Silly&quot;)$decrement_trait
-}</tw-passagedata><tw-passagedata pid="31" name="Let&#39;s make HOVERCRAFTS a thing" tags="" position="821,696" size="100,100">Everybody starts checking out books on hovercrafts.
+[[How do we fix this?]]</tw-passagedata><tw-passagedata pid="31" name="Let&#39;s make HOVERCRAFTS a thing" tags="" position="677,742" size="100,100">Everybody starts checking out books on hovercrafts.
 (set: $stat_learning to it +1)Learning $stat_format[+1]
 $page_click[$page_click[
 Suddenly, physics is fun again!
@@ -378,10 +392,358 @@ $decision_end]]]
 {
   (set: $trait_to_change to &quot;Strategic&quot;)$increment_trait
   (set: $trait_to_change to &quot;Risk-taking&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="32" name="Show stats" tags="" position="1099,240" size="100,100">Health: $stat_format[$stat_health]
+}</tw-passagedata><tw-passagedata pid="32" name="Show stats" tags="" position="1132,131" size="100,100">Health: $stat_format[$stat_health]
 Wealth: $stat_format[$stat_wealth]
 Fun: $stat_format[$stat_fun]
-Learning: $stat_format[$stat_learning]</tw-passagedata></tw-storydata>
+Learning: $stat_format[$stat_learning]</tw-passagedata><tw-passagedata pid="33" name="Decision 9" tags="" position="1408,450" size="100,100">$speaker_format[Trade &amp; Money Man]
+Monkeys are a lucrative market. We should invest in bananas.
+
+[[Okay|D9-Okay]]
+
+[[I prefer apples]]</tw-passagedata><tw-passagedata pid="34" name="Decision template" tags="" position="2378,247" size="100,100">$speaker_format[Speaker]
+Decide
+
+[[This]]
+
+[[That]]</tw-passagedata><tw-passagedata pid="35" name="I prefer apples" tags="" position="1459,745" size="100,100">Doctors are kept away.
+(set: $stat_health to it +1)Health $stat_format[+1]
+
+$decision_end
+
+{
+  (set: $trait_to_change to &quot;Risk-taking&quot;)$decrement_trait
+}</tw-passagedata><tw-passagedata pid="36" name="Decision 10" tags="" position="1584,451" size="100,100">$speaker_format[The Queen]
+i&#39;m like really bummed out
+
+[[Throw a party]]
+
+[[Here&#39;s a hug]]</tw-passagedata><tw-passagedata pid="37" name="Throw a party" tags="" position="1537,600" size="100,100">This costs a lot of money.
+(set: $stat_wealth to it -1)Wealth $stat_format[-1]
+$page_click[$page_click[
+But who can put a price on fun?!
+(set: $stat_fun to it +1)Fun $stat_format[+1]
+$page_click[
+Turns out, the shops can.
+(set: $stat_wealth to it -1)Wealth $stat_format[-1]
+
+$decision_end]]]
+
+{
+  (set: $trait_to_change to &quot;Kind&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Friendly&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="38" name="Here&#39;s a hug" tags="" position="1610,741" size="100,100">Hugs are good because they soothe the parasympathetic nervous system and induce calm.
+(set: $stat_health to it +1)Health $stat_format[+1]
+$page_click[$page_click[
+And a healthy Queen is a wealthy Queen.
+(set: $stat_wealth to it +1)Wealth $stat_format[+1]
+
+$decision_end]]
+
+{
+  (set: $trait_to_change to &quot;Vulnerable&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Kind&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Empathetic&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Friendly&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="39" name="Decision 11" tags="" position="1756,452" size="100,100">$speaker_format[Supreme Scientist]
+There&#39;s a virulent virus going around! Drained doctors are careworn from all their caregiving.
+
+[[Pay volunteer doctors extra]]
+
+[[Clap for caregivers]]</tw-passagedata><tw-passagedata pid="40" name="Pay volunteer doctors extra" tags="" position="1706,603" size="100,100">You have to dip into your coffers.
+(set: $stat_wealth to it -1)Wealth $stat_format[-1]
+$page_click[$page_click[
+But at least you aren&#39;t dipping into coffins.
+(set: $stat_health to it +2)Health $stat_format[+2]
+
+$decision_end]]
+
+{
+  (set: $trait_to_change to &quot;Strategic&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Risk-taking&quot;)$decrement_trait
+  (set: $trait_to_change to &quot;Practical&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Responsible&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="41" name="Clap for caregivers" tags="" position="1789,735" size="100,100">You have a lot of fun making a lot of noise.
+(set: $stat_fun to it +1)Fun $stat_format[+1]
+$page_click[$page_click[
+And it makes doctors feel really good!
+(set: $stat_health to it +1)Health $stat_format[+1]
+$page_click[
+Until it gives them a headache that they don&#39;t have the money to cure.
+(set: $stat_health to it -1)Health $stat_format[-1]
+
+$decision_end]]]
+
+{
+  (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Kind&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Strategic&quot;)$decrement_trait
+}</tw-passagedata><tw-passagedata pid="42" name="Decision 12" tags="" position="1917,450" size="100,100">$speaker_format[The Queen]
+OMG the chopra chaps are only like the best band ever!!!!! 😱❤🔥 i want you to host the biggest concert i don&#39;t care what it costs.
+
+[[Throw an ENORMOUS concert]]
+
+[[Throw a regular-sized concert]]</tw-passagedata><tw-passagedata pid="43" name="Throw an ENORMOUS concert" tags="" position="1863,604" size="100,100">All of those balloons are expensive and don&#39;t last for a long time.
+(set: $stat_wealth to it -2)Wealth $stat_format[-2]
+$page_click[$page_click[
+But the memories last forever!
+(set: $stat_fun to it +2)Fun $stat_format[+2]
+
+$decision_end]]
+
+{
+  (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Friendly&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Self-control&quot;)$decrement_trait
+}</tw-passagedata><tw-passagedata pid="44" name="Throw a regular-sized concert" tags="" position="1949,738" size="100,100">You spend a reasonable amount of money on the concert.
+(set: $stat_wealth to it -1)Wealth $stat_format[-1]
+$page_click[$page_click[
+Which results in a reasonable amount of fun.
+(set: $stat_fun to it +1)Fun $stat_format[+1]
+
+$page_click[
+$speaker_format[The Queen]
+i can&#39;t believe you didn&#39;t throw a bigger concert for my favourite band. you&#39;re cancelled
+
+[[That makes me sad]]
+
+[[You&#39;re cancelled first]]]]]
+
+{
+  (set: $trait_to_change to &quot;Strategic&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Practical&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Responsible&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Self-control&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="45" name="Decision 13" tags="" position="2079,450" size="100,100">$speaker_format[Chief Enforcement Officer]
+A-rated movies have gratuitous violence and gore. Theatres shouldn&#39;t allow children in unsupervised.
+
+[[You&#39;re right]]
+
+[[Shhh we&#39;re trying to watch an A-rated movie]]</tw-passagedata><tw-passagedata pid="46" name="You&#39;re right" tags="" position="2038,598" size="100,100">You miss out on some movies the grown ups are talking about.
+(set: $stat_fun to it -1)Fun $stat_format[-1]
+$page_click[$page_click[
+But you don&#39;t have nightmares about weird and scary stuff, and you can always catch up on the movies later.
+(set: $stat_health to it +1)Health $stat_format[+1]
+
+$decision_end]]
+
+{
+  (set: $trait_to_change to &quot;Responsible&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Self-control&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="47" name="Shhh we&#39;re trying to watch an A-rated movie" tags="" position="2119,739" size="100,100">You watch some things that give you nightmares.
+(set: $stat_fun to it -1)Fun $stat_format[-1]
+$page_click[$page_click[
+You can&#39;t sleep for days.
+(set: $stat_health to it -1)Health $stat_format[-1]
+
+$decision_end]]
+
+{
+  (set: $trait_to_change to &quot;Risk-taking&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Self-control&quot;)$decrement_trait
+}</tw-passagedata><tw-passagedata pid="48" name="Decision 14" tags="" position="2254,447" size="100,100">$speaker_format[Leader: Cult of Curriculum]
+The teacher&#39;s union, hmmm yes, we want to negotiate stricter deadlines for erm, assignments, hmm, in return for a longer recess.
+
+[[I&#39;ll negotiate]]
+
+[[I don&#39;t negotiate with terrorists]]</tw-passagedata><tw-passagedata pid="49" name="I&#39;ll negotiate" tags="" position="2214,600" size="100,100">Everyone has to actually do their homework now.
+(set: $stat_learning to it +1)Learning $stat_format[+1]
+$page_click[$page_click[
+But afterwards they get to go for recess without the stress of impending homework!
+(set: $stat_fun to it +1)Fun $stat_format[+1]
+$page_click[
+Since they feel lighter they run further and jump higher!
+(set: $stat_health to it +1)Health $stat_format[+1]
+
+$decision_end]]]
+
+{
+  (set: $trait_to_change to &quot;Strategic&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="50" name="I don&#39;t negotiate with terrorists" tags="" position="2284,740" size="100,100">Nobody does their homework.
+(set: $stat_learning to it -1)Learning $stat_format[-1]
+$page_click[$page_click[
+So teachers end up making them do it in class, and cancel recess entirely.
+(set: $stat_fun to it -1)Fun $stat_format[-1]
+
+$decision_end]]
+
+{
+  (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Kind&quot;)$decrement_trait
+}</tw-passagedata><tw-passagedata pid="51" name="Decision 15" tags="" position="2429,447" size="100,100">$speaker_format[Principal Party Planner]
+You cannot live in an entirely white house. That&#39;s so 2010!
+
+[[Paint the house rainbow-coloured]]
+
+[[I don&#39;t see colour]]</tw-passagedata><tw-passagedata pid="52" name="Paint the house rainbow-coloured" tags="" position="2376,596" size="100,100">Painting party!
+(set: $stat_fun to it +1)Fun $stat_format[+1]
+$page_click[$page_click[
+And now that your office is nicer to look at, more people pay attention to the news!
+(set: $stat_learning to it +1)Learning $stat_format[+1]
+
+$decision_end]]
+
+{
+  (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="53" name="I don&#39;t see colour" tags="" position="2453,742" size="100,100">You don&#39;t learn how to mix the pantone colours.
+(set: $stat_learning to it -1)Learning $stat_format[-1]
+$page_click[$page_click[
+But at least you don&#39;t inhale paint fumes for the next few weeks.
+(set: $stat_health to it +1)Health $stat_format[+1]
+
+$decision_end]]
+
+{
+  (set: $trait_to_change to &quot;Practical&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="54" name="D9-Okay" tags="" position="1369,600" size="100,100">All the new banana peels everywhere lead to amusing physical comedy.
+(set: $stat_fun to it +1)Fun $stat_format[+1]
+$page_click[$page_click[
+But you can&#39;t invest peanuts in bananas.
+(set: $stat_wealth to it -1)Wealth $stat_format[-1]
+$page_click[
+And since no one is eating apples doctors are always on call.
+(set: $stat_health to it -1)Health $stat_format[-1]
+
+$decision_end]]]
+
+{
+  (set: $trait_to_change to &quot;Risk-taking&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Strategic&quot;)$increment_trait
+  (set: $decisions_left to it + (a: 901))
+}</tw-passagedata><tw-passagedata pid="55" name="That makes me sad" tags="" position="1943,886" size="100,100">$speaker_format[The Queen]
+i was just mad. i&#39;m sorry.
+
+$decision_end
+
+{
+  (set: $trait_to_change to &quot;Vulnerable&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Friendly&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="56" name="You&#39;re cancelled first" tags="" position="2018,1009" size="100,100">$speaker_format[The Queen]
+k
+
+$decision_end
+
+{
+  (set: $trait_to_change to &quot;Empathetic&quot;)$decrement_trait
+  (set: $trait_to_change to &quot;Friendly&quot;)$decrement_trait
+}</tw-passagedata><tw-passagedata pid="57" name="D901-We?" tags="" position="1365,1031" size="100,100">Your staff doesn&#39;t like being blamed.
+(set: $stat_fun to it -1)Fun $stat_format[-1]
+$page_click[$page_click[
+And you lose a lot of money anyway.
+(set: $stat_wealth to it -2)Wealth $stat_format[-2]
+
+$decision_end]]
+
+{
+  (set: $trait_to_change to &quot;Vulnerable&quot;)$decrement_trait
+  (set: $trait_to_change to &quot;Kind&quot;)$decrement_trait
+  (set: $trait_to_change to &quot;Ethical&quot;)$decrement_trait
+}</tw-passagedata><tw-passagedata pid="58" name="How do we fix this?" tags="" position="1494,1027" size="100,100">Sharing the responsibility makes your staff breathe a sigh of relief, and not suffocate and die.
+(set: $stat_health to it +1)Health $stat_format[+1]
+$page_click[$page_click[
+Sure you lose a lot of money...
+(set: $stat_wealth to it -2)Wealth $stat_format[-2]
+$page_click[
+But you gain valuable experience in monkey mathematics.
+(set: $stat_learning to it +1)Learning $stat_format[+1]
+
+$decision_end]]]
+
+{
+  (set: $trait_to_change to &quot;Practical&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Ethical&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Courageous&quot;)$increment_trait
+  (set: $decisions_left to it + (a: 90101))
+}</tw-passagedata><tw-passagedata pid="59" name="Decision 90101" tags="" position="1422,1177" size="100,100">$speaker_format[Trade &amp; Money Man]
+Wait a minute! The unsold bananas can be made into banana chips!
+
+[[Nope, this is bananas]]
+
+[[What a yummy idea!]]</tw-passagedata><tw-passagedata pid="60" name="Nope, this is bananas" tags="" position="1347,1327" size="100,100">Your safe strategy leads to slowly recovering some of the money you lost in the Brobdingnagian Banana Blunder.
+(set: $stat_wealth to it +1)Wealth $stat_format[+1]
+$page_click[$page_click[
+And since you&#39;re not eating chips, overall health recovers too.
+(set: $stat_health to it +1)Health $stat_format[+1]
+
+$decision_end]]
+
+{
+  (set: $trait_to_change to &quot;Strategic&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Risk-taking&quot;)$decrement_trait
+}</tw-passagedata><tw-passagedata pid="61" name="What a yummy idea!" tags="" position="1497,1327" size="100,100">Sure, the doctors aren&#39;t happy about all the chips.
+(set: $stat_health to it -1)Health $stat_format[-1]
+$page_click[$page_click[
+But you learn a bunch of delicious new recipes.
+(set: $stat_learning to it +1)Learning $stat_format[+1]
+$page_click[
+And have a whole bunch of fun sharing them.
+(set: $stat_fun to it +1)Fun $stat_format[+1]
+$page_click[
+So you somehow slip on the banana peel of success and slide into a whole lot of money!
+(set: $stat_wealth to it +3)Wealth $stat_format[+3]
+
+$decision_end]]]]
+
+{
+  (set: $trait_to_change to &quot;Risk-taking&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Persistent&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Resilient&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="62" name="Choice template" tags="" position="2361,954" size="100,100">Funtext
+(set: $stat_fun to it +1)Fun $stat_format[+1]
+$page_click[$page_click[
+Learningtext
+(set: $stat_learning to it +1)Learning $stat_format[+1]
+$page_click[
+Healthtext
+(set: $stat_health to it +1)Health $stat_format[+1]
+$page_click[
+Wealthtext
+(set: $stat_wealth to it +1)Wealth $stat_format[+1]
+
+$decision_end]]]]
+
+{
+  (set: $trait_to_change to &quot;Kind&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Silly&quot;)$decrement_trait
+}</tw-passagedata><tw-passagedata pid="63" name="Decision 16" tags="" position="2606,451" size="100,100">$speaker_format[Explorer at Large]
+Isn&#39;t it wonderful how there are so many shades of blue? I myself have spied several different blues in the ocean. Why do you think that is?
+
+[[I literally could not care less]]
+
+[[Let&#39;s ask a scientist]]</tw-passagedata><tw-passagedata pid="64" name="I literally could not care less" tags="" position="2559,598" size="100,100">$speaker_format[Explorer at Large]
+...
+
+$decision_end
+
+{
+  (set: $trait_to_change to &quot;Kind&quot;)$decrement_trait
+  (set: $trait_to_change to &quot;Observant&quot;)$decrement_trait
+}</tw-passagedata><tw-passagedata pid="65" name="Let&#39;s ask a scientist" tags="" position="2660,739" size="100,100">$speaker_format[Supreme Scientist]
+What a delightful doubt! Due to different depths of water and sources of sand and sedimentation, there are all the amazing shades of blue in the ocean.
+
+[[That&#39;s neat]]
+
+[[Yawn]]
+
+{
+  (set: $trait_to_change to &quot;Friendly&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Observant&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Practical&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="66" name="That&#39;s neat" tags="" position="2636,891" size="100,100">$speaker_format[Supreme Scientist]
+Out of all of the shades of blue, turquoise truly tantalizes me!
+
+$decision_end
+
+{
+  (set: $trait_to_change to &quot;Kind&quot;)$increment_trait
+}</tw-passagedata><tw-passagedata pid="67" name="Yawn" tags="" position="2706,1026" size="100,100">$speaker_format[Supreme Scientist]
+Don&#39;t disturb me with your doubts then.
+
+$decision_end
+
+{
+  (set: $trait_to_change to &quot;Kind&quot;)$decrement_trait
+}</tw-passagedata></tw-storydata>
 
 <script title="Twine engine code" data-main="harlowe">"use strict";function _defineProperty(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function _toConsumableArray(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}var _slicedToArray=function(){function e(e,t){var n=[],r=!0,i=!1,o=void 0;try{for(var a,s=e[Symbol.iterator]();!(r=(a=s.next()).done)&&(n.push(a.value),!t||n.length!==t);r=!0);}catch(e){i=!0,o=e}finally{try{!r&&s.return&&s.return()}finally{if(i)throw o}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(){/**
  * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.
