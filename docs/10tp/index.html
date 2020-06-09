@@ -169,7 +169,7 @@ $page_click[
 $decision_end]]]
 
 {
-  (set: $trait_to_change to &quot;Self-control&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Restrained&quot;)$increment_trait
   (set: $trait_to_change to &quot;Ethical&quot;)$increment_trait
 }</tw-passagedata><tw-passagedata pid="18" name="Send cake" tags="" position="446,600" size="100,100">They love the cake and invite you over.
 (set: $stat_fun to it +2)Fun $stat_format[+2]
@@ -185,7 +185,7 @@ $decision_end]]]
 {
   (set: $trait_to_change to &quot;Kind&quot;)$increment_trait
   (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
-}</tw-passagedata><tw-passagedata pid="19" name="Ending" tags="" position="412,289.3333333333333" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="19" name="Ending" tags="" position="412,289" size="100,100">{
   (set: $stat_health to (min: $max_value, (max: it, $min_value)))
   (set: $stat_wealth to (min: $max_value, (max: it, $min_value)))
   (set: $stat_fun to (min: $max_value, (max: it, $min_value)))
@@ -475,7 +475,7 @@ $decision_end]]
 {
   (set: $trait_to_change to &quot;Silly&quot;)$increment_trait
   (set: $trait_to_change to &quot;Friendly&quot;)$increment_trait
-  (set: $trait_to_change to &quot;Self-control&quot;)$decrement_trait
+  (set: $trait_to_change to &quot;Restrained&quot;)$decrement_trait
 }</tw-passagedata><tw-passagedata pid="44" name="Throw a regular-sized concert" tags="" position="1949,738" size="100,100">You spend a reasonable amount of money on the concert.
 (set: $stat_wealth to it -1)Wealth $stat_format[-1]
 $page_click[$page_click[
@@ -494,7 +494,7 @@ i can&#39;t believe you didn&#39;t throw a bigger concert for my favourite band.
   (set: $trait_to_change to &quot;Strategic&quot;)$increment_trait
   (set: $trait_to_change to &quot;Practical&quot;)$increment_trait
   (set: $trait_to_change to &quot;Responsible&quot;)$increment_trait
-  (set: $trait_to_change to &quot;Self-control&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Restrained&quot;)$increment_trait
 }</tw-passagedata><tw-passagedata pid="45" name="Decision 13" tags="" position="2079,450" size="100,100">$speaker_format[$character_officer :]
 A-rated movies have gratuitous violence and gore. Theatres shouldn&#39;t allow children in unsupervised.
 
@@ -510,7 +510,7 @@ $decision_end]]
 
 {
   (set: $trait_to_change to &quot;Responsible&quot;)$increment_trait
-  (set: $trait_to_change to &quot;Self-control&quot;)$increment_trait
+  (set: $trait_to_change to &quot;Restrained&quot;)$increment_trait
 }</tw-passagedata><tw-passagedata pid="47" name="Shhh we&#39;re trying to watch an A-rated movie" tags="" position="2119,739" size="100,100">You watch some things that give you nightmares.
 (set: $stat_fun to it -1)Fun $stat_format[-1]
 $page_click[$page_click[
@@ -521,7 +521,7 @@ $decision_end]]
 
 {
   (set: $trait_to_change to &quot;A risk-taker&quot;)$increment_trait
-  (set: $trait_to_change to &quot;Self-control&quot;)$decrement_trait
+  (set: $trait_to_change to &quot;Restrained&quot;)$decrement_trait
 }</tw-passagedata><tw-passagedata pid="48" name="Decision 14" tags="" position="2254,447" size="100,100">$speaker_format[$character_curriculum :]
 The teacher&#39;s union, hmmm yes, we want to negotiate stricter deadlines for erm, assignments, hmm, in return for a longer recess.
 
@@ -724,7 +724,7 @@ $decision_end
 
 {
   (set: $trait_to_change to &quot;Kind&quot;)$decrement_trait
-}</tw-passagedata><tw-passagedata pid="68" name="Decision time" tags="" position="1019,265.3333333333333" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="68" name="Decision time" tags="" position="1019,265" size="100,100">{
   (unless: (saved-games:) contains $intro_complete)[
 	(save-game:$intro_complete)
   ]
@@ -761,12 +761,12 @@ $decision_end
   (move: $decisions_left&#39;s (random: 1, $decisions_left&#39;s length) into _decision_passage)
   (set: _next_decision_text to (either:
 	  &quot;Wonder what today has in store?&quot;,
-	  &quot;What now?&quot;,
-	  &quot;What&#39;s next?&quot;,
+	  &quot;What&#39;s happening in Fairview today?&quot;,
+	  &quot;I wonder what&#39;s next?&quot;,
 	  &quot;What&#39;s on my plate today?&quot;,
 	  &quot;Hello, what&#39;s up?&quot;,
-	  &quot;What&#39;s happening today?&quot;,
-	  &quot;Now what?&quot;,
+	  &quot;Hey, good to see you! What is it?&quot;,
+	  &quot;Good day. What brings you here?&quot;,
 	  &quot;What brings you here today?&quot;,
 	  &quot;Ah, it&#39;s you ... er ... what was your name?&quot;,
 	  &quot;Oh hey, what&#39;s up?&quot;,
@@ -774,8 +774,10 @@ $decision_end
 	  &quot;What brings you to me?&quot;,
 	  &quot;Hello there. What news?&quot;,
 	  &quot;What&#39;s new in Fairview?&quot;,
-	  &quot;What is it?&quot;,
-	  &quot;What&#39;ve you got for me?&quot;
+	  &quot;Hey there, what is it?&quot;,
+	  &quot;What&#39;ve you got for me?&quot;,
+	  &quot;*Riiing* *Riiing* ... Hello?&quot;,
+	  &quot;*Knock knock* Who&#39;s there?&quot;
 	)
   )
 }[_next_decision_text]&lt;decision_text|(click-replace: ?decision_text)[$fade_in[(display: &quot;Decision &quot; + (string: _decision_passage))]]</tw-passagedata></tw-storydata>
