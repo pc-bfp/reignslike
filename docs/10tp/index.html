@@ -118,16 +118,16 @@ $decision_end]]]
 	$character_trade to &quot;**Matt Numberson** (Trade &amp; Money Man)&quot;,
 	$character_officer to &quot;**Sergeant Soldier** (Chief Enforcement Officer)&quot;,
 	$character_explorer to &quot;**Keira the Conqueror** (Explorer at Large)&quot;,
-	$character_curriculum to &quot;**Larry** (Leader&amp;#58; Cult of Curriculum)&quot;,
+	$character_curriculum to &quot;**Larry** (Leader, Cult of Curriculum)&quot;,
 	$character_scientist to &quot;**Janaki** (Supreme Scientist)&quot;,
 	$character_queen to &quot;**The Queen** (The Queen)&quot;
   )
-}(if: (saved-games:) contains $intro_complete)[Welcome back! You know the drill.
+}&lt;!--(if: (saved-games:) contains $intro_complete)[Welcome back! You know the drill.
 
 [[Decisions now please|Set number of turns]]
 
 [[Actually, I&#39;d like the drill again|Intro]]]
-(else:)
+(else:)--&gt;
 [(go-to: &quot;Intro&quot;)]</tw-passagedata><tw-passagedata pid="14" name="Increment trait" tags="" position="1410,276" size="100,100">(if: $traits contains $trait_to_change) [
   (set: $traits&#39;s $trait_to_change to it + 1)
 ]
@@ -776,8 +776,8 @@ $decision_end
 	  &quot;What&#39;s new in Fairview?&quot;,
 	  &quot;Hey there, what is it?&quot;,
 	  &quot;What&#39;ve you got for me?&quot;,
-	  &quot;*Riiing* *Riiing* ... Hello?&quot;,
-	  &quot;*Knock knock* Who&#39;s there?&quot;
+	  &quot;*riiing riiing* ... Hello?&quot;,
+	  &quot;*knock knock* ... Who&#39;s there?&quot;
 	)
   )
 }[_next_decision_text]&lt;decision_text|(click-replace: ?decision_text)[$fade_in[(display: &quot;Decision &quot; + (string: _decision_passage))]]</tw-passagedata></tw-storydata>
